@@ -13,9 +13,11 @@ export const authSlice = createSlice({
             console.log("Auth action"  , action)
             const data = action.payload;
             const userInfo = {
-                
+                name : data.user.userName,
+                email : data.user.email,
+                token : data.token
             }
-            localStorage.setItem("user_info" , JSON.stringify({...action?.payload}));
+            localStorage.setItem("user_info" , JSON.stringify(userInfo));
             console.log("AuthUSer " , action.payload)
             
         },

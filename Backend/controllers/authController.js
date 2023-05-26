@@ -36,7 +36,7 @@ const handleSignUp = async (req, res) => {
                 id: result._id
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
 
-            res.status(200).json({ email, token })
+            res.status(200).json({ user : {name,email}, token ,error : false , message : "Signup successful!"})
 
         }).catch(err => {
             res.status(400).json({
@@ -52,9 +52,9 @@ const handleSignUp = async (req, res) => {
 
         try {
             if (email === "" || password === "" || userName === "" || confirmPassword === "" || confirmPassword !== password) {
-                return res.status(400).json({
+                return res.status(401).json({
                     "message": "Invalid Input Fields",
-                    error : true
+                    "error" : true
                 })
             }
 
@@ -63,7 +63,7 @@ const handleSignUp = async (req, res) => {
             if (existingUser) {
                 return res.status(409).json({
                     "message": "User Already exist",
-                    error : true
+                    "error" : true
                 })
             }
 
@@ -81,12 +81,12 @@ const handleSignUp = async (req, res) => {
                 id: result._id
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
 
-            res.status(200).json({ email, token })
+            res.status(200).json({ user : {userName ,email}, token ,error : false , message : "Signup successful!"})
         } catch (err) {
             console.log(err)
-            res.status(400).json({
+            res.status(401).json({
                 "message": err,
-                error : true
+                "error" : true
             })
         }
     }
@@ -112,9 +112,9 @@ const handleSignIn = async (req, res) => {
 
             if (!existingUser) {
                 // user already exist
-                res.status(400).json({
+                res.status(401).json({
                     "message": `User ${name} does not exist`,
-                    error : true
+                    "error" : true
                 })
             }
 
@@ -123,33 +123,33 @@ const handleSignIn = async (req, res) => {
                 id: existingUser._id
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
 
-            res.status(200).json({ existingUser, token })
+            res.status(200).json({ user : existingUser, token ,error : false,  message : "SignIn successful!"})
         }).catch(err => {
             console.log(err)
             res.status(400).json({
                 "message": "Something Went Wrong",
-                error : true
+                "error" : true
             })
         })
     } else {
         const { email, password } = req.body
 
-        if (email === "" || password === "") return res.status(400).json({ "message": "Invalid Input Field" })
+        if (email === "" || password === "") return res.status(400).json({ "message": "Invalid Input Field","error" : true })
 
         try {
             const existUser = await User.findOne({ email })
             if (!existUser) {
-                return res.status(400).json({
+                return res.status(401).json({
                     "message": `User  does not exist`,
-                    error : true
+                    "error" : true
                 })
             }
             const isPasswordCorrect = await bcrypt.compare(password, existUser.password);
 
             if (!isPasswordCorrect) {
-                return res.status(400).json({
+                return res.status(401).json({
                     "message": "Invalid Password",
-                    error : true
+                    "error" : true
                 })
             }
 
@@ -164,12 +164,12 @@ const handleSignIn = async (req, res) => {
 
             res
                 .status(200)
-                .json({ result: existUser, token })
+                .json({ user: existUser, token ,error : false, message : "SignIn successful!"})
         }catch(err){
             console.log(err)
-            res.status(500).json({
+            res.status(400).json({
                 "message" : "Something Went Wrong",
-                error : true
+                "error" : true
             })
         }
     }

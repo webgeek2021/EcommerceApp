@@ -39,9 +39,7 @@ const AuthForm = () => {
     const handleAuthSubmit = (event) => {
         event.preventDefault()
 
-        if (formvalues.password !== formvalues.confirmPassword) {
-            alert("Password not correct")
-        } else if (formvalues.email !== "" && formvalues.password !== "") {
+       if (formvalues.email !== "" && formvalues.password !== "") {
             const email = formvalues.email
             const password = formvalues.password
             dispatch(signIn({ email, password }, navigate))
