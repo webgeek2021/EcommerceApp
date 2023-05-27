@@ -1,6 +1,6 @@
 
 import { createSlice } from '@reduxjs/toolkit'
-import {AUTH , LOGOUT} from "../../utils/constants"
+import {AUTH , LOGOUT , USER_INFO} from "../../utils/constants"
 
 export const authSlice = createSlice({
     name : "auth",
@@ -13,19 +13,20 @@ export const authSlice = createSlice({
             console.log("Auth action"  , action)
             const data = action.payload;
             const userInfo = {
-                name : data.user.userName,
-                email : data.user.email,
+                name : data.name,
+                email : data.email,
                 token : data.token
             }
-            localStorage.setItem("user_info" , JSON.stringify(userInfo));
+            localStorage.setItem(USER_INFO , JSON.stringify(userInfo));
             console.log("AuthUSer " , action.payload)
-            
+            state.authData = userInfo
         },
         LogOutUser : (state , action )=>{
             console.log("Log State"  , state)
             console.log("Log action"  , action)
             localStorage.clear();
         },
+        
     }
 })
 

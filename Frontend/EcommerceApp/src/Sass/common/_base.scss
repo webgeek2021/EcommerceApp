@@ -1,27 +1,70 @@
+@use "colors" as color;
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.c-pointer{
-    cursor:  pointer;
+.c-pointer {
+    cursor: pointer;
 }
-.icon-container{
+
+.icon-container {
     display: flex;
     align-items: center;
-    svg{
+
+    svg {
         width: 50px;
         height: 24px;
-    } 
-}
-.btn{
-    &:focus{
-        outline: none;
-
     }
 }
-body{
-    background-color: #f1f1f1;
+
+#company__logo {
+    width: 24px;
+    height: 24px;
+}
+
+.btn {
+    padding: 0px;
+    margin: 0px;
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+button{
+    padding: 0px;
+    margin: 0px;
+}
+.primary-btn{
+    background-color: color.$learn_more_btn;
+    padding: 10px 20px;
+    color: color.$white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    &:hover{
+        color: color.$white;
+    }
+}
+
+.my-container{
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+}
+.bottom_up_animation{
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+body {
+    background-color: color.$background-color;
 }

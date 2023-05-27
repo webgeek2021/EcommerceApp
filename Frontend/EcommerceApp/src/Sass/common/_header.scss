@@ -1,0 +1,93 @@
+@use "function" as func;
+@use "colors" as color;
+
+.header__container {
+
+    padding: func.to-rem(15) func.to-rem(24);
+    box-shadow: 0 0px 5px -1px;
+    .navbar-brand {
+        .company__name {
+            margin-left: 5px;
+            font-weight: 700;
+        }
+    }
+
+    .navbar-collapse {
+        .navbar-nav {
+            .header__dropdown {
+                .dropdown {
+                    .dropdown-menu {
+                        width: 700px;
+                        padding: func.to-rem(25);
+
+                        .title {
+                            font-weight: 700;
+                            font-size: func.to-rem(24);
+                            margin-bottom: 5px;
+                        }
+
+                        .row {
+                            .column {
+                                padding: 0px !important;
+
+                                .dropdown-item {
+                                    &:hover {
+                                        background-color: color.$background-color;
+                                    }
+
+                                    .dropdown__holder {
+                                        padding: 5px;
+                                        background-color: color.$grey;
+                                        border-radius: 4px;
+
+                                        .category__info {
+
+                                            .title {
+                                                font-size: func.to-rem(20);
+                                                font-weight: 500;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .container{
+        .dropdown__container{
+                .dropdown-toggle{
+                    background-color: transparent;
+                    border: none;
+                    border-radius: 50px;
+                    img{
+                        width: 50px;
+                        height: 50px;
+                        object-fit: contain;
+                        border-radius: 50px;
+                    }
+                    &::after{
+                        display: none;
+                    }
+                }
+            
+        }
+        .cart{
+            margin-left: 30px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            svg{
+                font-size: func.to-rem(24);
+            }
+            &:hover{
+                background-color: color.$grey;
+            }
+        }
+    }
+}

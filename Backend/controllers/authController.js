@@ -122,8 +122,8 @@ const handleSignIn = async (req, res) => {
                 email: existingUser.email,
                 id: existingUser._id
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
-
-            res.status(200).json({ user : existingUser, token ,error : false,  message : "SignIn successful!"})
+            
+            res.status(200).json({ name , email , token ,error : false,  message : "SignIn successful!"})
         }).catch(err => {
             console.log(err)
             res.status(400).json({
@@ -161,10 +161,10 @@ const handleSignIn = async (req, res) => {
                 process.env.JWT_ACCESS_TOKEN
                 , { expiresIn: "1h" }
             )
-
+            const name = existUser.name
             res
                 .status(200)
-                .json({ user: existUser, token ,error : false, message : "SignIn successful!"})
+                .json({ name ,email, token ,error : false, message : "SignIn successful!"})
         }catch(err){
             console.log(err)
             res.status(400).json({

@@ -2,3 +2,13 @@
 @function to-rem($value ) {
     @return #{calc($value / 16)}rem;
 }
+
+@function getFontColor($brightness) {
+    $threshold: 0.5; // Adjust the threshold value based on your preference
+    @if ($brightness < $threshold) {
+      @return #ffffff; // Use white font color for dark backgrounds
+    } @else {
+      @return #000000; // Use black font color for light backgrounds
+    }
+  }
+  
