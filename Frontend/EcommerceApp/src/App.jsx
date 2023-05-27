@@ -1,13 +1,16 @@
 
 import AuthForm from "./Components/commonComponents/AuthForm" ;
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Header from "./Components/commonComponents/Header";
+import Footer from "./Components/commonComponents/Footer";
+import { Outlet } from "react-router-dom";
 function App() {
 
   return (
     <>
-      <AuthForm />
-      <ToastContainer/>
+      <Header/>
+      <Outlet/>
+      <Footer/>
+   
     </>
   )
 }
