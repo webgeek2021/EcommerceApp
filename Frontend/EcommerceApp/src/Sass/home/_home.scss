@@ -75,27 +75,11 @@
             //     opacity: 0;
             // }
             .animate {
-                animation-name: slideUp;
-                animation-duration: 1s;
-                animation-timing-function: ease-in-out;
-                animation-fill-mode: both;
+                animation-name: slideUp 1s ease-in-out forwards;
             }
 
-            @keyframes slideUp {
-                0% {
-                    opacity: 0;
-                    transform: translateX(-100%);
-                }
+            
 
-                100% {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            // &:nth-child(0){
-            //     opacity: 0;
-            // }
             .category_card {
                 position: relative;
 
@@ -104,26 +88,26 @@
                 }
 
                 &:nth-child(2) {
+                    transition-delay: 0.2s;
+                }
+                
+                &:nth-child(3) {
                     transition-delay: 0.4s;
                 }
 
-                &:nth-child(3) {
-                    transition-delay: 0.8s;
-                }
-
                 &:nth-child(4) {
-                    transition-delay: 1.2s;
+                    transition-delay: 0.6s;
                 }
 
                 &:nth-child(5) {
-                    transition-delay: 1.6s;
+                    transition-delay: 0.8s;
                 }
 
                 &:nth-child(6) {
-                    transition-delay: 2.0s;
+                    transition-delay: 1.0s;
                 }
 
-                &:hover {}
+                
 
                 .category {
                     // position: absolute;
@@ -136,10 +120,13 @@
                     text-align: center;
                     color: color.$white;
                 }
-
-                img {
+                
+                .image {
+                    transition : all 1s ease-in-out;
+                    &:hover{
+                        transform: scale(1.2);
+                    }
                     border-radius: 15px;
-
                 }
             }
         }

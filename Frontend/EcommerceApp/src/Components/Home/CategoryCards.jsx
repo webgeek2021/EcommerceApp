@@ -19,7 +19,7 @@ const CategoryCards = () => {
         return (
             <NavLink to={`/category/${cat.category}`} className={`category_card ${isVisible ? "animate" : "hide-cards"}`}>
                 <h4 className='text-center category'>{cat.category}</h4>
-                <Image src={cat.poster} />
+                <Image loading= "lazy" src={cat.poster} alt="" className='image' />
             </NavLink>
         )
     })

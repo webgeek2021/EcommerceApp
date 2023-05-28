@@ -5,9 +5,11 @@ import { Image } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
 import BottomUpAnimation from '../../utils/BottomUpAnimation';
 import CategoryCards from './CategoryCards';
+import { laptopsData } from '../../utils/DummyData/LaptopData';
 const HomePage = () => {
 
   const [corouselData, setCarouselData] = React.useState(carousel_Data)
+  const [laptopData , setLaptopData] = React.useState(laptopsData)
 
   const display = carousel_Data.map((slider) => {
     return (
@@ -44,9 +46,11 @@ const HomePage = () => {
       </section>
 
       <section className='my-container display_categories'>
-
         <CategoryCards />
+      </section>
 
+      <section className='display_products'>
+        <p className='title'>Today's Best Deals For You!</p>
       </section>
     </div>
   )
