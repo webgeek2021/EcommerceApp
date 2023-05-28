@@ -14,7 +14,7 @@ export const laptopsData = [
         rating: 4.5,
         quantity: 10,
         availability: true,
-        image: Dell,
+        image: "https://res.cloudinary.com/dwlgkphss/image/upload/v1685283171/EcommerceApp/Laptop/Dell_XPS_13_knhexn.png",
     },
     {
         category: 'Laptop',
@@ -24,7 +24,7 @@ export const laptopsData = [
         rating: 4.8,
         quantity: 5,
         availability: true,
-        image: MacBook,
+        image: "https://res.cloudinary.com/dwlgkphss/image/upload/v1685283197/EcommerceApp/Laptop/macBookPro_r8bwz6.jpg",
     },
     {
         category: 'Laptop',
@@ -34,7 +34,7 @@ export const laptopsData = [
         rating: 4.6,
         quantity: 8,
         availability: true,
-        image: Hp,
+        image: "https://res.cloudinary.com/dwlgkphss/image/upload/v1685283177/EcommerceApp/Laptop/hp_specter_kdxmtv.jpg",
     },
     {
         category: 'Laptop',
@@ -44,7 +44,7 @@ export const laptopsData = [
         rating: 4.4,
         quantity: 12,
         availability: true,
-        image: Lenevo,
+        image: "https://res.cloudinary.com/dwlgkphss/image/upload/v1685283182/EcommerceApp/Laptop/lenevo_thickpad_pf95dv.jpg",
     },
     {
         category: 'Laptop',
@@ -54,6 +54,6 @@ export const laptopsData = [
         rating: 4.2,
         quantity: 7,
         availability: true,
-        image: Asus,
+        image: "https://res.cloudinary.com/dwlgkphss/image/upload/v1685283228/EcommerceApp/Laptop/asus_zenbook_tprgq8.jpg",
     }
 ]

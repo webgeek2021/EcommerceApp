@@ -9,8 +9,12 @@ const corsOptions = require("./config/corsOptions")
 const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken");
 const dbConnection = require("./config/dbConn")
+const configCloudinary = require("./config/cloudinaryConfig")
+
 // connecting with mongodb
 dbConnection()
+configCloudinary()
+
 // cors middleWare
 app.use(cors(corsOptions))
 
@@ -25,10 +29,12 @@ app.use(express.static(path.join(__dirname,"/public")))
 // routes
 app.use("/" , require("./routes/root"))
 app.use("/auth" , require("./routes/AuthRoutes/auth"))
+app.use("/products",require("./routes/ProductRoutes/product"))
 
 mongoose.connection.once('open',()=>{
     console.log("Connected TO MongoDB")
     app.listen(PORT,()=>console.log(`Server Running On Port ${PORT}`));
 })
+
 
 
