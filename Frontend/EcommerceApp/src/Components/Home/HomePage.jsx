@@ -6,10 +6,23 @@ import { NavLink } from 'react-router-dom';
 import BottomUpAnimation from '../../utils/BottomUpAnimation';
 import CategoryCards from './CategoryCards';
 import { laptopsData } from '../../utils/DummyData/LaptopData';
+import ProductCard from '../commonComponents/ProductCard';
+import axios from "axios"
 const HomePage = () => {
 
   const [corouselData, setCarouselData] = React.useState(carousel_Data)
   const [laptopData , setLaptopData] = React.useState(laptopsData)
+  const [productCardsData , setProductCardData] = React.useState([])
+
+  React.useEffect(()=>{
+    
+    axios.get("http://localhost:3500/products/getProducts")
+    .then(res => {
+        if(res.data){
+          setProductCardData(res.data)
+        }
+    })
+  },[])
 
   const display = carousel_Data.map((slider) => {
     return (
@@ -32,7 +45,17 @@ const HomePage = () => {
     autoplay: true,
   }
 
-
+  const productCards = productCardsData?.map((card)=>{
+    console.log(card)
+    return(
+      <ProductCard 
+        image = {card.image}
+        name = {card.name}
+        description = {card.description}
+        rating = {card.rating}
+      />
+    )
+  })
   return (
     <div className='home_page_container'>
       <section className='main_carousel_container'>
@@ -51,6 +74,13 @@ const HomePage = () => {
 
       <section className='display_products'>
         <p className='title'>Today's Best Deals For You!</p>
+        <CustomCarousel
+          setting={slider_options}
+        >
+        {
+           productCards
+        }
+        </CustomCarousel>
       </section>
     </div>
   )

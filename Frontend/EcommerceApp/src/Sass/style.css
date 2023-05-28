@@ -44,9 +44,16 @@
   padding: 0px;
   margin: 0px;
 }
+.btn:hover {
+  border-color: transparent;
+}
 .btn:focus {
   outline: none;
   box-shadow: none;
+}
+
+.add-to-cart:hover {
+  background-color: #5C8984;
 }
 
 p {
@@ -81,6 +88,12 @@ button {
 .bottom_up_animation {
   transform: translateZ(0);
   will-change: transform;
+}
+
+.add-to-cart {
+  padding: 10px 15px;
+  background-color: #5C8984;
+  border: none;
 }
 
 body {

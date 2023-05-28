@@ -28,12 +28,21 @@
 .btn {
     padding: 0px;
     margin: 0px;
+    &:hover{
+        border-color: transparent;
+    }
     &:focus {
         outline: none;
         box-shadow: none;
     }
 }
 
+.add-to-cart{
+    &:hover{
+        background-color: color.$add-to-btn;
+        
+    }
+}
 p {
     margin: 0px;
     padding: 0px;
@@ -64,7 +73,11 @@ button{
     transform: translateZ(0);
     will-change: transform;
 }
-
+.add-to-cart{
+    padding: 10px 15px;
+    background-color: color.$add-to-btn;
+    border: none;
+}
 body {
     background-color: color.$background-color;
 }
