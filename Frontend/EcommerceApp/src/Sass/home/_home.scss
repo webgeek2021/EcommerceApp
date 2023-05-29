@@ -131,4 +131,47 @@
             }
         }
     }
+    .display_products{
+        .title {
+            font-weight: 600;
+            font-size: func.to-rem(30);
+            margin-bottom: 30px;
+        }
+        .cards-list{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-auto-columns: 1fr;
+            grid-column-gap : 24px;
+            grid-row-gap : 24px;
+            grid-template-rows: auto;
+            .card{
+                // position: relative;
+                border: none;
+                // width: 410px;
+                
+                .card-thumbnail{
+                    border-radius: 10px;
+                    background-color: color.$grey;
+                    .poster{
+                        // width: calc(100% - 24px);
+                        height: 150px;
+                        object-fit: contain;
+                    }
+                }
+                .card-body{
+                    // .add-to-cart{
+                    //     position:absolute;
+                    //     left: 0px;
+                    // }
+                    .card-text{
+                        font-size: func.to-rem(12);
+                        margin-bottom: 5px;
+                    }
+                    .rating_container{
+                        margin:  0 0 10px 0px;
+                    }
+                }
+            }
+        }
+    }
 }

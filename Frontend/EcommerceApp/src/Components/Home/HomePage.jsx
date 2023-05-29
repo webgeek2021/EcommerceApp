@@ -72,15 +72,13 @@ const HomePage = () => {
         <CategoryCards />
       </section>
 
-      <section className='display_products'>
+      <section className='my-container display_products'>
         <p className='title'>Today's Best Deals For You!</p>
-        <CustomCarousel
-          setting={slider_options}
-        >
+        <div className='cards-list'>
         {
            productCards
         }
-        </CustomCarousel>
+        </div>
       </section>
     </div>
   )

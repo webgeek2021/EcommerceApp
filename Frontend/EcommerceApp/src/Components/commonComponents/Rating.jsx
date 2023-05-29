@@ -15,7 +15,7 @@ const Rating = ({ rating, onChange }) => {
   const hasHalfStar = rating - filledStars >= 0.5; // Check if there's a half-star
 
   return (
-    <div>
+    <div className='rating_container'>
       {[1, 2, 3, 4, 5].map((star) => {
         let starIcon = <Image src={`${EmptyStar}`} alt=""/>; // Default empty star
 
@@ -30,6 +30,7 @@ const Rating = ({ rating, onChange }) => {
             key={star}
             onClick={() => handleClick(star)}
             style={{ cursor: 'pointer' }}
+            className='stars'
           >
             {starIcon}
           </span>
