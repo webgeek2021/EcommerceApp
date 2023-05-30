@@ -1,0 +1,89 @@
+import React from 'react'
+import { getAllProduct } from '../../Api/ProductApi/ProductApi'
+import { useTable } from "react-table"
+import { PRODUCT } from "../../utils/constants"
+import { Badge, Button } from 'react-bootstrap'
+import { GrAdd } from "react-icons/gr";
+import { NavLink ,useNavigate} from 'react-router-dom'
+const AddProduct = () => {
+
+    const [products, setProducts] = React.useState([])
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        const call = async () => {
+            const D = await getAllProduct()
+            setProducts(D)
+        }
+        call()
+    }, [])
+
+    const columns = React.useMemo(
+        () => [
+            { Header: 'Name', accessor: PRODUCT.NAME },
+            { Header: 'Category', accessor: PRODUCT.CATEGORY },
+            { Header: 'Price', accessor: PRODUCT.PRICE },
+            { Header: 'Quantity', accessor: PRODUCT.QUANTITY },
+            { Header: 'Status', accessor: PRODUCT.STATUS },
+            { Header: 'Rating', accessor: PRODUCT.RATING },
+        ],
+        []
+    );
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+    } = useTable({ columns, data: products });
+
+
+    return (
+        <div className='my-container add_product_container '>
+            <h1>Products</h1>
+            <p>Fill in the details below to add a new product:</p>
+
+            <div className='add_product_btn'>
+                <Button >
+                    <GrAdd />
+                    <span>Add Product</span>
+                </Button>
+            </div>
+
+            <div className='table_container'>
+                <table {...getTableProps()}>
+                    <thead>
+                        {headerGroups.map(headerGroup => (
+                            <tr {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {rows.map((row, index) => {
+                            prepareRow(row);
+                            { console.log(products[index]._id) }
+                            return (
+                                    <tr {...row.getRowProps()} onClick={()=> navigate(`/admin/product/${products[index]._id}`)}>
+                                        {row.cells.map(cell => (
+
+                                            <td {...cell.getCellProps()}>{
+                                                cell.value === true ? <Badge pill bg="success">Available</Badge > :
+                                                    cell.value === false ? <Badge pill bg="danget">Not Available</Badge > :
+                                                        cell.render('Cell')}
+                                            </td>
+                                        ))}
+                                    </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
+}
+
+export default AddProduct

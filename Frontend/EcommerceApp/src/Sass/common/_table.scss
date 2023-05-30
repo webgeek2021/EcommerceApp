@@ -1,0 +1,34 @@
+@use "colors" as color;
+
+.table_container {
+    margin-top: 20px;
+
+    table {
+        width: 100%;
+
+        thead {
+            th {
+                text-align: center;
+                padding: 10px;
+                border: 2px solid color.$grey;
+                background-color: color.$auth_form_backgroundColor;
+            }
+        }
+
+        tbody {
+            tr {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: color.$auth_body_backgroundColor;
+                }
+
+                td {
+                    padding: 10px;
+                    text-align: center;
+                    border: 2px solid color.$grey;
+                }
+            }
+        }
+    }
+}

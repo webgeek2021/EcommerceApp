@@ -56,6 +56,35 @@
   background-color: #5C8984;
 }
 
+.add_product_btn {
+  margin-top: 10px;
+  border-bottom: 2px solid #F8F6F4;
+}
+.add_product_btn button {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  background-color: transparent;
+  border: none;
+  color: black;
+}
+.add_product_btn button:focus, .add_product_btn button:hover {
+  background-color: transparent;
+  border: none;
+}
+.add_product_btn button:hover {
+  color: black;
+}
+.add_product_btn button svg {
+  margin-right: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .rating_container .stars img {
   width: 24px;
 }
@@ -112,6 +141,12 @@ body {
   margin-left: 5px;
   font-weight: 700;
 }
+.header__container .navbar-collapse .navbar-nav .nav-li {
+  cursor: pointer;
+}
+.header__container .navbar-collapse .navbar-nav .nav-li:not(:last-child) {
+  margin-right: 24px;
+}
 .header__container .navbar-collapse .navbar-nav .header__dropdown .dropdown .dropdown-menu {
   width: 700px;
   padding: 1.5625rem;
@@ -165,6 +200,30 @@ body {
 }
 .header__container .container .cart:hover {
   background-color: #f2f2f2;
+}
+
+.table_container {
+  margin-top: 20px;
+}
+.table_container table {
+  width: 100%;
+}
+.table_container table thead th {
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #f2f2f2;
+  background-color: #F8F6F4;
+}
+.table_container table tbody tr {
+  cursor: pointer;
+}
+.table_container table tbody tr:hover {
+  background-color: #E3F4F4;
+}
+.table_container table tbody tr td {
+  padding: 10px;
+  text-align: center;
+  border: 2px solid #f2f2f2;
 }
 
 .authForm__container {
@@ -322,4 +381,8 @@ body {
 }
 .home_page_container .display_products .cards-list .card .card-body .rating_container {
   margin: 0 0 10px 0px;
+}
+
+.add_product_container {
+  margin-top: 20px;
 }/*# sourceMappingURL=style.css.map */

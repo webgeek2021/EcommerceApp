@@ -20,13 +20,17 @@ export const signIn = (data2, navigate) => {
     return async (dispatch) => {
 
         try {
-            const { data } = await API.post("/auth/signin", data2)
+            const {data}  = await API.post("/auth/signin", data2)
             console.log("Sign in ", data)
             if(!data.error){
                 toast.success(data.message)
             }
             dispatch(AuthUser(data))
-            navigate("/")
+            if(data.role.Admin){
+                navigate("/admin")
+            }else{
+                navigate("/")
+            }
 
 
         } catch (err) {

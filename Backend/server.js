@@ -31,6 +31,7 @@ app.use("/" , require("./routes/root"))
 app.use("/auth" , require("./routes/AuthRoutes/auth"))
 app.use("/products",require("./routes/ProductRoutes/product"))
 
+
 mongoose.connection.once('open',()=>{
     console.log("Connected TO MongoDB")
     app.listen(PORT,()=>console.log(`Server Running On Port ${PORT}`));

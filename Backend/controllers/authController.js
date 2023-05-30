@@ -36,7 +36,9 @@ const handleSignUp = async (req, res) => {
                 id: result._id
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
 
-            res.status(200).json({ user : {name,email}, token ,error : false , message : "Signup successful!"})
+            const role = result.roles.Admin ? "admin" : "user";
+            console.log(result , role)
+            res.status(200).json({name,email, role,token ,error : false , message : "Signup successful!"})
 
         }).catch(err => {
             res.status(400).json({
@@ -80,8 +82,8 @@ const handleSignUp = async (req, res) => {
                 email: result.email,
                 id: result._id
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
-
-            res.status(200).json({ user : {userName ,email}, token ,error : false , message : "Signup successful!"})
+            const role = result.roles;
+            res.status(200).json({ userName ,role,email , token ,error : false , message : "Signup successful!"})
         } catch (err) {
             console.log(err)
             res.status(401).json({
@@ -123,7 +125,8 @@ const handleSignIn = async (req, res) => {
                 id: existingUser._id
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
             
-            res.status(200).json({ name , email , token ,error : false,  message : "SignIn successful!"})
+            const role = existingUser.roles
+            res.status(200).json({ name , email ,role, token ,error : false,  message : "SignIn successful!"})
         }).catch(err => {
             console.log(err)
             res.status(400).json({
@@ -162,9 +165,11 @@ const handleSignIn = async (req, res) => {
                 , { expiresIn: "1h" }
             )
             const name = existUser.name
+            const role = existUser.roles
             res
                 .status(200)
-                .json({ name ,email, token ,error : false, message : "SignIn successful!"})
+                .json({ name ,email, role,token ,error : false, message : "SignIn successful!"})
+
         }catch(err){
             console.log(err)
             res.status(400).json({

@@ -11,6 +11,7 @@ import { FiShoppingCart } from "react-icons/fi";
 const Header = () => {
 
   const [isSignIn, setIsSignIn] = React.useState(useSelector((state) => state.auth.authData))
+  const [isAdmin, setIsAdmin] = React.useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   React.useEffect(() => {
@@ -18,6 +19,9 @@ const Header = () => {
     if (data) {
       dispatch(AuthUser(data))
       setIsSignIn(true)
+      if (data.roles.Admin) {
+        setIsAdmin(true)
+      }
     }
   }, [])
   const handleSignOut = () => {
@@ -30,13 +34,32 @@ const Header = () => {
         <Navbar.Brand href="#home">
           <Image src={logo} id="company__logo" alt="logo" /> <span className='company__name'>Shopcart</span>
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <div className='header__dropdown'>
-              <HeaderDropDown />
-            </div>
+            {
+              isAdmin ?
+                <>
+                  <div className="nav-li">
+                    <NavLink to="/admin/add-product">Add Product</NavLink>
+                  </div>
+                  <div className="nav-li">
+                    <NavLink to="/admin/orders"> Orders</NavLink>
+                  </div>
+                  <div className="nav-li">
+                    <NavLink to="/admin"> Home</NavLink>
+                  </div>
+                </>
+                :
+                <div className='header__dropdown'>
+                  <HeaderDropDown />
+                </div>
+
+            }
           </Nav>
+
           <Dropdown className='dropdown__container'>
             <Dropdown.Toggle id="dropdown-basic">
               <Image src={user} alt='' />
@@ -52,11 +75,12 @@ const Header = () => {
               }
             </Dropdown.Menu>
           </Dropdown>
+
           <NavLink to={"/cart"} className="nav-link cart">
             <FiShoppingCart />
-          
           </NavLink>
         </Navbar.Collapse>
+
       </Container>
     </Navbar>
   )

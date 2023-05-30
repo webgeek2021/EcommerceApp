@@ -14,4 +14,20 @@ const getAllProducts =  async (req, res) => {
     res.status(200).json(data)
 }
 
-module.exports = {getAllProducts}
+const getProductById = async(req,res)=>{
+   
+    console.log(req.params)
+    if(!req?.params?.id ){
+        return res.status(400).json({
+            "message" : "Id parameter required"
+        })
+    }
+    const product = await Product.findOne({_id : req.params.id}).exec();
+    if (!product) {
+        return res.status(400).json({
+            "message": `No Product  Id matches with ${req.params.id} `
+        })
+    }
+    res.json(product)
+}
+module.exports = {getAllProducts , getProductById}

@@ -43,6 +43,36 @@
         
     }
 }
+
+.add_product_btn{
+    margin-top: 10px;
+    button{
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        margin-bottom: 5px;
+        background-color: transparent;
+        border: none;
+        color: color.$black;
+
+        &:focus , &:hover{
+            background-color: transparent;
+            border: none;
+        }
+        &:hover{
+            color : color.$black;
+        }
+        svg{
+            margin-right: 5px;
+        }
+    }
+    border-bottom: 2px solid color.$auth_form_backgroundColor;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
 .rating_container{
     .stars{
         img{

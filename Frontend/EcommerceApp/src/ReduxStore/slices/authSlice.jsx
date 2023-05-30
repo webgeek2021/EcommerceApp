@@ -9,16 +9,16 @@ export const authSlice = createSlice({
     },
     reducers: {
         AuthUser : (state ,action) =>{
-            console.log("Auth State"  , state)
-            console.log("Auth action"  , action)
             const data = action.payload;
+            console.log("Auth action Data"  , data)
             const userInfo = {
                 name : data.name,
                 email : data.email,
-                token : data.token
+                token : data.token,
+                roles : data.roles || data.role,
             }
             localStorage.setItem(USER_INFO , JSON.stringify(userInfo));
-            console.log("AuthUSer " , action.payload)
+            console.log("AuthUSer " , userInfo)
             state.authData = userInfo
         },
         LogOutUser : (state , action )=>{

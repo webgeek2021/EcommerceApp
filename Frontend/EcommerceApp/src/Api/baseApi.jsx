@@ -10,6 +10,8 @@ API.interceptors.request.use((req)=>{
     return req;
 })
 
+export const api = axios.create({baseURL : "http://localhost:3500"})
+
 // export const signIn = (data) => API.post("/auth/signin", data)
 // export const signInGoogle = (accessToken) => API.post("/auth/signin", {
 //     googleAccessToken: accessToken

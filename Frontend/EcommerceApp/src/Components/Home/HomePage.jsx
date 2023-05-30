@@ -46,7 +46,7 @@ const HomePage = () => {
   }
 
   const productCards = productCardsData?.map((card)=>{
-    console.log(card)
+    // console.log(card)
     return(
       <ProductCard 
         image = {card.image}

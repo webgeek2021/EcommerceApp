@@ -17,6 +17,14 @@ const userSchema = new Schema({
     profilePicture: {
         type: String,
          required: false
+    },
+    roles :{
+        User : {
+            type: Number,
+            default : 2001,
+        },
+        Editor : Number,
+        Admin  : Number
     }
 })
 
