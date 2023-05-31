@@ -1,16 +1,17 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { getProductById ,editProductData} from '../../Api/ProductApi/ProductApi'
+import { getProductById, editProductData } from '../../Api/ProductApi/ProductApi'
 import { useSelector } from 'react-redux'
 import { USER_INFO, ADMIN } from '../../utils/constants';
 import { Image, Button } from 'react-bootstrap';
 import { FiEdit3 } from "react-icons/fi";
 import { convertBase64 } from '../../utils/constants';
+import DeleteConfirmation from '../admin/DeleteConfirmation';
 const ProductDisplay = () => {
 
   const [productData, setProductData] = React.useState()
   const userInfo = JSON.parse(localStorage.getItem(USER_INFO));
-  const [productUrl , setProductUrl] = React.useState()
+  const [productUrl, setProductUrl] = React.useState()
   const [admin, setAdmin] = React.useState(userInfo?.roles?.Admin === ADMIN ? true : false)
   const [formData, setFormData] = React.useState({
     "category": "",
@@ -27,6 +28,7 @@ const ProductDisplay = () => {
   const [editDescription, setEditDescription] = React.useState(false)
   const [editPrice, setEditPrice] = React.useState(false)
   const [editQuantity, setEditQuantity] = React.useState(false)
+  const [deleteModal , setDeleteModal] = React.useState(false)
 
   const { id } = useParams()
 
@@ -42,11 +44,11 @@ const ProductDisplay = () => {
     console.log(event)
     let { value, name } = event.target;
 
-      setProductData((prev) => ({
-        ...prev,
-        [name]: value
-      }))
-    
+    setProductData((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+
   }
   const uploadImage = async (event) => {
     const files = event.target.files;
@@ -54,18 +56,18 @@ const ProductDisplay = () => {
     const reader = new FileReader()
     reader.readAsDataURL(files[0])
 
-    reader.onloadend = ()=>{
+    reader.onloadend = () => {
       setProductUrl(reader.result)
-      setProductData(prev =>({ 
+      setProductData(prev => ({
         ...prev,
-        ["image"] : reader.result
+        ["image"]: reader.result
       }))
     }
-    
+
   };
-  const handleSubmit = ()=>{
-    const edit = async()=>{
-  
+  const handleSubmit = () => {
+    const edit = async () => {
+
       editProductData(productData)
     }
 
@@ -73,7 +75,11 @@ const ProductDisplay = () => {
   }
   return (
     <section className='my-container'>
-      <h1 className='m-t-10'>{productData?.name}</h1>
+      <div className='d-flex justify-content-between m-t-10 product-header'>
+        <h1>{productData?.name}</h1>
+        <Button className='btn btn-danger' onClick={()=>setDeleteModal(prev=> !prev)}>Delete Product</Button>
+      </div>
+
       <form className='d-flex  justify-content-around w-100 product_display_container'>
         <div className='d-flex flex-column image_section'>
           <Image src={productUrl} alt="" className='img' />
@@ -86,7 +92,7 @@ const ProductDisplay = () => {
               accept="image/*"
               className="add-to-cart"
               placeholder='Upload New Image'
-            
+
             />
 
           }
@@ -145,7 +151,7 @@ const ProductDisplay = () => {
                   name='price'
                   onChange={handleOnChange}
                 />
-                <FiEdit3 onClick={()=>setEditPrice(prev=>!prev)}/>
+                <FiEdit3 onClick={() => setEditPrice(prev => !prev)} />
               </div>
             </div>
             <div className='info text-center'>
@@ -159,7 +165,7 @@ const ProductDisplay = () => {
                   name='quantity'
                   onChange={handleOnChange}
                 />
-                <FiEdit3 onClick={()=>setEditQuantity(prev=>!prev)}/>
+                <FiEdit3 onClick={() => setEditQuantity(prev => !prev)} />
               </div>
             </div>
             <div className='info text-center'>
@@ -168,10 +174,19 @@ const ProductDisplay = () => {
             </div>
 
           </div>
-          
+
           <Button className='add-to-cart' onClick={handleSubmit}>Submit</Button>
         </div>
-      </form>
+      </form> 
+      
+      
+      <DeleteConfirmation 
+        show={deleteModal}
+        handleShow = {setDeleteModal}
+        name = {productData?.name}
+        id={productData?.id}
+      />
+
     </section>
   )
 }

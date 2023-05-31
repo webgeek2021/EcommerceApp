@@ -1,6 +1,15 @@
 
 @use "../common/colors" as color;
 @use "../common/function" as func;
+
+.my-container{
+
+    .product-header{
+        .btn-danger{
+            padding: 10px 15px;
+        }
+    }
+}
 .product_display_container{
     margin-top: 60px;
     .image_section{

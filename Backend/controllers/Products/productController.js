@@ -128,5 +128,28 @@ const updateProduct = async (req, res) => {
     }
 }
 
+const deleteProduct = async(req,res)=>{
 
-module.exports = { getAllProducts, getProductById, updateProduct, addProduct }
+    console.log("Del Body",req)
+    if(!req?.params?.id){
+        return res.status(400).json({
+            "message" : "product Id is Required",
+            "error" : true
+        })
+    }
+
+    const product = await Product.findOne({_id : req.params.id}).exec();
+    if (!product) {
+        return res.status(400).json({
+            "message": `No Product Id matches with ${req.params.id} `,
+            "error" : true
+        })
+    }
+
+    const result  = await Product.deleteOne({_id : req.params.id});
+    res.status(200).json({
+        "message" : "Product Deleted SuccessFully",
+        "error" : false 
+    })
+}
+module.exports = { getAllProducts, getProductById, updateProduct, addProduct ,deleteProduct}

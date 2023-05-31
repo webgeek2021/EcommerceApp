@@ -3,8 +3,8 @@ import { Image, Modal, Row, Col, Button } from 'react-bootstrap';
 import { BsImage } from "react-icons/bs";
 import Noimage from "../../assets/Images/no-image.png"
 import { addProductApi } from '../../Api/ProductApi/ProductApi';
+import {useNavigate} from "react-router-dom"
 const AddProductModalForm = (props) => {
-
 
     const [productData, setProductData] = React.useState({
         "name": "",
@@ -43,7 +43,9 @@ const AddProductModalForm = (props) => {
     const handleSubmit = (ev) => {
         ev.preventDefault()
         console.log(productData)
-        addProductApi(productData)
+        addProductApi(productData )
+        props.handleShow()
+
     }
     return (
         <Modal

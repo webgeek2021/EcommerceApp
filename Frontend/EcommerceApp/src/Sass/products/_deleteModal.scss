@@ -1,0 +1,14 @@
+
+.delete-modal{
+    .modal-body{
+        .btn-section{
+            button{
+                padding: 10px;
+                &:not(:last-child){
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+    
+}

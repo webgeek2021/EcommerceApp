@@ -395,6 +395,10 @@ body {
   margin-top: 20px;
 }
 
+.my-container .product-header .btn-danger {
+  padding: 10px 15px;
+}
+
 .product_display_container {
   margin-top: 60px;
 }
@@ -476,4 +480,11 @@ body {
 }
 .addProduct-modal form .add-to-cart {
   margin-bottom: 20px;
+}
+
+.delete-modal .modal-body .btn-section button {
+  padding: 10px;
+}
+.delete-modal .modal-body .btn-section button:not(:last-child) {
+  margin-right: 5px;
 }/*# sourceMappingURL=style.css.map */

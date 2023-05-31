@@ -46,13 +46,31 @@ export const editProductData = async (data)=>{
 export const addProductApi = async (data)=>{
     try{
         const res = await API.post("/products/addproduct",data)
-
-        if(!res.error){
-            toast.success(res.message)
+        console.log("AddProduct Response" , res)
+        if(!res.data.error){
+            toast.success(res.data.message)
+          
         }else{
-            toast.error(res.message)
+            toast.error(res.data.message)
         }
     }catch(err){
+        toast.error(err)
+    }
+}
+
+export const deleteProduct = async (id ,navigate) => {
+   
+    try{
+        const res = await API.delete(`/products/delete/${id}`)
+        console.log("DEL RES" , res)
+        if(!res.data.error){
+            toast.success(res.data.message)
+            navigate("/admin/add-product")
+        }else{
+            toast.error(res.data.message)
+        }
+    }catch(err){
+        console.log(err)
         toast.error(err)
     }
 }
