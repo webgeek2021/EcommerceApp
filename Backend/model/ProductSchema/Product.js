@@ -13,7 +13,12 @@ const Product = new Schema({
         lowercase: true,
         required: [true, "Product name is required"],
         minlength: [3, "Product name minimum length 3 characters"],
-        maxlength: [30, "Product name maximum length 30 characters"]
+        maxlength: [50, "Product name maximum length 30 characters"]
+    },
+    price:{
+        type : Number,
+        required : [true , "Product Price is Missing"],
+        
     },
     description: {
         type: String,
@@ -33,7 +38,7 @@ const Product = new Schema({
         required: true,
         default: 0
     },
-    poster: {
+    image: {
         type: String,
         required: true
     },

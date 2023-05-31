@@ -5,10 +5,13 @@ import { PRODUCT } from "../../utils/constants"
 import { Badge, Button } from 'react-bootstrap'
 import { GrAdd } from "react-icons/gr";
 import { NavLink ,useNavigate} from 'react-router-dom'
+import AddProductModalForm from "./AddProductModalForm";
+
 const AddProduct = () => {
 
     const [products, setProducts] = React.useState([])
     const navigate = useNavigate();
+    const [addModal , setAddModal] = React.useState(false)
 
     React.useEffect(() => {
         const call = async () => {
@@ -45,7 +48,7 @@ const AddProduct = () => {
             <p>Fill in the details below to add a new product:</p>
 
             <div className='add_product_btn'>
-                <Button >
+                <Button onClick={()=>setAddModal(prev => !prev)}>
                     <GrAdd />
                     <span>Add Product</span>
                 </Button>
@@ -82,7 +85,17 @@ const AddProduct = () => {
                     </tbody>
                 </table>
             </div>
+
+            {
+            addModal &&
+             <AddProductModalForm 
+                show = {addModal}
+                handleShow={setAddModal}
+             />
+        }
         </div>
+
+       
     )
 }
 

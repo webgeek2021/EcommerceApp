@@ -1,7 +1,9 @@
 
 const express = require("express");
-
+const verifyRoles = require("../../middleWare/verifyRoles")
+const verifyJWT = require("../../middleWare/verifyJWT")
 const router  = express.Router();
+const ROLES_LIST = require("../../config/UserRoles")
 const productController = require("../../controllers/Products/productController")
 
 router.route("/getProducts")
@@ -10,4 +12,11 @@ router.route("/getProducts")
 router.route("/:id")
     .get(productController.getProductById)
 
+
+router.route("/add-product")
+    .post(productController.addProduct)
+    
+router.route("/edit")
+    .put(productController.updateProduct)
+    
 module.exports = router

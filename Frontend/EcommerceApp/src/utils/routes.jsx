@@ -29,7 +29,7 @@ export const routers = [
         {
             path : "/admin/product/:id",
             element : <ProductDisplay/>,
-        }, 
+        },
         {
             path: "/admin/orders",
             element: <ViewOrders />

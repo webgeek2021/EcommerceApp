@@ -84,10 +84,12 @@ p {
     margin: 0px;
     padding: 0px;
 }
+
 button{
     padding: 0px;
     margin: 0px;
 }
+
 .primary-btn{
     background-color: color.$learn_more_btn;
     padding: 10px 20px;
@@ -98,6 +100,10 @@ button{
     &:hover{
         color: color.$white;
     }
+}
+
+.m-t-10{
+    margin-top: 10px;
 }
 
 .my-container{
@@ -114,6 +120,12 @@ button{
     padding: 10px 15px;
     background-color: color.$add-to-btn;
     border: none;
+}
+
+input{
+    &:focus{
+        outline: none;
+    }
 }
 body {
     background-color: color.$background-color;
