@@ -1,5 +1,18 @@
 const cloudinary = require("cloudinary")
 
+const opts = {
+    upload_preset: "unsigned_upload",
+    allowed_format: ["png", "jpg", "svg", "jpeg"],
+    transformation: [
+        {
+            width: 500,
+            height: 400,
+            crop: "fill",
+            gravity: "auto",
+        },
+    ],
+}
+
 const configCloudinary = () => {
     cloudinary.config({
         cloud_name: process.env.CLOUDINARY_NAME,
@@ -8,4 +21,4 @@ const configCloudinary = () => {
     })
 }
 
-module.exports = configCloudinary
+module.exports = {configCloudinary , opts}

@@ -1,6 +1,7 @@
 
 const Product = require("../../model/ProductSchema/Product")
 const cloudinary = require("cloudinary").v2
+const {opts }= require("../../config/cloudinaryConfig");
 const getAllProducts = async (req, res) => {
 
     const data = await Product.find()
@@ -30,40 +31,47 @@ const getProductById = async (req, res) => {
     }
     res.json(product)
 }
-const addProduct = async (req,res) =>{
-    if(!req.body){
+const addProduct = async (req, res) => {
+
+    console.log(req.body)
+    if (!req.body) {
         res.status(400).json({
-            "message" : "Didn't Received Any Data",
-            "error"  : true
+            "message": "Didn't Received Any Data",
+            "error": true
         })
     }
     const data = req.body;
-    if(!data.category || !data.name || !data.description || !data.price || !data.quantity || !data.image ){
+    if (!data.category || !data.name || !data.description || !data.price || !data.quantity || !data.image) {
         res.status(400).json({
-            "message" : "Some data fields are missing",
-            "error" : true
+            "message": "Some data fields are missing",
+            "error": true
         })
     }
 
-    try{
-        const url = "";
+    try {
+        let options = opts
+        options.folder = `EcommerceApp/${req.body.category}`
+        const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
+            if (err) console.log("err", err)
+            console.log("res", result)
+        })
         const newProduct = await Product.create({
-            "name" : data.name,
-            "category" : data.category,
-            "image" : url,
-            "description"  :data.description,
-            "price" : data.price,
-            "quantity" : data.quantity
+            "name": data.name,
+            "category": data.category,
+            "image": url.secure_url,
+            "description": data.description,
+            "price": data.price,
+            "quantity": data.quantity
         })
 
         res.status(201).json({
-            "message" : "New Product is Added Successfully",
-            "error" : false
+            "message": "New Product is Added Successfully",
+            "error": false
         })
-    }catch(err){
+    } catch (err) {
         res.status(400).json({
-            "message" : "Something Went wrong",
-            "error" : true
+            "message": "Something Went wrong",
+            "error": true
         })
     }
 
@@ -87,20 +95,10 @@ const updateProduct = async (req, res) => {
             })
         }
         // console.log(req.body.image)
-        const opts = {
-            upload_preset: "unsigned_upload",
-            allowed_format: ["png", "jpg", "svg", "jpeg"],
-            folder: `EcommerceApp/${req.body.category}`,
-            transformation: [
-                {
-                    width: 500,
-                    height: 400,
-                    crop: "fill",
-                    gravity: "auto",
-                },
-            ],
-        }
+
         if (req.body?.image !== product.image) {
+            let options = opts
+            options.folder = `EcommerceApp/${req.body.category}`
             const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
                 if (err) console.log("err", err)
                 console.log("res", result)
@@ -131,4 +129,4 @@ const updateProduct = async (req, res) => {
 }
 
 
-module.exports = { getAllProducts, getProductById, updateProduct ,addProduct}
+module.exports = { getAllProducts, getProductById, updateProduct, addProduct }

@@ -9,7 +9,7 @@ const corsOptions = require("./config/corsOptions")
 const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken");
 const dbConnection = require("./config/dbConn")
-const configCloudinary = require("./config/cloudinaryConfig")
+const {configCloudinary }= require("./config/cloudinaryConfig")
 
 // connecting with mongodb
 dbConnection()

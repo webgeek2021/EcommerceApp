@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, Modal, Row, Col, Button } from 'react-bootstrap';
 import { BsImage } from "react-icons/bs";
 import Noimage from "../../assets/Images/no-image.png"
+import { addProductApi } from '../../Api/ProductApi/ProductApi';
 const AddProductModalForm = (props) => {
 
 
@@ -42,6 +43,7 @@ const AddProductModalForm = (props) => {
     const handleSubmit = (ev) => {
         ev.preventDefault()
         console.log(productData)
+        addProductApi(productData)
     }
     return (
         <Modal
@@ -58,7 +60,7 @@ const AddProductModalForm = (props) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className='my-container '>
-                <form className='d-flex flex-column'>
+                <form onSubmit={handleSubmit}className='d-flex flex-column'>
                     <input
                         type='text'
                         name="name"
@@ -75,6 +77,8 @@ const AddProductModalForm = (props) => {
                         value={productData.categroy}
                         required
                     />
+                    <textarea rows={4} onChange={handleOnchange} name='description'>{productData.description}</textarea>
+                    
                     <input
                         type='number'
                         placeholder='Enter Product Price'
@@ -110,7 +114,7 @@ const AddProductModalForm = (props) => {
                         onChange={handleFileUpload}
                         required
                     />
-                    <Button className="w-100 add-to-cart" onSubmit={handleSubmit}>Submit Product</Button>
+                    <Button className="w-100 add-to-cart" type='submit'>Submit Product</Button>
                 </form>
             </Modal.Body>
         </Modal>

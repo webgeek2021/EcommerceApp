@@ -13,7 +13,7 @@ router.route("/:id")
     .get(productController.getProductById)
 
 
-router.route("/add-product")
+router.route("/addproduct")
     .post(productController.addProduct)
     
 router.route("/edit")

@@ -42,3 +42,17 @@ export const editProductData = async (data)=>{
         toast.error(err)
     }
 }
+
+export const addProductApi = async (data)=>{
+    try{
+        const res = await API.post("/products/addproduct",data)
+
+        if(!res.error){
+            toast.success(res.message)
+        }else{
+            toast.error(res.message)
+        }
+    }catch(err){
+        toast.error(err)
+    }
+}
