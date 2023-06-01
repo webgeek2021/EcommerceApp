@@ -1,0 +1,54 @@
+
+@use "./colors" as color;
+@use "function" as func;
+
+.display-cart-container{
+
+}
+.cart-cart-container{
+    padding: 10px;
+    border-radius: 10px;
+    &:hover{
+        background-color: color.$grey;
+    }
+    &:not(:last-child){
+        margin-bottom: 20px;
+    }
+    .info-container{
+        display: flex;
+        .product-image{
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 20px;
+        }
+        .product-info{
+            .name{
+
+            }
+            .category{
+
+            }
+        }
+    }
+    .btn-section{
+        margin-top: 10px;
+        .quantity-counter{
+            padding: 10px 20px;
+            background-color: color.$grey;
+            border-radius: 10px;
+            .plus{
+                margin-right: 10px;
+                cursor: pointer;
+            }
+            .minus{
+                margin-left: 10px;
+                cursor: pointer;
+            }
+        }
+        .btn-danger{
+            padding: 10px 20px;
+
+        }
+    }
+}

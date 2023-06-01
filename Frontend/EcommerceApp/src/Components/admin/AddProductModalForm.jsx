@@ -27,7 +27,7 @@ const AddProductModalForm = (props) => {
             setImageUrl(reader.result)
             setProductData((prev) => ({
                 ...prev,
-                ["image"]: reader.result
+                ["image"]: file
             }))
         }
     }
@@ -43,7 +43,16 @@ const AddProductModalForm = (props) => {
     const handleSubmit = (ev) => {
         ev.preventDefault()
         console.log(productData)
-        addProductApi(productData )
+        let formData = new FormData()
+        formData.append("name" , productData.name)
+        formData.append("category" , productData.category)
+        formData.append("description" , productData.description)
+        formData.append("image" , productData.image)
+        formData.append("price" , productData.price)
+        formData.append("quantity" , productData.quantity)
+        
+        
+        addProductApi(formData)
         props.handleShow()
 
     }

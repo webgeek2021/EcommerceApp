@@ -1,0 +1,52 @@
+
+@use "../common/colors" as color;
+.user-product-display{
+    .product-display-container{
+        margin-top: 30px;
+    }
+    .left{
+        width: 50%;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    .right{
+        .product-info{
+            .box{
+                cursor: pointer;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                span{
+                    &:first-child{
+                        margin-bottom: 5px;
+                        font-weight: 700;
+                    }
+                }
+                &:not(:last-child){
+                    border-right: 2px solid color.$grey ;
+                }
+            }
+        }
+        .btn-section{
+            .quantity-counter{
+                padding: 10px 20px;
+                border-radius: 5px;
+                background-color: color.$grey;
+                .plus{
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+                .minus{
+                    margin-left : 10px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

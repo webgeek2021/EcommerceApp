@@ -2,6 +2,9 @@
 const Product = require("../../model/ProductSchema/Product")
 const cloudinary = require("cloudinary").v2
 const {opts }= require("../../config/cloudinaryConfig");
+const {handleUpload} = require("../../config/cloudinaryConfig")
+
+
 const getAllProducts = async (req, res) => {
 
     const data = await Product.find()
@@ -33,7 +36,7 @@ const getProductById = async (req, res) => {
 }
 const addProduct = async (req, res) => {
 
-    console.log(req.body)
+    console.log(req.file)
     if (!req.body) {
         res.status(400).json({
             "message": "Didn't Received Any Data",
@@ -41,7 +44,8 @@ const addProduct = async (req, res) => {
         })
     }
     const data = req.body;
-    if (!data.category || !data.name || !data.description || !data.price || !data.quantity || !data.image) {
+    console.log("Data" , data)
+    if (!data.category || !data.name || !data.description || !data.price || !data.quantity || !req.file) {
         res.status(400).json({
             "message": "Some data fields are missing",
             "error": true
@@ -49,16 +53,22 @@ const addProduct = async (req, res) => {
     }
 
     try {
-        let options = opts
-        options.folder = `EcommerceApp/${req.body.category}`
-        const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
-            if (err) console.log("err", err)
-            console.log("res", result)
-        })
+
+        const b64 = Buffer.from(req.file.buffer).toString("base64");
+        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+        const cldRes = await handleUpload(dataURI , `EcommerceApp/${req.body.category}`)
+
+        // const cldRes = await cloudinary.uploader.upload(dataURI, {
+        //     resource_type: "auto",
+        //     folder : `EcommerceApp/${req.body.category}`
+        //   });;
+
+          console.log("Cloudinary Url" , cldRes)
+        
         const newProduct = await Product.create({
             "name": data.name,
             "category": data.category,
-            "image": url.secure_url,
+            "image": cldRes.secure_url,
             "description": data.description,
             "price": data.price,
             "quantity": data.quantity
@@ -78,7 +88,7 @@ const addProduct = async (req, res) => {
 }
 const updateProduct = async (req, res) => {
     // console.log("Backend ", req)
-    // console.log("Backend" , req)
+    console.log("Backend" , req.file)
     try {
         if (!req?.body?.id) {
             return res.status(400).json({
@@ -95,16 +105,19 @@ const updateProduct = async (req, res) => {
             })
         }
         // console.log(req.body.image)
+        const b64 = Buffer.from(req.file.buffer).toString("base64");
+        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+        const cldRes = await handleUpload(dataURI , `EcommerceApp/${req.body.category}`)
 
-        if (req.body?.image !== product.image) {
-            let options = opts
-            options.folder = `EcommerceApp/${req.body.category}`
-            const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
-                if (err) console.log("err", err)
-                console.log("res", result)
-            })
-            console.log("REUSLT", url)
-            product.image = url.secure_url;
+        if (cldRes.secure_url !== product.image) {
+            // let options = opts
+            // options.folder = `EcommerceApp/${req.body.category}`
+            // const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
+            //     if (err) console.log("err", err)
+            //     console.log("res", result)
+            // })
+            // console.log("REUSLT", url)
+            product.image = cldRes.secure_url;
         }
 
         if (req.body?.category !== product.category) product.category = req.body.category

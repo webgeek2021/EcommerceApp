@@ -53,6 +53,7 @@ const HomePage = () => {
         name = {card.name}
         description = {card.description}
         rating = {card.rating}
+        id={card.id}
       />
     )
   })

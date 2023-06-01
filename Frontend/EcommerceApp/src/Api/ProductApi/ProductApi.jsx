@@ -2,6 +2,7 @@
 import {api , API} from "../baseApi";
 import axios from "axios";
 import { toast } from "react-toastify"
+import { insertIntoProductList, insertProductData } from "../../ReduxStore/slices/productDataSlice";
 
 export const getAllProduct = async ()=>{
     console.log("GetAllProduct")
@@ -16,7 +17,7 @@ export const getAllProduct = async ()=>{
     // console.log("Data" ,data)
 }
 
-export const getProductById = async (id)=>{
+export const getProductById = async (id )=>{
     const data = id
     try{
         const res = await API.get(`/products/${id}` )
@@ -27,7 +28,32 @@ export const getProductById = async (id)=>{
         console.log(err)
     }
 }
-
+export const getProductById2 = async (id, dispatch)=>{
+    try{
+        const res = await API.get(`/products/${id}` )
+        console.log("Product with id" , res)
+        if(res.data){
+            console.log("RES body" , res.data)
+            dispatch(insertProductData(res.data))
+        }
+    }catch(err){
+        console.log(err)
+        toast.error(err)
+    }
+}
+export const getProductList  = async (id , dispatch,order) =>{
+    try{
+        const res = await API.get(`/products/${id}`)
+        console.log("LIST",res)
+        if(res.data){
+            res.data.orderQuantity  = order
+            dispatch(insertIntoProductList(res.data))
+        }
+    }catch(err){
+        console.log(err)
+        toast.error(err)
+    }
+}
 export const editProductData = async (data)=>{
 
     try{

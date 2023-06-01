@@ -84,6 +84,9 @@ a {
   text-decoration: none;
   color: black;
 }
+a:hover {
+  color: inherit;
+}
 
 .rating_container .stars img {
   width: 24px;
@@ -113,6 +116,10 @@ button {
 
 .m-t-10 {
   margin-top: 10px;
+}
+
+.m-b-20 {
+  margin-bottom: 20px;
 }
 
 .my-container {
@@ -272,6 +279,46 @@ body {
   height: 24px;
 }
 
+.cart-cart-container {
+  padding: 10px;
+  border-radius: 10px;
+}
+.cart-cart-container:hover {
+  background-color: #f2f2f2;
+}
+.cart-cart-container:not(:last-child) {
+  margin-bottom: 20px;
+}
+.cart-cart-container .info-container {
+  display: flex;
+}
+.cart-cart-container .info-container .product-image {
+  width: 60px;
+  height: 60px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-right: 20px;
+}
+.cart-cart-container .btn-section {
+  margin-top: 10px;
+}
+.cart-cart-container .btn-section .quantity-counter {
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}
+.cart-cart-container .btn-section .quantity-counter .plus {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.cart-cart-container .btn-section .quantity-counter .minus {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.cart-cart-container .btn-section .btn-danger {
+  padding: 10px 20px;
+}
+
 .home_page_container .main_carousel_container {
   margin-bottom: 80px;
 }
@@ -389,6 +436,48 @@ body {
 }
 .home_page_container .display_products .cards-list .card .card-body .rating_container {
   margin: 0 0 10px 0px;
+}
+
+.user-product-display .product-display-container {
+  margin-top: 30px;
+}
+.user-product-display .left {
+  width: 50%;
+}
+.user-product-display .left img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.user-product-display .right .product-info .box {
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+.user-product-display .right .product-info .box span:first-child {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+.user-product-display .right .product-info .box:not(:last-child) {
+  border-right: 2px solid #f2f2f2;
+}
+.user-product-display .right .btn-section .quantity-counter {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+.user-product-display .right .btn-section .quantity-counter .plus {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.user-product-display .right .btn-section .quantity-counter .minus {
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .add_product_container {

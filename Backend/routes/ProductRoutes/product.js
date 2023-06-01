@@ -6,7 +6,11 @@ const router  = express.Router();
 const ROLES_LIST = require("../../config/UserRoles")
 const productController = require("../../controllers/Products/productController")
 const deleteProduct = require("../../controllers/Products/productController");
-
+const Multer = require("multer")
+const storage = Multer.memoryStorage();
+const upload = Multer({
+  storage,
+});
 router.route("/getProducts")
     .get(productController.getAllProducts)
 
@@ -15,10 +19,10 @@ router.route("/:id")
 
 
 router.route("/addproduct")
-    .post(productController.addProduct)
+    .post(upload.single("image"),productController.addProduct)
     
 router.route("/edit")
-    .put(productController.updateProduct)
+    .put(upload.single("image"),productController.updateProduct)
 
 router.route("/delete/:id")
     .delete(productController.deleteProduct)
