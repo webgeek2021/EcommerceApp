@@ -33,12 +33,13 @@ const handleSignUp = async (req, res) => {
 
             const token = jwt.sign({
                 email: result.email,
-                id: result._id
+                id: result._id,
+                isAdmin : result.isAdmin
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
 
-            const role = result.roles.Admin ? "admin" : "user";
+            const role = result.isAdmin
             console.log(result , role)
-            res.status(200).json({name,email, role,token ,error : false , message : "Signup successful!"})
+            res.status(200).json({name,email, isAdmin,token ,error : false , message : "Signup successful!"})
 
         }).catch(err => {
             res.status(400).json({
@@ -80,10 +81,12 @@ const handleSignUp = async (req, res) => {
 
             const token = jwt.sign({
                 email: result.email,
-                id: result._id
+                id: result._id,
+                isAdmin : result.isAdmin
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
-            const role = result.roles;
-            res.status(200).json({ userName ,role,email , token ,error : false , message : "Signup successful!"})
+
+            const isAdmin = result.isAdmin;
+            res.status(200).json({ userName ,isAdmin,email , token ,error : false , message : "Signup successful!"})
         } catch (err) {
             console.log(err)
             res.status(401).json({
@@ -122,11 +125,12 @@ const handleSignIn = async (req, res) => {
 
             const token = jwt.sign({
                 email: existingUser.email,
-                id: existingUser._id
+                id: existingUser._id,
+                isAdmin : existingUser.isAdmin
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
             
-            const role = existingUser.roles
-            res.status(200).json({ name , email ,role, token ,error : false,  message : "SignIn successful!"})
+            const isAdmin = existingUser.isAdmin
+            res.status(200).json({ name , email ,isAdmin, token ,error : false,  message : "SignIn successful!"})
         }).catch(err => {
             console.log(err)
             res.status(400).json({
@@ -159,16 +163,17 @@ const handleSignIn = async (req, res) => {
             const token = jwt.sign(
                 {
                     email: existUser.email,
-                    id: existUser._id
+                    id: existUser._id,
+                    isAdmin : existUser.isAdmin
                 },
                 process.env.JWT_ACCESS_TOKEN
                 , { expiresIn: "1h" }
             )
             const name = existUser.name
-            const role = existUser.roles
+            const isAdmin = existUser.isAdmin
             res
                 .status(200)
-                .json({ name ,email, role,token ,error : false, message : "SignIn successful!"})
+                .json({ name ,email, isAdmin,token ,error : false, message : "SignIn successful!"})
 
         }catch(err){
             console.log(err)

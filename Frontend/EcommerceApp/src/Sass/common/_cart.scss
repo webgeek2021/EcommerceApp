@@ -3,7 +3,49 @@
 @use "function" as func;
 
 .display-cart-container{
+    .offcanvas-header{
+        .offcanvas-title{
+            display:  flex;
+            align-items: center;
+            justify-content: space-between;
+            img{
+                width: 50px;
+                height: 50px;
+                object-fit: contain;
+                margin-right: 20px;
+            }
+            .remove-all{
+                color: color.$red;
+                text-decoration: underline;
+                cursor: pointer;
+                background: transparent !important;
+                border: none;
+            }
+        }
+    }
+    .offcanvas-body{
+        .cart-items{
+            height: 100%;
+            position: relative;
+            .total{
+                padding-top: 5px;
+                border-top: 2px solid color.$black;
+                margin-bottom: 10px;
+            }
+            .add-to-cart{
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+            }
+        }
+        .cart-empty{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
 
+    }
 }
 .cart-cart-container{
     padding: 10px;

@@ -5,7 +5,32 @@ import AdminPanel from "../Components/admin/AdminPanel";
 import ViewOrders from "../Components/admin/ViewOrders";
 import AddProduct from "../Components/admin/AddProduct";
 import ProductDisplay from "../Components/admin/ProductDisplay";
-import UserProductDisplay from "../Components/commonComponents/ProductDisplay"; 
+import UserProductDisplay from "../Components/commonComponents/ProductDisplay";
+import { requireAuth ,requireAdminAuth} from "./requireAuth";
+import { useLocation ,Navigate} from "react-router-dom";
+import ProfilePage from "../Components/ProfilePage/ProfilePage";
+
+const ProtectedRoute = ({ element }) => {
+    const isAuthenticated = requireAuth()
+    const location = useLocation();
+
+    if (!isAuthenticated && location.pathname !== "/auth") {
+        return <Navigate to="/" />;
+    }
+
+    return element;
+};
+
+const ProtectAdminRoute = ({element}) =>{
+
+    const isAuth = requireAdminAuth();
+    const location = useLocation
+    console.log(isAuth , location)
+    if(!isAuth && location.pathname !== "/auth"){
+        return <Navigate to="/" />
+    }
+    return element
+}
 export const routers = [
     {
         path: "/auth",
@@ -18,27 +43,31 @@ export const routers = [
         children: [{
             index: true,
             element: <HomePage />
-        },{
-            path : "/show/product/:id",
-            element : <UserProductDisplay/>
+        }, 
+        {
+            path : "/profile",
+            element : <ProtectedRoute element={<ProfilePage/>}/>
+        },
+        {
+            path: "/show/product/:id",
+            element: <UserProductDisplay />
         },
         {
             path: "/admin",
-            element: <AdminPanel />,
+            element: <ProtectAdminRoute element={<AdminPanel />} />,
         },
         {
             path: "/admin/add-product",
-            element: <AddProduct />
+            element: <ProtectAdminRoute element={<AddProduct />} />
         },
         {
-            path : "/admin/product/:id",
-            element : <ProductDisplay/>,
+            path: "/admin/product/:id",
+            element: <ProtectAdminRoute element={<ProductDisplay />} />,
         },
         {
             path: "/admin/orders",
-            element: <ViewOrders />
+            element: <ProtectAdminRoute element={<ViewOrders />} />
         },
-
         ]
     },
 

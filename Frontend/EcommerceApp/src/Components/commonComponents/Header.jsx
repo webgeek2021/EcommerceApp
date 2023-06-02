@@ -1,34 +1,39 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown, Container, Image, Dropdown } from "react-bootstrap";
 import logo from "../../assets/Icons/logo.svg";
-import user from "../../assets/Icons/user.jpg";
+import userImage from "../../assets/Icons/user.jpg";
 import HeaderDropDown from './HeaderDropDown';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { USER_INFO } from '../../utils/constants';
-import { AuthUser } from '../../ReduxStore/slices/authSlice';
-
+import { AuthUser, LogOutUser } from '../../ReduxStore/slices/authSlice';
 import DisplayCart from './DisplayCart';
 import { FiShoppingCart } from 'react-icons/fi';
 import { setShowCart } from '../../ReduxStore/slices/cartSlice';
+import Cookie from "js-cookie";
 const Header = () => {
 
-  const [isSignIn, setIsSignIn] = React.useState(useSelector((state) => state.auth.authData))
-  const [isAdmin, setIsAdmin] = React.useState(false)
+  const [user, setUser] = React.useState(null)
+  React.useEffect(()=>{
+    const user = Cookie.get(USER_INFO)
+    if(user){
+      setUser(JSON.parse(user))
+    }
+  },[])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  React.useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(USER_INFO))
-    if (data) {
-      dispatch(AuthUser(data))
-      setIsSignIn(true)
-      if (data.roles.Admin) {
-        setIsAdmin(true)
-      }
-    }
-  }, [])
+  // React.useEffect(() => {
+  //   const data = JSON.parse(localStorage.getItem(USER_INFO))
+  //   if (data) {
+  //     dispatch(AuthUser(data))
+  //     setIsSignIn(true)
+  //     if (data.isAdmin) {
+  //       setIsAdmin(true)
+  //     }
+  //   }
+  // }, [])
   const handleSignOut = () => {
-    localStorage.clear("user_info")
+    dispatch(LogOutUser())
     navigate("/auth")
   }
   const handleShow = ()=>{
@@ -48,7 +53,7 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {
-              isAdmin ?
+              user?.isAdmin ?
                 <>
                   <div className="nav-li">
                     <NavLink to="/admin/add-product">Add Product</NavLink>
@@ -70,13 +75,13 @@ const Header = () => {
 
           <Dropdown className='dropdown__container'>
             <Dropdown.Toggle id="dropdown-basic">
-              <Image src={user} alt='' />
+              <Image src={user?.profileImage || userImage} alt='' />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
               <NavLink to="/profile" className="dropdown-item">Profile</NavLink>
               {
-                isSignIn ?
+                user?.token ?
                   <div className='dropdown-item' onClick={handleSignOut}>Sign Out</div>
                   :
                   <NavLink to={"/auth"} className="dropdown-item">Sign In</NavLink>

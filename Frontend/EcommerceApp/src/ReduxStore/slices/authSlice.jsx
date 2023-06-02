@@ -1,7 +1,7 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 import {AUTH , LOGOUT , USER_INFO} from "../../utils/constants"
-
+import Cookie from "js-cookie"
 export const authSlice = createSlice({
     name : "auth",
     initialState : {
@@ -9,22 +9,23 @@ export const authSlice = createSlice({
     },
     reducers: {
         AuthUser : (state ,action) =>{
-            const data = action.payload;
+            const data = action.payload ; 
             console.log("Auth action Data"  , data)
             const userInfo = {
                 name : data.name,
                 email : data.email,
                 token : data.token,
-                roles : data.roles || data.role,
+                isAdmin : data.isAdmin,
+                profileImage : data.profileImage || ""
             }
-            localStorage.setItem(USER_INFO , JSON.stringify(userInfo));
+            Cookie.set(USER_INFO, JSON.stringify(userInfo));
             console.log("AuthUSer " , userInfo)
             state.authData = userInfo
         },
         LogOutUser : (state , action )=>{
             console.log("Log State"  , state)
             console.log("Log action"  , action)
-            localStorage.clear();
+            Cookie.remove(USER_INFO)
         },
         
     }

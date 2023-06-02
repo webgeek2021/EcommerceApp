@@ -18,13 +18,14 @@ const userSchema = new Schema({
         type: String,
          required: false
     },
-    roles :{
-        User : {
-            type: Number,
-            default : 2001,
-        },
-        Editor : Number,
-        Admin  : Number
+    isAdmin : {
+        type : Boolean,
+        required : true,
+        default : false
+    },
+    address : {
+        type : String,
+        default : ""
     }
 })
 

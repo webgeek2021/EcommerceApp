@@ -279,6 +279,46 @@ body {
   height: 24px;
 }
 
+.display-cart-container .offcanvas-header .offcanvas-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.display-cart-container .offcanvas-header .offcanvas-title img {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-right: 20px;
+}
+.display-cart-container .offcanvas-header .offcanvas-title .remove-all {
+  color: crimson;
+  text-decoration: underline;
+  cursor: pointer;
+  background: transparent !important;
+  border: none;
+}
+.display-cart-container .offcanvas-body .cart-items {
+  height: 100%;
+  position: relative;
+}
+.display-cart-container .offcanvas-body .cart-items .total {
+  padding-top: 5px;
+  border-top: 2px solid black;
+  margin-bottom: 10px;
+}
+.display-cart-container .offcanvas-body .cart-items .add-to-cart {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+.display-cart-container .offcanvas-body .cart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .cart-cart-container {
   padding: 10px;
   border-radius: 10px;
@@ -576,4 +616,8 @@ body {
 }
 .delete-modal .modal-body .btn-section button:not(:last-child) {
   margin-right: 5px;
+}
+
+.profile-page {
+  margin-top: 20px;
 }/*# sourceMappingURL=style.css.map */

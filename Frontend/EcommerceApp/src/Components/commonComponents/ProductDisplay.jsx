@@ -32,11 +32,8 @@ const ProductDisplay = () => {
     }
     const addToCart = ()=>{
 
-        const data ={
-            id : productData.id,
-            quantityPurchase : quantityCounter
-        }
-
+        let data = {...productData}
+        data.orderQuantity = quantityCounter
         dispatch(insertProductIntoCart(data))
 
     }

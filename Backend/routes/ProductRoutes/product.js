@@ -7,6 +7,7 @@ const ROLES_LIST = require("../../config/UserRoles")
 const productController = require("../../controllers/Products/productController")
 const deleteProduct = require("../../controllers/Products/productController");
 const Multer = require("multer")
+const {isAuth , isAdmin} = require("../../middleWare/verifyRoles")
 const storage = Multer.memoryStorage();
 const upload = Multer({
   storage,
@@ -19,7 +20,7 @@ router.route("/:id")
 
 
 router.route("/addproduct")
-    .post(upload.single("image"),productController.addProduct)
+    .post(isAuth,isAdmin ,upload.single("image"),productController.addProduct)
     
 router.route("/edit")
     .put(upload.single("image"),productController.updateProduct)

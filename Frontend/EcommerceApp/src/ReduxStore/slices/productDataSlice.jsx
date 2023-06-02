@@ -16,7 +16,6 @@ export const productDataSlice = createSlice({
         },
         insertIntoProductList : (state , action) =>{
             console.log("ProductList",action.payload)
-
             const arr = state.productList
             if(action.payload.id){
                 const findid = arr.find((obj) => obj.id === action.payload.id)

@@ -1,18 +1,19 @@
 
 import axios from "axios"
 import { USER_INFO } from "../utils/constants"
-export const API = axios.create({baseURL:"http://localhost:3500"}) // post login api
+import Cookie from "js-cookie"
+export const postLoginApi = axios.create({baseURL:"http://localhost:3500"}) // post login postLoginApi
 
-API.interceptors.request.use((req)=>{
-    // if(localStorage.getItem(USER_INFO)){
-        console.log("BaseApi" , JSON.parse(localStorage.getItem(USER_INFO)).token)
-        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem(USER_INFO)).token}`
-        req.headers.roles = `${JSON.parse(localStorage.getItem(USER_INFO)).roles}`
-    // }
+postLoginApi.interceptors.request.use((req)=>{
+    if(Cookie.get(USER_INFO)){
+        const authorization = JSON.parse(Cookie.get(USER_INFO)).token
+        // console.log("BaseApi" , JSON.parse(localStorage.getItem(USER_INFO)).token)
+        req.headers.Authorization = `Bearer ${authorization}`
+    }
     return req;
 })
 
-export const api = axios.create({baseURL : "http://localhost:3500"}) // prelogin api
+export const preLoginApi = axios.create({baseURL : "http://localhost:3500"}) // prelogin api
 
 
 // export const signIn = (data) => API.post("/auth/signin", data)
