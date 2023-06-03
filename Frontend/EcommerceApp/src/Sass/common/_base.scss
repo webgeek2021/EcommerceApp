@@ -92,7 +92,12 @@ button{
     padding: 0px;
     margin: 0px;
 }
-
+.sign-out-btn{
+    background-color: color.$orange;
+    border-radius: 50px;
+    padding: 10px 20px;
+    border:none
+}
 .primary-btn{
     background-color: color.$learn_more_btn;
     padding: 10px 20px;

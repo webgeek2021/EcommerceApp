@@ -1,4 +1,23 @@
 
+@use "../common/colors" as color;
 .profile-page{
     margin-top: 20px;
+    .my-container{
+        padding: 0 140px;
+        .profile-header{
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid color.$black;
+        }
+        .profile-form{
+            .left{
+                .user-image{
+                    width: 100px;
+                    height: 100px;
+                    object-fit: contain;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
 }
