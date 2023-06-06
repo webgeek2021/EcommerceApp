@@ -20,4 +20,4 @@ const ShippingSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model("ShippingSchema",ShippingSchema)
+module.exports = ShippingSchema

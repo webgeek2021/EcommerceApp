@@ -102,6 +102,11 @@ button {
   margin: 0px;
 }
 
+nav, ul {
+  margin: 0px;
+  padding: 0px;
+}
+
 .sign-out-btn {
   background-color: #FFB84C;
   border-radius: 50px;
@@ -631,6 +636,18 @@ body {
 .profile-page .my-container {
   padding: 0 140px;
 }
+.profile-page .my-container .profile-sidebar {
+  display: flex;
+}
+.profile-page .my-container .profile-sidebar ul .nav-link {
+  padding: 0 0 20px 0;
+}
+.profile-page .my-container .profile-sidebar ul .nav-link:not(:last-child) {
+  margin-bottom: 5px;
+}
+.profile-page .my-container .profile-sidebar ul .active {
+  border-bottom: 2px solid #5C8984;
+}
 .profile-page .my-container .profile-header {
   padding-bottom: 20px;
   margin-bottom: 40px;
@@ -642,4 +659,30 @@ body {
   -o-object-fit: contain;
      object-fit: contain;
   border-radius: 50%;
+}
+.profile-page .my-container .profile-form .right .row {
+  margin-bottom: 10px;
+}
+.profile-page .my-container .profile-form .right .row .column .input-field {
+  background-color: #f2f2f2;
+  padding: 15px;
+  border-radius: 5px;
+}
+.profile-page .my-container .profile-form .right .row .column .input-field .input-header {
+  position: relative;
+}
+.profile-page .my-container .profile-form .right .row .column .input-field .input-header svg {
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+}
+.profile-page .my-container .profile-form .right .btn-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-page .my-container .profile-form .right .btn-row .submit-btn {
+  width: 100px;
+  padding: 10px;
 }/*# sourceMappingURL=style.css.map */

@@ -7,4 +7,7 @@ const router = express.Router()
 const {isAuth , isAdmin} = require("../../middleWare/verifyRoles")
 
 router.route("/")
-    .post(isAuth , isAdmin , )
+    .post(isAuth , isAdmin , OrderController.PlaceOrder )
+
+
+module.exports = router

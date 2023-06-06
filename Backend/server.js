@@ -30,7 +30,8 @@ app.use(express.static(path.join(__dirname,"/public")))
 app.use("/" , require("./routes/root"))
 app.use("/auth" , require("./routes/AuthRoutes/auth"))
 app.use("/products",require("./routes/ProductRoutes/product"))
-
+app.use("/order",require("./routes/OrderRoutes/OrderRoutes"))
+app.use("/user",require("./routes/UserRoutes/UserRoutes"))
 
 mongoose.connection.once('open',()=>{
     console.log("Connected TO MongoDB")

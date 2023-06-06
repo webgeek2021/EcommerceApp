@@ -29,6 +29,10 @@ const DisplayCart = (props) => {
         dispatch(setShowCart())
     }
 
+    const handlePayment  = () =>{
+        console.log()
+    }
+
     const list = productArr?.map((prod) => {
         return (
             <CartCard
@@ -65,7 +69,7 @@ const DisplayCart = (props) => {
                             <div className='total'>
                                 Total : <span className='rupee-symbol'>&#8377;</span> {cartTotal}
                             </div>
-                            <Button className='add-to-cart'>Proceed To Payment</Button>
+                            <Button className='add-to-cart' onClick={handlePayment}>Proceed To Payment</Button>
                         </div>
                         :
                         <div className='cart-empty'>

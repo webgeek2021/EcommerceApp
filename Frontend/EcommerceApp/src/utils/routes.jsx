@@ -9,7 +9,8 @@ import UserProductDisplay from "../Components/commonComponents/ProductDisplay";
 import { requireAuth ,requireAdminAuth} from "./requireAuth";
 import { useLocation ,Navigate} from "react-router-dom";
 import ProfilePage from "../Components/ProfilePage/ProfilePage";
-
+import ShippingDetailForm from "../Components/ProfilePage/ShippingDetailForm";
+import ProfileForm from "../Components/ProfilePage/ProfileForm";
 const ProtectedRoute = ({ element }) => {
     const isAuthenticated = requireAuth()
     const location = useLocation();
@@ -46,7 +47,17 @@ export const routers = [
         }, 
         {
             path : "/profile",
-            element : <ProtectedRoute element={<ProfilePage/>}/>
+            element : <ProtectedRoute element={<ProfilePage/>}/>,
+            children : [
+            {
+                index : true,
+                element : <ProtectedRoute element={<ProfileForm/>}/>
+            },
+            {
+                path : "/profile/shippingDetails",
+                element : <ProtectedRoute element={<ShippingDetailForm/>}/>
+            }
+        ]
         },
         {
             path: "/show/product/:id",

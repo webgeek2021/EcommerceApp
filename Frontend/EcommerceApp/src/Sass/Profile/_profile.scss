@@ -4,6 +4,20 @@
     margin-top: 20px;
     .my-container{
         padding: 0 140px;
+        .profile-sidebar{
+            display: flex;
+            ul{
+                .nav-link{
+                    padding: 0 0 20px 0;
+                    &:not(:last-child){
+                        margin-bottom: 5px;
+                    }
+                }
+                .active{
+                    border-bottom: 2px solid color.$add-to-btn;
+                }
+            }
+        }
         .profile-header{
             padding-bottom: 20px;
             margin-bottom: 40px;
@@ -16,6 +30,38 @@
                     height: 100px;
                     object-fit: contain;
                     border-radius: 50%;
+                }
+            }
+            .right{
+                .row{
+                    margin-bottom: 10px;
+                    .column{
+                        .input-field{
+                            background-color: color.$grey;
+                            padding: 15px;
+                            border-radius: 5px;
+                            .input-header{
+                                position: relative;
+                                svg{
+                                    cursor: pointer;
+                                    position: absolute;
+                                    right: 0px;
+                                }
+                            }
+                        }
+                    }
+
+                   
+                }
+                .btn-row{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .submit-btn{
+                        width: 100px;
+                        padding: 10px;
+                    }
                 }
             }
         }

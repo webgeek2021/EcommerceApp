@@ -23,10 +23,7 @@ const userSchema = new Schema({
         required : true,
         default : false
     },
-    address : {
-        type : String,
-        default : ""
-    }
+    
 })
 
 module.exports = mongoose.model("User", userSchema)

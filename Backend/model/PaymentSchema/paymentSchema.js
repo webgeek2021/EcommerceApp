@@ -8,4 +8,4 @@ const PaymentSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model("PaymentSchema" , PaymentSchema)
+module.exports =  PaymentSchema
