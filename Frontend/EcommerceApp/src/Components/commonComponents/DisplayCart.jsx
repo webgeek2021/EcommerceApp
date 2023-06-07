@@ -8,14 +8,14 @@ import { setShowCart } from '../../ReduxStore/slices/cartSlice';
 import logo from "../../assets/Icons/logo.svg";
 import CartCard from './CartCard';
 import {RemoveAll} from "../../ReduxStore/slices/cartSlice";
-
+import { useNavigate } from 'react-router-dom';
 const DisplayCart = (props) => {
 
 
     const productArr = useSelector(state => state.cart.productList)
     const show = useSelector(state => state.cart.showCart)
     const cartTotal = useSelector(state => state.cart.total)
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     // React.useEffect(() => {
     //     if (productIds.length > 0) {
@@ -30,7 +30,8 @@ const DisplayCart = (props) => {
     }
 
     const handlePayment  = () =>{
-        console.log()
+        handleClose()
+       navigate("/billing")
     }
 
     const list = productArr?.map((prod) => {
@@ -69,7 +70,7 @@ const DisplayCart = (props) => {
                             <div className='total'>
                                 Total : <span className='rupee-symbol'>&#8377;</span> {cartTotal}
                             </div>
-                            <Button className='add-to-cart' onClick={handlePayment}>Proceed To Payment</Button>
+                            <Button className='add-to-cart' onClick={handlePayment}>Place Order</Button>
                         </div>
                         :
                         <div className='cart-empty'>

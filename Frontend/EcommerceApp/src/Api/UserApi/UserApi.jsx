@@ -43,3 +43,42 @@ export const updateUserProfile = async (data)=>{
         console.log(err)
     }
 }
+
+
+export const getShippingDetails = async (data , setFunc)=>{
+    try{
+        const result = await postLoginApi.get("/user/shippingDetails" ,data)
+        if(!result.data.error){
+                const d = result.data.data
+                const obj  = {
+                    country : d?.country || "",
+                    city : d?.city || "",
+                    postalCode : d?.postalCode || "",
+                    state : d?.state || "",
+                    address : d?.address || "",
+                    id : d?._id,
+                    userId : d?.userId
+
+                }
+                console.log("OBJ" , obj)
+                setFunc(obj)
+            }
+        
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const updateShippingDetails = async (data)=>{
+    try{
+
+        const result = await postLoginApi.put("/user/update/shippingDetails" , data)
+        if(!result.data.error){
+            toast.success(result.data.message)
+        }else{
+            toast.error("Something went Wrong")
+        }
+    }catch(err){
+        console.log(err)
+    }
+}

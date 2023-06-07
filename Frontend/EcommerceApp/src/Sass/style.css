@@ -107,6 +107,10 @@ nav, ul {
   padding: 0px;
 }
 
+li {
+  list-style: none;
+}
+
 .sign-out-btn {
   background-color: #FFB84C;
   border-radius: 50px;
@@ -638,14 +642,16 @@ body {
 }
 .profile-page .my-container .profile-sidebar {
   display: flex;
+  margin-right: 30px;
+  width: 20%;
 }
 .profile-page .my-container .profile-sidebar ul .nav-link {
-  padding: 0 0 20px 0;
+  margin: 0 0 20px 0;
 }
 .profile-page .my-container .profile-sidebar ul .nav-link:not(:last-child) {
   margin-bottom: 5px;
 }
-.profile-page .my-container .profile-sidebar ul .active {
+.profile-page .my-container .profile-sidebar ul .nav-link:hover {
   border-bottom: 2px solid #5C8984;
 }
 .profile-page .my-container .profile-header {
@@ -685,4 +691,73 @@ body {
 .profile-page .my-container .profile-form .right .btn-row .submit-btn {
   width: 100px;
   padding: 10px;
+}
+.profile-page .my-container .shippingDetails {
+  width: 100%;
+}
+.profile-page .my-container .shippingDetails .title {
+  padding-bottom: 20px;
+  border-bottom: 2px solid;
+  margin-bottom: 20px;
+}
+.profile-page .my-container .shippingDetails .shipping-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-page .my-container .shippingDetails .shipping-form .add-to-cart {
+  width: 500px;
+}
+.profile-page .my-container .shippingDetails .shipping-form .container-fluid .row {
+  margin-bottom: 10px;
+}
+.profile-page .my-container .shippingDetails .shipping-form .container-fluid .row .column .input-field {
+  background-color: #f2f2f2;
+  padding: 15px;
+  border-radius: 5px;
+}
+.profile-page .my-container .shippingDetails .shipping-form .container-fluid .row .column .input-field .input-header {
+  position: relative;
+}
+.profile-page .my-container .shippingDetails .shipping-form .container-fluid .row .column .input-field .input-header svg {
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+}
+
+.billing_page {
+  margin-top: 20px;
+}
+.billing_page .show-order {
+  padding: 15px;
+  box-shadow: 0 0 1px 1px #f2f2f2;
+  height: -moz-max-content;
+  height: max-content;
+  max-width: 400px;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+.billing_page .show-shipping-details {
+  box-shadow: 0 0 1px 1px #f2f2f2;
+}
+.billing_page .show-shipping-details h5 {
+  padding: 10px 0 0 0;
+}
+.billing_page .show-shipping-details .shipping-detail {
+  padding: 15px;
+}
+.billing_page .show-shipping-details .shipping-detail ul li {
+  display: flex;
+}
+.billing_page .show-shipping-details .shipping-detail ul li:not(:last-child) {
+  margin-bottom: 15px;
+}
+.billing_page .show-shipping-details .shipping-detail ul li .title {
+  font-weight: 700;
+  width: 150px;
+}
+.billing_page .show-shipping-details .shipping-detail .nav-link {
+  margin-top: 20px;
+  color: white;
+  border-radius: 5px;
 }/*# sourceMappingURL=style.css.map */

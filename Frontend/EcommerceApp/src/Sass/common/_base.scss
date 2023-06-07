@@ -96,6 +96,9 @@ nav,ul{
     margin: 0px;
     padding: 0px;
 }
+li{
+    list-style: none;
+}
 
 .sign-out-btn{
     background-color: color.$orange;

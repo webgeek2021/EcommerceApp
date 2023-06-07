@@ -5,15 +5,19 @@ const ProfileSidebar = () => {
   return (
     <nav className='profile-sidebar'>
       <ul className='d-flex flex-column'>
-        <NavLink
-          to={"/profile"}
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+        <li>
+          <NavLink
+            to={"/profile"}
+            className="nav-link"
 
-        >Profile</NavLink>
-        <NavLink
-          to={"/profile/shippingDetails"}
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-        >Shippin Details</NavLink>
+          >Profile</NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={"/profile/shippingDetails"}
+            className="nav-link"
+          >Shippin Details</NavLink>
+        </li>
       </ul>
     </nav>
   )

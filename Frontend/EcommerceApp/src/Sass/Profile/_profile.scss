@@ -1,48 +1,62 @@
-
 @use "../common/colors" as color;
-.profile-page{
+
+.profile-page {
     margin-top: 20px;
-    .my-container{
+
+    .my-container {
         padding: 0 140px;
-        .profile-sidebar{
+
+        .profile-sidebar {
             display: flex;
-            ul{
-                .nav-link{
-                    padding: 0 0 20px 0;
-                    &:not(:last-child){
+            margin-right: 30px;
+            width: 20%;
+
+            ul {
+                .nav-link {
+                    margin: 0 0 20px 0;
+
+                    &:not(:last-child) {
                         margin-bottom: 5px;
                     }
+
+                    &:hover {
+                        border-bottom: 2px solid color.$add-to-btn;
+                    }
                 }
-                .active{
-                    border-bottom: 2px solid color.$add-to-btn;
-                }
+
             }
         }
-        .profile-header{
+
+        .profile-header {
             padding-bottom: 20px;
             margin-bottom: 40px;
             border-bottom: 2px solid color.$black;
         }
-        .profile-form{
-            .left{
-                .user-image{
+
+        .profile-form {
+            .left {
+                .user-image {
                     width: 100px;
                     height: 100px;
                     object-fit: contain;
                     border-radius: 50%;
                 }
             }
-            .right{
-                .row{
+
+            .right {
+                .row {
                     margin-bottom: 10px;
-                    .column{
-                        .input-field{
+
+                    .column {
+                        .input-field {
                             background-color: color.$grey;
                             padding: 15px;
                             border-radius: 5px;
-                            .input-header{
+
+                            .input-header {
                                 position: relative;
-                                svg{
+
+                                svg {
                                     cursor: pointer;
                                     position: absolute;
                                     right: 0px;
@@ -51,16 +65,60 @@
                         }
                     }
 
-                   
+
                 }
-                .btn-row{
+
+                .btn-row {
                     width: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    .submit-btn{
+
+                    .submit-btn {
                         width: 100px;
                         padding: 10px;
+                    }
+                }
+            }
+        }
+
+        .shippingDetails {
+            width: 100%;
+
+            .title {
+                padding-bottom: 20px;
+                border-bottom: 2px solid;
+                margin-bottom: 20px;
+            }
+
+            .shipping-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .add-to-cart{
+                    width: 500px;
+                }
+                .container-fluid {
+                    .row {
+                        margin-bottom: 10px;
+
+                        .column {
+                            .input-field {
+                                background-color: color.$grey;
+                                padding: 15px;
+                                border-radius: 5px;
+
+                                .input-header {
+                                    position: relative;
+
+                                    svg {
+                                        cursor: pointer;
+                                        position: absolute;
+                                        right: 0px;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

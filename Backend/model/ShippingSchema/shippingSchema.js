@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const ShippingSchema = new Schema({
+    userId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    },
     address : {
         type : String,
         required : [true , "Address is required"],
@@ -17,7 +21,11 @@ const ShippingSchema = new Schema({
     country : {
         type : String,
         required : [true , "Country is Required"]
+    },
+    state :{
+        type : String,
+        required : [true, "State is Required "]
     }
 })
 
-module.exports = ShippingSchema
+module.exports = mongoose.model("ShippingSchema", ShippingSchema)

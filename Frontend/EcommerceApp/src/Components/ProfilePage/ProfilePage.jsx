@@ -18,7 +18,7 @@ const ProfilePage = () => {
                     name={user?.name }
                 />
 
-                <div className='d-flex justify-content-between form-container'>
+                <div className='d-flex  form-container'>
                 <ProfileSidebar/>
                 <Outlet/>
                 </div>

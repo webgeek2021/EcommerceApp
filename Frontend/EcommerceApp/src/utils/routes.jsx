@@ -11,6 +11,8 @@ import { useLocation ,Navigate} from "react-router-dom";
 import ProfilePage from "../Components/ProfilePage/ProfilePage";
 import ShippingDetailForm from "../Components/ProfilePage/ShippingDetailForm";
 import ProfileForm from "../Components/ProfilePage/ProfileForm";
+import BillingPage from "../Components/BillingPage/BillingPage";
+
 const ProtectedRoute = ({ element }) => {
     const isAuthenticated = requireAuth()
     const location = useLocation();
@@ -79,6 +81,10 @@ export const routers = [
             path: "/admin/orders",
             element: <ProtectAdminRoute element={<ViewOrders />} />
         },
+        {
+            path : "/billing",
+            element : <ProtectedRoute element={<BillingPage/>}/>
+        }
         ]
     },
 

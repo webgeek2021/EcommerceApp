@@ -4,7 +4,6 @@ const Schema = mongoose.Schema
 
 const PaymentSchema = require("../PaymentSchema/paymentSchema.js");
 const OrderItemSchema = require("./OrderItemSchema");
-const ShippingSchema = require("../ShippingSchema/shippingSchema.js");
 
 const OrderSchema = new Schema({
     userId  : {
@@ -17,8 +16,11 @@ const OrderSchema = new Schema({
         required : [true , "User Email is required"]
     },
     OrderList : [OrderItemSchema],
-    shipping : ShippingSchema,
-    payment : PaymentSchema,
+    shippingId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "ShippingSchema",
+        required : [true , "Shipping Details Are Missing"]
+    },
     totalAmount :{
         type : Number,
         required : true,
@@ -27,6 +29,7 @@ const OrderSchema = new Schema({
     isPaid : {
         type : Boolean,
         required : true,
+        default : false
     },
     paidAt : {
         type : Date

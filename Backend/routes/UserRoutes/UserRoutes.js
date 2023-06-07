@@ -10,4 +10,9 @@ router.route("/getUser")
 router.route("/update/profile")
     .put(isAuth , UserController.updateUser)
 
+router.route("/shippingDetails")
+    .get(isAuth , UserController.getShippingDetails)
+
+router.route("/update/shippingDetails")
+    .put(isAuth , UserController.updateShippingDetails)
 module.exports = router

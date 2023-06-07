@@ -18,7 +18,7 @@ const OrderItemSchema = new Schema({
         type : String,
         required : [true , "Product image is missing"]
     },
-    product : {
+    productId : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "Product",
         required : true
