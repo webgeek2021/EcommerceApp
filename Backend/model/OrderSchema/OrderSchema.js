@@ -11,6 +11,10 @@ const OrderSchema = new Schema({
         ref : "User",
         required : [true , "User Id is required"]
     },
+    razorPayOrderId :{
+        type : String,
+        required : true
+    },
     userEmail : {
         type : String,
         required : [true , "User Email is required"]
@@ -37,7 +41,8 @@ const OrderSchema = new Schema({
     isDelivered : {
         type : Boolean,
         default : false,
-    }
+    },
+    
 },{
     timestamps : true
 }

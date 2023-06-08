@@ -55,7 +55,8 @@ const BillingPage = () => {
             userId : shippingDetails.userId,
             shippingId : shippingDetails.id,
             totalAmount : cartTotal,
-            orderList : orderList
+            OrderList : orderList,
+            userName : user.name
         }
 
         placeOrder(data)

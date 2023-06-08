@@ -9,5 +9,7 @@ const {isAuth , isAdmin} = require("../../middleWare/verifyRoles")
 router.route("/")
     .post(isAuth  , OrderController.PlaceOrder )
 
-
+router.route("/paymentVerification")
+    .post(OrderController.PaymentVerification)
+    
 module.exports = router

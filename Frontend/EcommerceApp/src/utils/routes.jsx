@@ -84,6 +84,10 @@ export const routers = [
         {
             path : "/billing",
             element : <ProtectedRoute element={<BillingPage/>}/>
+        },
+        {
+            path : "/paymentsuccess",
+            element : <ProtectedRoute element={<h1>Payment Success</h1>}/>
         }
         ]
     },
