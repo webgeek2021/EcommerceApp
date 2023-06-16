@@ -9,14 +9,24 @@ import logo from "../../assets/Icons/logo.svg";
 import CartCard from './CartCard';
 import {RemoveAll} from "../../ReduxStore/slices/cartSlice";
 import { useNavigate } from 'react-router-dom';
+import { CART } from '../../utils/constants';
 const DisplayCart = (props) => {
 
 
-    const productArr = useSelector(state => state.cart.productList)
+    const [productArr , setProductArr] = React.useState([]) 
+    const [cartTotal,setCartTotal] = React.useState([]) 
     const show = useSelector(state => state.cart.showCart)
-    const cartTotal = useSelector(state => state.cart.total)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    React.useEffect(()=>{
+        const data = JSON.parse(localStorage.getItem(CART))
+        if(data){
+            const arr = data.productList;
+            setProductArr(arr)
+            const total = data.total
+            setCartTotal(total)
+        }
+    },[])
     // React.useEffect(() => {
     //     if (productIds.length > 0) {
     //         productIds.map((obj) => {

@@ -1,7 +1,8 @@
 const whitelist = [
     "https:www.yoururl.com",
    "http://localhost:5173",
-   "http://localhost:3500"
+   "http://localhost:3500",
+   "http://localhost:3500/order/paymentVerification"
 ]
 
 const corsOptions = {

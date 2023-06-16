@@ -1,7 +1,7 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
-
+import { CART } from '../../utils/constants'
 export const cartSlice = createSlice({
     name : "cart",
     initialState : {
@@ -23,6 +23,12 @@ export const cartSlice = createSlice({
             }
             state.productList.push(action.payload)
             state.total += (action.payload.price * action.payload.orderQuantity)
+            // if(cart){
+                const productList= state.productList
+                const total = state.total
+                const obj = { productList, total}
+                localStorage.setItem(CART , JSON.stringify(obj))
+            // }
         },
         deleteProductFromCart : (state , action )=>{
             console.log("Delete",action.payload)
@@ -33,6 +39,10 @@ export const cartSlice = createSlice({
                 state.total -= isExist.price
                 const newArr = state.productList.filter((obj) => obj.id !== id)
                 state.productList = newArr
+                const productList= state.productList
+                const total = state.total
+                const obj = { productList, total}
+                localStorage.setItem(CART , JSON.stringify(obj))
             }
         },
         totalQuantity : (state , action)=>{
@@ -47,14 +57,18 @@ export const cartSlice = createSlice({
             const prodid = action.payload
             console.log("Delete " ,prodid)
             if(prodid){
-                const arr = state.productIds
                 const newList = arr.filter((obj) => obj.id !== prodid)
                 console.log("NewList" , newList)
-                state.productIds = newList
+                state.productList = newList
+                const productList= state.productList
+                const total = state.total
+                const obj = { productList, total}
+                localStorage.setItem(CART , JSON.stringify(obj))
             }
         },
         RemoveAll : (state , action)=>{
             state.productList = []
+            localStorage.clear(CART)
         }
         
     }

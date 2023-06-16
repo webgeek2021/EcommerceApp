@@ -2,7 +2,7 @@
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
 export const USER_INFO = "user_info"
-
+export const CART = "cart_info"
 export const PRODUCT = {
     ID: "id",
     CATEGORY: "category",

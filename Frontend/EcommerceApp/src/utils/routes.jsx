@@ -12,6 +12,7 @@ import ProfilePage from "../Components/ProfilePage/ProfilePage";
 import ShippingDetailForm from "../Components/ProfilePage/ShippingDetailForm";
 import ProfileForm from "../Components/ProfilePage/ProfileForm";
 import BillingPage from "../Components/BillingPage/BillingPage";
+import OrderHistoryPage from "../Components/ProfilePage/OrderHistoryPage";
 
 const ProtectedRoute = ({ element }) => {
     const isAuthenticated = requireAuth()
@@ -58,6 +59,10 @@ export const routers = [
             {
                 path : "/profile/shippingDetails",
                 element : <ProtectedRoute element={<ShippingDetailForm/>}/>
+            },
+            {
+                path : "/profile/orderHistory",
+                element : <ProtectedRoute element={<OrderHistoryPage/>}/>
             }
         ]
         },

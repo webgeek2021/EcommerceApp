@@ -15,14 +15,10 @@ export const placeOrder = async (data)=>{
             description: "Payment",
             image: Logo,
             order_id: result.data.data.id,
-            callback_url: `http://localhost:3500/order?id=${result.data.data.OrderId}/paymentVerification`,
-            redirect :false,
+            callback_url: `http://localhost:3500/order/paymentVerification`,
             prefill: {
                 name: data.name,
                 email: data.email,
-            },
-            notes: {
-                orderId : result.data.data.OrderId
             },
             theme: {
                 "color": "#121212"
@@ -31,14 +27,11 @@ export const placeOrder = async (data)=>{
         const razor = new window.Razorpay(options);
         razor.open();
 
-
         if(result.data.error){
             toast.error("Something Went Wrong")
         }else{
             toast.success(result.data.message)
         }
-
-        console.log(window)
     }catch(err){
         console.log(err)
     }

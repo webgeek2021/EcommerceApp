@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import CartCard from '../commonComponents/CartCard'
 import { getShippingDetails } from "../../Api/UserApi/UserApi";
 import Cookie from 'js-cookie';
-import { USER_INFO } from '../../utils/constants';
+import { USER_INFO,CART } from '../../utils/constants';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import {placeOrder} from "../../Api/OrderApi/orderApi";
 const BillingPage = () => {
-    const productArr = useSelector(state => state.cart.productList)
-    const cartTotal = useSelector(state => state.cart.total)
+    const [productArr , setProductArr] = React.useState([]) 
+    const [cartTotal,setCartTotal] = React.useState([]) 
     const [shippingDetails, setShippingDetails] = React.useState()
     const [user , setUser] = React.useState()
     React.useEffect(() => {
@@ -19,7 +19,13 @@ const BillingPage = () => {
             const email = data.email
             setUser(data)
             getShippingDetails(email, setShippingDetails)
-
+        }
+        const cartData = JSON.parse(localStorage.getItem(CART))
+        if(cartData){
+            const arr = cartData.productList;
+            setProductArr(arr)
+            const total = cartData.total
+            setCartTotal(total)
         }
     }, [])
 

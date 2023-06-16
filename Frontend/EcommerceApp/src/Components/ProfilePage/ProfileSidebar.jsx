@@ -9,7 +9,6 @@ const ProfileSidebar = () => {
           <NavLink
             to={"/profile"}
             className="nav-link"
-
           >Profile</NavLink>
         </li>
         <li>
@@ -17,6 +16,12 @@ const ProfileSidebar = () => {
             to={"/profile/shippingDetails"}
             className="nav-link"
           >Shippin Details</NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={"/profile/orderHistory"}
+            className="nav-link"
+          >Order History</NavLink>
         </li>
       </ul>
     </nav>

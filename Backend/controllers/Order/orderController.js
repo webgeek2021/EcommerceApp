@@ -31,7 +31,7 @@ const PlaceOrder = async (req, res) => {
     const result = await Order.create(body)
 
     res.status(200).json({
-        "message": "Order Placce Successfully",
+        "message": "Order Place Successfully",
         "error": false,
         "data": order
     })
@@ -45,27 +45,38 @@ const PaymentVerification = async (req, res) => {
     console.log("RazorBody" , req)
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
-
     const expectedSignature = crypto
-        .createHmac("sha256", process.env.RAZORPAY_API_SECRET_KEY)
-        .update(body.toString())
-        .digest("hex");
-
+    .createHmac("sha256", process.env.RAZORPAY_API_SECRET_KEY)
+    .update(body.toString())
+    .digest("hex");
+    
     const isAuthentic = expectedSignature === razorpay_signature;
     
-
+    
     if (isAuthentic) {
         // Database comes here
+        
+        
         console.log("PAymentVerification" , req.body)
         await PaymentSchema.create({
             razorpay_order_id,
             razorpay_payment_id,
             razorpay_signature,
         });
+        const obj = {
+            razorPayOrderId : razorpay_order_id
+        }
+        const order = await Order.findOne(obj).exec()
+        
+        order.isPaid = true
 
+        await order.save()
+        console.log("REdirecting")
         res.redirect(
-            `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
+            // `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
+            `http://localhost:5173/profile`
         );
+
     } else {
         res.status(400).json({
             success: false,
