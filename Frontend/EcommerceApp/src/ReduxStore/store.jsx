@@ -4,6 +4,7 @@ import cartSliceReducer from "./slices/cartSlice"
 import productDataSliceReducer from './slices/productDataSlice'
 import ProfileSliceReducer from './slices/ProfileSlice'
 import Cookie from "js-cookie"
+import OrderSlice from './slices/OrderSlice'
 import { USER_INFO } from '../utils/constants'
 
 
@@ -13,6 +14,7 @@ export default configureStore({
     auth:authSliceReducer,
     cart : cartSliceReducer,
     productData : productDataSliceReducer ,
-    profile : ProfileSliceReducer
+    profile : ProfileSliceReducer,
+    orders : OrderSlice
   }
 })

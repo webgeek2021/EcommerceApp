@@ -1,0 +1,93 @@
+@use "../common/colors";
+@use "../common/function";
+
+.display-order-card {
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    &:not(:last-child){
+        margin-bottom: 10px;
+    }
+    .display-title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        .timeStamp {
+            padding: 0 0 5px 0;
+            font-weight: 700;
+        }
+        .pay-now{
+            color: colors.$white;
+            border-radius: 5px;
+            padding: 5px;
+            background-color: colors.$orange;
+            cursor: pointer;
+        }
+    }
+
+    .order-header {
+        .order-header-wrapper {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: calc(80% / 3);
+            padding: 0 0 5px 0;
+
+            .key {
+                font-weight: 700;
+            }
+
+            .orderId {
+                cursor: pointer;
+
+                &:hover {
+                    padding: 5px;
+                    background-color: colors.$grey;
+                    border-radius: 5px;
+                }
+            }
+
+            .value {
+                .success {
+                    padding: 5px;
+                    color: colors.$white;
+                    background-color: colors.$success;
+                    border-radius: 5px;
+                }
+
+                .failure {
+                    color: colors.$white;
+                    border-radius: 5px;
+                    padding: 5px;
+                    background-color: colors.$red;
+                }
+            }
+        }
+    }
+
+    .order-body {
+        .table {
+            th,td{
+                text-align: center;
+                vertical-align: middle;
+            }
+            tbody {
+                .body-order-wrapper-row {
+                    .order-image img{
+                        width: 80px;
+                        height: 80px;
+                        object-fit: contain;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .order-footer{
+        .total{
+            font-weight: 700;
+        }
+    }
+}

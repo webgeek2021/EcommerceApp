@@ -11,5 +11,8 @@ router.route("/")
 
 router.route("/paymentVerification")
     .post(OrderController.PaymentVerification)
-    
+
+router.route("/getOrder")
+    .post(OrderController.getOrderList)
+
 module.exports = router

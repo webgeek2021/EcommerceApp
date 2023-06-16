@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 import { postLoginApi } from "../baseApi";
 import Logo from "../../assets/Icons/logo.svg"
-
+import { CART } from "../../utils/constants";
+import { setOrderList } from "../../ReduxStore/slices/OrderSlice";
 export const placeOrder = async (data)=>{
     try{
         const result = await postLoginApi.post("/order" , data)
@@ -30,9 +31,21 @@ export const placeOrder = async (data)=>{
         if(result.data.error){
             toast.error("Something Went Wrong")
         }else{
+            localStorage.clear(CART)
             toast.success(result.data.message)
         }
     }catch(err){
         console.log(err)
+    }
+}
+
+
+export const getOrders = async (dispatch , data)=>{
+    try {
+        const result = await postLoginApi.post("/order/getOrder",data)
+        console.log("Result" , result)
+        dispatch(setOrderList(result.data.data))
+    } catch (error) {
+        console.log(error)
     }
 }
