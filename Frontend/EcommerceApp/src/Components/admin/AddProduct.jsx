@@ -23,6 +23,7 @@ const AddProduct = () => {
 
     const columns = React.useMemo(
         () => [
+            {Header : "product Id" , accessor : PRODUCT.ID},
             { Header: 'Name', accessor: PRODUCT.NAME },
             { Header: 'Category', accessor: PRODUCT.CATEGORY },
             { Header: 'Price', accessor: PRODUCT.PRICE },

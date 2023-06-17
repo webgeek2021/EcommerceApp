@@ -1,5 +1,7 @@
 import React from 'react'
-import { Table, Image } from "react-bootstrap";
+import { Table, Image, Button } from "react-bootstrap";
+import { toast } from 'react-toastify';
+import { setOrderStatus } from "../../Api/OrderApi/orderApi";
 const DisplayOrderCard = (props) => {
 
     const orderList = props.body.map((order, index) => {
@@ -20,13 +22,27 @@ const DisplayOrderCard = (props) => {
             </tr>
         )
     })
+
+    const handleDispatch = (orderId) => {
+        const productIds = props.body.map((order) => {
+            return { productId: order.productId, quantity: order.orderQuantity }
+        })
+
+        setOrderStatus({ productIds, orderId })
+        toast.success("Order Status Updated SuccessFully")
+    }
     return (
         <div className='display-order-card'>
-            <div className='display-title'> 
+            <div className='display-title'>
                 <div className='timeStamp'>{props.Date}</div>
-                {
-                    props.header.paymentStatus === false && <div className='pay-now'>Pay Now</div>
-                }
+                <div className='btns d-flex align-items-center '>
+                    {
+                        props.header.paymentStatus === false && !props.isAdmin && <div className='pay-now'>Pay Now</div>
+                    }
+                    {
+                        props.header.paymentStatus === false && !props.isAdmin && <div className='delete-order'>Delete Order</div>
+                    }
+                </div>
             </div>
             <div className='d-flex aling-items-center justify-content-between order-header'>
                 {/* payment id , isPaid , isDelivered */}
@@ -50,10 +66,10 @@ const DisplayOrderCard = (props) => {
                     <span className='key'>Delivery Status</span>
                     <div className='value'>
                         {
-                            props.header.isDeliver ?
-                                <div className='success'>Delivered</div>
+                            props.header.orderStatus === "Pending" || props.header.orderStatus === "" ?
+                                <div className='failure'>Pending</div>
                                 :
-                                <div className='failure'>Not Delivered</div>
+                                <div className='success'>Shipped</div>
                         }
                     </div>
                 </div>
@@ -77,8 +93,14 @@ const DisplayOrderCard = (props) => {
             </div>
             <div className='d-flex align-items-center justify-content-between order-footer'>
                 {/* total amount  */}
-                <div className='total'>Total</div>
-                <div><span>&#8377;</span>  <span className='total'>{props.total}</span></div>
+                <div>
+                    <div className='total'>Total</div>
+                    <div><span>&#8377;</span>  <span className='total'>{props.total}</span></div>
+                </div>
+                {
+                    props.isAdmin &&
+                    <Button className="dispatch-btn btn-warning" onClick={() => handleDispatch(props.orderId)}>Dispatch For Delivery</Button>
+                }
             </div>
         </div>
     )

@@ -2,12 +2,13 @@
 const Order = require("../../model/OrderSchema/OrderSchema")
 const Razorpay = require("razorpay")
 const crypto = require("crypto")
+const Product = require("../../model/ProductSchema/Product")
 const PaymentSchema = require("../../model/PaymentSchema/paymentSchema")
 
 const PlaceOrder = async (req, res) => {
     const body = req.body
 
-    if (!body.userEmil) {
+    if (!body.userEmail) {
         return res.status(400).json({
             "message": "Something Went Wrong",
             "error": true
@@ -95,7 +96,7 @@ const getOrderList = async (req, res) => {
     }
     try {
         const email = body.email
-        const list = await Order.find({userEmail :  email }).exec()
+        const list = await Order.find({ userEmail: email }).exec()
         console.log("LIST", list)
         res.status(200).json({
             data: list,
@@ -110,4 +111,61 @@ const getOrderList = async (req, res) => {
     }
 
 }
-module.exports = { PlaceOrder, PaymentVerification, getOrderList }
+
+const getAllOrders = async (req, res) => {
+
+    try {
+        const data = await Order.find().exec()
+
+        res.status(200).json({
+            data: data,
+            message: "data fetched Successfully",
+            error: false
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(200).json({
+            message: "Something Went Wrong",
+            error: true
+        })
+    }
+}
+
+const setOrderStatus = async (req, res) => {
+    const body = req.body
+    console.log("Body", body)
+    if (!body) {
+        res.status(400).json({
+            message: "Something Went Wrong",
+            error: true
+        })
+    }
+
+    const { productIds, orderId } = req.body
+    console.log(productIds, orderId)
+    const _id = orderId
+    const currentOrder = await Order.findOne({ _id }).exec()
+    if (currentOrder) {
+        console.log("Current Order" , currentOrder)
+        currentOrder.orderStatus = "Shipped"
+        await currentOrder.save()
+    }
+
+    // set product quantity
+
+    productIds.map(async (product) => {
+        const _id = product.productId
+        const currentProduct = await Product.findById({ _id }).exec()
+        if (currentProduct) {
+            // Update the product quantity here
+            currentProduct.quantity -= product.quantity;
+            await currentProduct.save();
+        }
+    })
+
+    res.status(200).json({
+        message: "Updated SuccessFully",
+        error: false
+    })
+}
+module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus }

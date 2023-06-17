@@ -15,4 +15,10 @@ router.route("/paymentVerification")
 router.route("/getOrder")
     .post(OrderController.getOrderList)
 
+router.route("/getAllOrder")
+    .get(OrderController.getAllOrders)
+
+router.route("/setOrderStatus")
+    .put(OrderController.setOrderStatus)
+
 module.exports = router

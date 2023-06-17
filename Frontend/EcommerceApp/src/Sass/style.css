@@ -829,4 +829,12 @@ body {
 }
 .display-order-card .order-footer .total {
   font-weight: 700;
+}
+.display-order-card .order-footer .dispatch-btn {
+  padding: 5px;
+  color: white;
+}
+
+.admin-order-page {
+  margin: 20px 0 0 0;
 }/*# sourceMappingURL=style.css.map */

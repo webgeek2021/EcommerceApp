@@ -3,6 +3,7 @@ import { postLoginApi } from "../baseApi";
 import Logo from "../../assets/Icons/logo.svg"
 import { CART } from "../../utils/constants";
 import { setOrderList } from "../../ReduxStore/slices/OrderSlice";
+
 export const placeOrder = async (data)=>{
     try{
         const result = await postLoginApi.post("/order" , data)
@@ -47,5 +48,26 @@ export const getOrders = async (dispatch , data)=>{
         dispatch(setOrderList(result.data.data))
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const getAllOrders = async (setOrderList)=>{
+    try{
+        const result = await postLoginApi.get("/order/getAllOrder")
+        setOrderList(result.data.data)
+        console.log(result)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const setOrderStatus = async (data)=>{
+    try{
+        console.log("OrderStatus" , data)
+
+        const result = await postLoginApi.put("/order/setOrderStatus" , data)
+        console.log(result)
+    }catch(err){
+        console.log(err)
     }
 }

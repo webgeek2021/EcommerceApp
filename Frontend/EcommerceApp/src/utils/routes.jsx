@@ -13,7 +13,7 @@ import ShippingDetailForm from "../Components/ProfilePage/ShippingDetailForm";
 import ProfileForm from "../Components/ProfilePage/ProfileForm";
 import BillingPage from "../Components/BillingPage/BillingPage";
 import OrderHistoryPage from "../Components/ProfilePage/OrderHistoryPage";
-
+import AdminOrderPage from "../Components/admin/AdminOrderPage";
 const ProtectedRoute = ({ element }) => {
     const isAuthenticated = requireAuth()
     const location = useLocation();
@@ -84,7 +84,7 @@ export const routers = [
         },
         {
             path: "/admin/orders",
-            element: <ProtectAdminRoute element={<ViewOrders />} />
+            element: <ProtectAdminRoute element={<AdminOrderPage />} />
         },
         {
             path : "/billing",

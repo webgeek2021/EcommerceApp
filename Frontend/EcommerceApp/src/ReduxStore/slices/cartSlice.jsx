@@ -5,7 +5,7 @@ import { CART } from '../../utils/constants'
 export const cartSlice = createSlice({
     name : "cart",
     initialState : {
-        productList : [],
+        productList : JSON.parse(localStorage.getItem(CART))?.productList || [],
         showCart : false,
         total : 0
     },
@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
         insertProductIntoCart : (state ,action) =>{
             // store data in localstorage
             console.log(action.payload.id)
-            
+            console.log(state.productList)
             const arr = state.productList
             const findid = arr.find((obj) => obj.id === action.payload.id)
             console.log(findid)
@@ -33,6 +33,7 @@ export const cartSlice = createSlice({
         deleteProductFromCart : (state , action )=>{
             console.log("Delete",action.payload)
             const id = action.payload
+            console.log("Product List" , state.productList)
             const isExist = state.productList.find((obj) => obj.id === id)
             console.log("IsExist" , isExist)
             if(isExist){

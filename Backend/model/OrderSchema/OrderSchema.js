@@ -11,6 +11,11 @@ const OrderSchema = new Schema({
         ref : "User",
         required : [true , "User Id is required"]
     },
+    orderStatus : {
+        type : String,
+        required : true,
+        default : "Pending"
+    },
     razorPayOrderId :{
         type : String,
         required : true
