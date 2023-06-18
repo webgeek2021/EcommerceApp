@@ -14,12 +14,12 @@ import Cookie from "js-cookie";
 const Header = () => {
 
   const [user, setUser] = React.useState(null)
-  React.useEffect(()=>{
+  React.useEffect(() => {
     const user = Cookie.get(USER_INFO)
-    if(user){
+    if (user) {
       setUser(JSON.parse(user))
     }
-  },[])
+  }, [])
   const navigate = useNavigate()
   const dispatch = useDispatch()
   // React.useEffect(() => {
@@ -36,9 +36,9 @@ const Header = () => {
     dispatch(LogOutUser())
     navigate("/auth")
   }
-  const handleShow = ()=>{
+  const handleShow = () => {
     // return ()=> {
-      dispatch(setShowCart)
+    dispatch(setShowCart)
     // }
   }
   return (
@@ -56,14 +56,18 @@ const Header = () => {
               user?.isAdmin ?
                 <>
                   <div className="nav-li">
-                    <NavLink to="/admin/add-product">Add Product</NavLink>
+                    <NavLink to="/admin"> Home</NavLink>
                   </div>
                   <div className="nav-li">
                     <NavLink to="/admin/orders"> Orders</NavLink>
                   </div>
                   <div className="nav-li">
-                    <NavLink to="/admin"> Home</NavLink>
+                    <NavLink to="/admin/add-product">Add Product</NavLink>
                   </div>
+                  <div className="nav-li">
+                    <NavLink to="/admin/add-category">Add Category</NavLink>
+                  </div>
+
                 </>
                 :
                 <div className='header__dropdown'>
@@ -79,7 +83,9 @@ const Header = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <NavLink to="/profile" className="dropdown-item">Profile</NavLink>
+              {!user?.isAdmin &&
+                <NavLink to="/profile" className="dropdown-item">Profile</NavLink>
+              }
               {
                 user?.token ?
                   <div className='dropdown-item' onClick={handleSignOut}>Sign Out</div>
@@ -94,10 +100,12 @@ const Header = () => {
             <FiShoppingCart />
           </NavLink>
            */}
-          <button className='nav-link cart' onClick={()=>dispatch(setShowCart())}>
-            <FiShoppingCart />
-          </button>
-         
+          {!user?.isAdmin &&
+            <button className='nav-link cart' onClick={() => dispatch(setShowCart())}>
+              <FiShoppingCart />
+            </button>
+          }
+
         </Navbar.Collapse>
 
       </Container>

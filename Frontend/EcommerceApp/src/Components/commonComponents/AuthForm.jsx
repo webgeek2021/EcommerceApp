@@ -7,7 +7,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import GoogleIcon from "../../assets/Icons/googleIcon.svg"
 import { signIn, signInGoogle, signUp, signUpGoogle } from '../../Api/AuthApi/authApi';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { VscEye, VscEyeClosed } from "react-icons/vsc"
 
 const AuthForm = () => {
@@ -39,7 +39,7 @@ const AuthForm = () => {
     const handleAuthSubmit = (event) => {
         event.preventDefault()
 
-       if (formvalues.email !== "" && formvalues.password !== "") {
+        if (formvalues.email !== "" && formvalues.password !== "") {
             const email = formvalues.email
             const password = formvalues.password
             dispatch(signIn({ email, password }, navigate))
@@ -56,7 +56,7 @@ const AuthForm = () => {
     const handleGoogleAuthSuccess = (tokenResponse) => {
         const accessToken = tokenResponse.access_token
         console.log(accessToken)
-        dispatch(signInGoogle(accessToken,navigate))
+        dispatch(signInGoogle(accessToken, navigate))
     }
     const loginAuth = useGoogleLogin({ onSuccess: handleGoogleAuthSuccess })
 
@@ -80,7 +80,7 @@ const AuthForm = () => {
     const handleGoogleSignUp = (tokenResponse) => {
         const accessToken = tokenResponse.access_token
         console.log(accessToken)
-        dispatch(signUpGoogle(accessToken,navigate))
+        dispatch(signUpGoogle(accessToken, navigate))
     }
     const signUpAuth = useGoogleLogin({ onSuccess: handleGoogleSignUp })
 
@@ -118,7 +118,7 @@ const AuthForm = () => {
                     required
                     className="c-pointer"
                 />
-               { mode === "signUp" && <div className='d-flex align-items-center justify-content-between confirm_password_container'>
+                {mode === "signUp" && <div className='d-flex align-items-center justify-content-between confirm_password_container'>
                     <Form.Control
                         type={type}
                         value={formvalues.confirmPassword}
@@ -157,6 +157,9 @@ const AuthForm = () => {
                         Already Have Account ? SignIn
                     </p>
                 }
+                <div className="back-btn">
+                    <NavLink to={"/"} >Back to Home Page</NavLink>
+                </div>
             </Form>
         </div>
     )

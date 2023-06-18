@@ -14,12 +14,14 @@ import ProfileForm from "../Components/ProfilePage/ProfileForm";
 import BillingPage from "../Components/BillingPage/BillingPage";
 import OrderHistoryPage from "../Components/ProfilePage/OrderHistoryPage";
 import AdminOrderPage from "../Components/admin/AdminOrderPage";
+import AddCategory from "../Components/admin/AddCategory";
+
 const ProtectedRoute = ({ element }) => {
     const isAuthenticated = requireAuth()
     const location = useLocation();
 
     if (!isAuthenticated && location.pathname !== "/auth") {
-        return <Navigate to="/" />;
+        return <Navigate to="/auth" />;
     }
 
     return element;
@@ -31,7 +33,7 @@ const ProtectAdminRoute = ({element}) =>{
     const location = useLocation
     console.log(isAuth , location)
     if(!isAuth && location.pathname !== "/auth"){
-        return <Navigate to="/" />
+        return <Navigate to="/auth" />
     }
     return element
 }
@@ -77,6 +79,10 @@ export const routers = [
         {
             path: "/admin/add-product",
             element: <ProtectAdminRoute element={<AddProduct />} />
+        },
+        {
+           path : "/admin/add-category",
+           element : <ProtectAdminRoute element={<AddCategory/>}/> 
         },
         {
             path: "/admin/product/:id",

@@ -156,6 +156,10 @@ li {
   border: none;
 }
 
+.vh-80 {
+  height: 80vh;
+}
+
 input:focus {
   outline: none;
 }
@@ -275,7 +279,11 @@ body {
   outline: none;
   box-shadow: none;
 }
-.authForm__container .auth__form .form-control, .authForm__container .auth__form .title, .authForm__container .auth__form .or-div, .authForm__container .auth__form .btn, .authForm__container .auth__form p {
+.authForm__container .auth__form .form-control,
+.authForm__container .auth__form .title,
+.authForm__container .auth__form .or-div,
+.authForm__container .auth__form .btn,
+.authForm__container .auth__form p {
   margin-bottom: 10px;
 }
 .authForm__container .auth__form .confirm_password_container .form-control {
@@ -293,6 +301,15 @@ body {
 .authForm__container .auth__form .auth-button img {
   width: 24px;
   height: 24px;
+}
+.authForm__container .auth__form .back-btn {
+  text-align: center;
+}
+.authForm__container .auth__form .back-btn a {
+  color: blue;
+}
+.authForm__container .auth__form .back-btn a:hover {
+  text-decoration: underline;
 }
 
 .display-cart-container .offcanvas-header .offcanvas-title {
@@ -837,4 +854,15 @@ body {
 
 .admin-order-page {
   margin: 20px 0 0 0;
+}
+
+.admin-panel-container {
+  margin: 20px 0 0 0;
+}
+.admin-panel-container .admin-panel-header {
+  padding: 10px;
+  background-color: #7AA874;
+  color: white;
+  font-size: 1.5625rem;
+  margin-bottom: 20px;
 }/*# sourceMappingURL=style.css.map */

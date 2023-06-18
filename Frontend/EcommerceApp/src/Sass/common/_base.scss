@@ -139,7 +139,9 @@ li{
     background-color: color.$add-to-btn;
     border: none;
 }
-
+.vh-80{
+    height: 80vh;
+}
 input{
     &:focus{
         outline: none;

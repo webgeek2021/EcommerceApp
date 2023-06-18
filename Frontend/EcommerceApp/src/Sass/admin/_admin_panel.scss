@@ -1,0 +1,14 @@
+@use "../common/colors" as colors;
+@use "../common/function" as func;
+
+
+.admin-panel-container {
+    margin: 20px 0 0 0;
+    .admin-panel-header {
+        padding: 10px ;
+        background-color: colors.$learn_more_btn;
+        color: colors.$white;
+        font-size: func.to-rem(25);
+        margin-bottom: 20px;
+    }
+}

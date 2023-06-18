@@ -21,4 +21,6 @@ router.route("/getAllOrder")
 router.route("/setOrderStatus")
     .put(OrderController.setOrderStatus)
 
+router.route("/getTotal")
+    .get(OrderController.getTotalAmount)
 module.exports = router

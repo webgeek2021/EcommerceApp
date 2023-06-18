@@ -16,7 +16,7 @@ const ProductCard = (props) => {
           <Rating
             rating={props.rating}
           />
-          <Button className='add-to-cart'>Add To Cart</Button>
+          {/* <Button className='add-to-cart'>Explore</Button> */}
         </Card.Body>
       </Card>
     </Link>

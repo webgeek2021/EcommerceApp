@@ -59,19 +59,20 @@ const PaymentVerification = async (req, res) => {
 
 
         console.log("PAymentVerification", req.body)
-        await PaymentSchema.create({
-            razorpay_order_id,
-            razorpay_payment_id,
-            razorpay_signature,
-        });
         const obj = {
             razorPayOrderId: razorpay_order_id
         }
         const order = await Order.findOne(obj).exec()
 
         order.isPaid = true
-
+        
         await order.save()
+        
+        await PaymentSchema.create({
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature
+        });
         console.log("REdirecting")
         res.redirect(
             // `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
@@ -168,4 +169,35 @@ const setOrderStatus = async (req, res) => {
         error: false
     })
 }
-module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus }
+
+const getTotalAmount = async (req,res)=>{
+    try{
+        const Payments = await PaymentSchema.find().exec()
+        console.log("Payments" , Payments)
+        const amount = await Payments.reduce(async (accPromise, payment) => {
+            const acc = await accPromise;
+            const razorPayOrderId = payment.razorpay_order_id;
+            const order = await Order.find({ razorPayOrderId }).exec();
+      
+            if (order.length > 0) {
+              return acc + order[0].totalAmount;
+            }
+      
+            return acc;
+          }, Promise.resolve(0));
+          
+        res.status(200).json({
+            "message" : "successfully query",
+            "total" : amount,
+            error : false
+        })
+
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : "Something Went Wrong",
+            error : true
+        })
+    }
+}
+module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus,getTotalAmount }

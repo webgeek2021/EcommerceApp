@@ -6,8 +6,8 @@ import ProfileSliceReducer from './slices/ProfileSlice'
 import Cookie from "js-cookie"
 import OrderSlice from './slices/OrderSlice'
 import { USER_INFO } from '../utils/constants'
-
-
+import adminDashboardReducer from './slices/adminDashboard'
+import categoryReducer from "./slices/categorySlice";
 
 export default configureStore({
   reducer: {
@@ -15,6 +15,8 @@ export default configureStore({
     cart : cartSliceReducer,
     productData : productDataSliceReducer ,
     profile : ProfileSliceReducer,
-    orders : OrderSlice
+    orders : OrderSlice,
+    admin : adminDashboardReducer,
+    category : categoryReducer
   }
 })

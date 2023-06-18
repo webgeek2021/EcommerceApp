@@ -33,7 +33,7 @@ app.use("/auth", require("./routes/AuthRoutes/auth"))
 app.use("/products", require("./routes/ProductRoutes/product"))
 app.use("/order", require("./routes/OrderRoutes/OrderRoutes"))
 app.use("/user", require("./routes/UserRoutes/UserRoutes"))
-
+app.use("/category" , require("./routes/CategoryRoutes/CategoryRoutes"))
 mongoose.connection.once('open', () => {
     console.log("Connected TO MongoDB")
     app.listen(PORT, () => console.log(`Server Running On Port ${PORT}`));

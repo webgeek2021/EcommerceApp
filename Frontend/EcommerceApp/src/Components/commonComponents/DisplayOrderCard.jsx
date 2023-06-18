@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Image, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
-import { setOrderStatus } from "../../Api/OrderApi/orderApi";
+import { payNow, setOrderStatus } from "../../Api/OrderApi/orderApi";
 const DisplayOrderCard = (props) => {
 
     const orderList = props.body.map((order, index) => {
@@ -22,7 +22,14 @@ const DisplayOrderCard = (props) => {
             </tr>
         )
     })
-
+    const handlePayNow = ()=>{
+        const data = {
+            id : props.header.orderId,
+            amount : props.total,
+            email : props.email,
+        }
+        payNow(data)
+    }
     const handleDispatch = (orderId) => {
         const productIds = props.body.map((order) => {
             return { productId: order.productId, quantity: order.orderQuantity }
@@ -37,7 +44,7 @@ const DisplayOrderCard = (props) => {
                 <div className='timeStamp'>{props.Date}</div>
                 <div className='btns d-flex align-items-center '>
                     {
-                        props.header.paymentStatus === false && !props.isAdmin && <div className='pay-now'>Pay Now</div>
+                        props.header.paymentStatus === false && !props.isAdmin && <div className='pay-now' onClick={handlePayNow}>Pay Now</div>
                     }
                     {
                         props.header.paymentStatus === false && !props.isAdmin && <div className='delete-order'>Delete Order</div>
@@ -66,7 +73,7 @@ const DisplayOrderCard = (props) => {
                     <span className='key'>Delivery Status</span>
                     <div className='value'>
                         {
-                            props.header.orderStatus === "Pending" || props.header.orderStatus === "" ?
+                            props.header.orderStatus === "Pending"  ?
                                 <div className='failure'>Pending</div>
                                 :
                                 <div className='success'>Shipped</div>
@@ -99,7 +106,11 @@ const DisplayOrderCard = (props) => {
                 </div>
                 {
                     props.isAdmin &&
-                    <Button className="dispatch-btn btn-warning" onClick={() => handleDispatch(props.orderId)}>Dispatch For Delivery</Button>
+                    <Button
+                        className="dispatch-btn btn-warning"
+                        disabled={props.header.orderStatus === "Shipped" ? true : false} 
+                        onClick={() => handleDispatch(props.orderId)}
+                        >Dispatch For Delivery</Button>
                 }
             </div>
         </div>

@@ -46,7 +46,7 @@ const AddProduct = () => {
     return (
         <div className='my-container add_product_container '>
             <h1>Products</h1>
-            <p>Fill in the details below to add a new product:</p>
+            {/* <p>Fill in the details below to add a new product:</p> */}
 
             <div className='add_product_btn'>
                 <Button onClick={()=>setAddModal(prev => !prev)}>
@@ -76,7 +76,7 @@ const AddProduct = () => {
 
                                             <td {...cell.getCellProps()}>{
                                                 cell.value === true ? <Badge pill bg="success">Available</Badge > :
-                                                    cell.value === false ? <Badge pill bg="danget">Not Available</Badge > :
+                                                    cell.value === false ? <Badge pill bg="danger">Not Available</Badge > :
                                                         cell.render('Cell')}
                                             </td>
                                         ))}

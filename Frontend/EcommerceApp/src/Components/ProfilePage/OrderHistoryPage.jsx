@@ -32,6 +32,7 @@ const OrderHistoryPage = () => {
         header={{orderId , paymentStatus , isDeliver}}
         body = {order.OrderList}
         total= {order.totalAmount}
+        email = {order.userEmail}
       />
     )
   })

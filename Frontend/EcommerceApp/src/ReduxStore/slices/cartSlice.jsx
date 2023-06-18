@@ -7,7 +7,7 @@ export const cartSlice = createSlice({
     initialState : {
         productList : JSON.parse(localStorage.getItem(CART))?.productList || [],
         showCart : false,
-        total : 0
+        total : JSON.parse(localStorage.getItem(CART))?.total || 0
     },
     reducers: {
         insertProductIntoCart : (state ,action) =>{

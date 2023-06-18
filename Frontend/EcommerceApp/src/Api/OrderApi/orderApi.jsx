@@ -3,7 +3,7 @@ import { postLoginApi } from "../baseApi";
 import Logo from "../../assets/Icons/logo.svg"
 import { CART } from "../../utils/constants";
 import { setOrderList } from "../../ReduxStore/slices/OrderSlice";
-
+import { setTotalEarning } from "../../ReduxStore/slices/adminDashboard";
 export const placeOrder = async (data)=>{
     try{
         const result = await postLoginApi.post("/order" , data)
@@ -40,6 +40,32 @@ export const placeOrder = async (data)=>{
     }
 }
 
+export const payNow =  async (data)=>{
+    console.log(data)
+    try {
+        const options = {
+            key : import.meta.env.VITE_RAZORPAY_API_KEY,
+            amount: data.amount,
+            currency: "INR",
+            name: "ShopCart",
+            description: "Payment",
+            image: Logo,
+            order_id: data.id,
+            callback_url: `http://localhost:3500/order/paymentVerification`,
+            prefill: {
+                email: data.email,
+                name : ""
+            },
+            theme: {
+                "color": "#121212"
+            }
+        };
+        const razor = new window.Razorpay(options);
+        razor.open();
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const getOrders = async (dispatch , data)=>{
     try {
@@ -67,6 +93,16 @@ export const setOrderStatus = async (data)=>{
 
         const result = await postLoginApi.put("/order/setOrderStatus" , data)
         console.log(result)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const getTotalAmount = async (dispatch)=>{
+    try{
+        const data = await postLoginApi.get("/order/getTotal")
+        console.log("Total " , data)
+        dispatch(setTotalEarning(data.data.total))
     }catch(err){
         console.log(err)
     }
