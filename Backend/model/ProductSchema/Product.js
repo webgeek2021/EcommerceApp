@@ -7,6 +7,10 @@ const Product = new Schema({
         type: String,
         required: [true, "Product must belong to a Category"],
     },
+    subCategroy : {
+        type : String,
+        required : [true , "Product Subcategory is missing" ]
+    },
     name: {
         type: String,
         trime: true,

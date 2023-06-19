@@ -7,12 +7,15 @@ import { Image, Button } from 'react-bootstrap';
 import { FiEdit3 } from "react-icons/fi";
 import { convertBase64 } from '../../utils/constants';
 import DeleteConfirmation from './DeleteConfirmation';
+import Cookie from "js-cookie";
 const ProductDisplay = () => {
 
   const [productData, setProductData] = React.useState()
-  const userInfo = JSON.parse(localStorage.getItem(USER_INFO));
+  // const userInfo = JSON.parse(localStorage.getItem(USER_INFO));
+  const [user,setUser] = React.useState(null)
+
   const [productUrl, setProductUrl] = React.useState()
-  const [admin, setAdmin] = React.useState(userInfo?.roles?.Admin === ADMIN ? true : false)
+  // const [admin, setAdmin] = React.useState(userInfo?.roles?.Admin === ADMIN ? true : false)
   const [formData, setFormData] = React.useState({
     "category": "",
     "name": "",
@@ -33,6 +36,10 @@ const ProductDisplay = () => {
   const { id } = useParams()
 
   React.useEffect(() => {
+    const user = Cookie.get(USER_INFO)
+    if (user) {
+      setUser(JSON.parse(user))
+    }
     const getData = async () => {
       const data = await getProductById(id)
       setProductData(data)
@@ -91,7 +98,7 @@ const ProductDisplay = () => {
         <div className='d-flex flex-column image_section'>
           <Image src={productUrl} alt="" className='img' />
           {
-            admin &&
+            user?.isAdmin &&
             <input
               type="file"
               name="image"

@@ -45,7 +45,7 @@ const addProduct = async (req, res) => {
     }
     const data = req.body;
     console.log("Data" , data)
-    if (!data.category || !data.name || !data.description || !data.price || !data.quantity || !req.file) {
+    if (!data.category || !data.subCategroy || !data.name || !data.description || !data.price || !data.quantity || !req.file) {
         res.status(400).json({
             "message": "Some data fields are missing",
             "error": true
@@ -71,7 +71,8 @@ const addProduct = async (req, res) => {
             "image": cldRes.secure_url,
             "description": data.description,
             "price": data.price,
-            "quantity": data.quantity
+            "quantity": data.quantity,
+            "subCategroy" : data.subCategroy
         })
 
         res.status(201).json({
@@ -105,22 +106,26 @@ const updateProduct = async (req, res) => {
             })
         }
         // console.log(req.body.image)
-        const b64 = Buffer.from(req.file.buffer).toString("base64");
-        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-        const cldRes = await handleUpload(dataURI , `EcommerceApp/${req.body.category}`)
+        if(req.file){
+            const b64 = Buffer.from(req.file.buffer).toString("base64");
+            let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+            const cldRes = await handleUpload(dataURI , `EcommerceApp/${req.body.category}`)
 
-        if (cldRes.secure_url !== product.image) {
-            // let options = opts
-            // options.folder = `EcommerceApp/${req.body.category}`
-            // const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
-            //     if (err) console.log("err", err)
-            //     console.log("res", result)
-            // })
-            // console.log("REUSLT", url)
-            product.image = cldRes.secure_url;
+            if (cldRes.secure_url !== product.image) {
+                // let options = opts
+                // options.folder = `EcommerceApp/${req.body.category}`
+                // const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
+                //     if (err) console.log("err", err)
+                //     console.log("res", result)
+                // })
+                // console.log("REUSLT", url)
+                product.image = cldRes.secure_url;
+            }
         }
 
+
         if (req.body?.category !== product.category) product.category = req.body.category
+        if (req.body?.subCategroy !== product.subCategroy) product.subCategroy = req.body.subCategroy
         if (req.body?.name !== product.name) product.name = req.body.name
         if (req.body?.price !== product.price) product.price = req.body.price
         if (req.body?.quantity !== product.quantity) product.quantity = req.body.quantity

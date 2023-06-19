@@ -9,7 +9,7 @@ const CategorySchema = new Schema({
         lowercase: true,
         required: [true, "Category name is required"],
         minlength: [3, "Category name minimum length 3 characters"],
-        maxlength: [30, "Category name maximum length 30 characters"],
+        maxlength: [100, "Category name maximum length 30 characters"],
     },
     image: {
         type: String,

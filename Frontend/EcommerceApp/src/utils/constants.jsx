@@ -7,6 +7,7 @@ export const CART = "cart_info"
 export const PRODUCT = {
     ID: "id",
     CATEGORY: "category",
+    SUBCATEGORY : "subCategroy",
     DESCRIPTION: "description",
     IMAGE: "image",
     STATUS: "isAvailable",

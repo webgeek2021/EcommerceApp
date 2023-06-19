@@ -3,20 +3,28 @@ import React from 'react'
 import { getAllCategories } from "../../Api/CategoryApi/categoryApi"
 import { useDispatch, useSelector } from "react-redux";
 import { GrAdd } from 'react-icons/gr';
-import {Button } from "react-bootstrap"
+import { Button, Image } from "react-bootstrap"
+import AddCategoryModalForm from './AddCategoryModalForm';
+import { NavLink } from 'react-router-dom';
 const AddCategory = () => {
   const dispatch = useDispatch()
-  const [category, setCategory] = React.useState(useSelector(state => state.category.categoryList))
-  const [addModal , setAddModal] = React.useState(false)
+  const category = useSelector(state => state.category.categoryList)
+  const [addModal, setAddModal] = React.useState(false)
+
   React.useEffect(() => {
     getAllCategories(dispatch)
   }, [])
 
   const data = category?.map((cat) => {
+    console.log("cat", cat)
     return (
-      <div className='category-card'>
-        <h4>{cat.name}</h4>
-      </div>
+      <NavLink 
+        className='category-card'
+        to={`/admin/category/${cat.category}`}
+      >
+        <Image src={cat.image} alt=""/>
+        <h4>{cat.category}</h4>
+      </NavLink>
     )
   })
 
@@ -32,10 +40,23 @@ const AddCategory = () => {
           <span>Add Category</span>
         </Button>
       </div>
+
       {
-        data.length > 0 ? data : <div className='d-flex align-items-center justify-content-center vh-80'>No Data Found</div>
+        data.length > 0 ?
+          <div className=' d-flex flex-wrap card-container'>
+            {data}
+          </div>
+          :
+          <div className='d-flex align-items-center justify-content-center vh-80'>No Data Found</div>
       }
 
+      {
+        addModal &&
+        <AddCategoryModalForm
+          show={addModal}
+          handleShow={setAddModal}
+        />
+      }
     </div>
   )
 }

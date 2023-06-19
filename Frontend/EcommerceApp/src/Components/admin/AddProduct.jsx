@@ -26,6 +26,7 @@ const AddProduct = () => {
             {Header : "product Id" , accessor : PRODUCT.ID},
             { Header: 'Name', accessor: PRODUCT.NAME },
             { Header: 'Category', accessor: PRODUCT.CATEGORY },
+            { Header: 'subCategroy', accessor: PRODUCT.SUBCATEGORY },
             { Header: 'Price', accessor: PRODUCT.PRICE },
             { Header: 'Quantity', accessor: PRODUCT.QUANTITY },
             { Header: 'Status', accessor: PRODUCT.STATUS },

@@ -15,6 +15,7 @@ import BillingPage from "../Components/BillingPage/BillingPage";
 import OrderHistoryPage from "../Components/ProfilePage/OrderHistoryPage";
 import AdminOrderPage from "../Components/admin/AdminOrderPage";
 import AddCategory from "../Components/admin/AddCategory";
+import CategoryPage from "../Components/admin/CategoryPage";
 
 const ProtectedRoute = ({ element }) => {
     const isAuthenticated = requireAuth()
@@ -83,6 +84,9 @@ export const routers = [
         {
            path : "/admin/add-category",
            element : <ProtectAdminRoute element={<AddCategory/>}/> 
+        },{
+            path : "/admin/category/:category",
+            element : <ProtectAdminRoute element={<CategoryPage/>}/>
         },
         {
             path: "/admin/product/:id",

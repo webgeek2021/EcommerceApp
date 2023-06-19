@@ -35,7 +35,7 @@ const handleSignUp = async (req, res) => {
                 email: result.email,
                 id: result._id,
                 isAdmin : result.isAdmin
-            }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
+            }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1d" })
 
             const role = result.isAdmin
             console.log(result , role)
@@ -83,7 +83,7 @@ const handleSignUp = async (req, res) => {
                 email: result.email,
                 id: result._id,
                 isAdmin : result.isAdmin
-            }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
+            }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1d" })
 
             const isAdmin = result.isAdmin;
             res.status(200).json({ userName ,isAdmin,email , token ,error : false , message : "Signup successful!"})
@@ -127,7 +127,7 @@ const handleSignIn = async (req, res) => {
                 email: existingUser.email,
                 id: existingUser._id,
                 isAdmin : existingUser.isAdmin
-            }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1h" })
+            }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1d" })
             
             const isAdmin = existingUser.isAdmin
             res.status(200).json({ name , email ,isAdmin, token ,error : false,  message : "SignIn successful!"})
@@ -167,7 +167,7 @@ const handleSignIn = async (req, res) => {
                     isAdmin : existUser.isAdmin
                 },
                 process.env.JWT_ACCESS_TOKEN
-                , { expiresIn: "1h" }
+                , { expiresIn: "1d" }
             )
             const name = existUser.name
             const isAdmin = existUser.isAdmin

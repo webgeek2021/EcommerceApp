@@ -13,6 +13,7 @@ const AddProductModalForm = (props) => {
         "image": "",
         "price": "",
         "quantity": "",
+        "subCategroy" : ""
     })
     const [imageUrl, setImageUrl] = React.useState()
 
@@ -46,6 +47,7 @@ const AddProductModalForm = (props) => {
         let formData = new FormData()
         formData.append("name" , productData.name)
         formData.append("category" , productData.category)
+        formData.append("subCategroy" , productData.subCategroy)
         formData.append("description" , productData.description)
         formData.append("image" , productData.image)
         formData.append("price" , productData.price)
@@ -62,8 +64,7 @@ const AddProductModalForm = (props) => {
             onHide={() => props.handleShow()}
             dialogClassName="modal-90w"
             aria-labelledby="example-custom-modal-styling-title"
-            className="addProduct-modal"
-
+            className="add-modal"
         >
             <Modal.Header closeButton>
                 <Modal.Title id="example-custom-modal-styling-title">
@@ -86,6 +87,14 @@ const AddProductModalForm = (props) => {
                         placeholder='Enter Product category'
                         onChange={handleOnchange}
                         value={productData.categroy}
+                        required
+                    />
+                    <input
+                        type='text'
+                        name='subCategroy'
+                        placeholder='Enter Product subCategroy'
+                        onChange={handleOnchange}
+                        value={productData.subCategroy}
                         required
                     />
                     <textarea rows={4} onChange={handleOnchange} name='description'>{productData.description}</textarea>
