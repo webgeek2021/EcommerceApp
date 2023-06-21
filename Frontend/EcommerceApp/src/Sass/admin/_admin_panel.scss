@@ -9,6 +9,13 @@
         background-color: colors.$learn_more_btn;
         color: colors.$white;
         font-size: func.to-rem(25);
-        margin-bottom: 20px;
+        margin-bottom: 40px;
+    }
+    .pie-chart-container{
+        .pie{
+            .title{
+                margin-bottom: 20px;
+            }
+        }
     }
 }

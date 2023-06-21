@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import {placeOrder} from "../../Api/OrderApi/orderApi";
 const BillingPage = () => {
+
     const [productArr , setProductArr] = React.useState([]) 
     const [cartTotal,setCartTotal] = React.useState([]) 
     const [shippingDetails, setShippingDetails] = React.useState()
@@ -52,7 +53,8 @@ const BillingPage = () => {
                 orderQuantity : item.orderQuantity,
                 price : item.price,
                 image : item.image,
-                productId : item.id
+                productId : item.id,
+                category : item.category
             }
             orderList.push(obj)
         })

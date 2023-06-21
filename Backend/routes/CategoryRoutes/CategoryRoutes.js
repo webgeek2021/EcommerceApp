@@ -13,6 +13,13 @@ router.route("/get-category-list")
 
 router.route("/addcategory")
     .post(isAuth , isAdmin , upload.single("image"),CategoryController.addCategory)
+
 router.route("/:category")
     .get(isAuth , isAdmin ,CategoryController.getProductByCategory)
+
+router.route("/chartData/pie")
+    .get(isAuth , isAdmin , CategoryController.getPieChartData)
+
+router.route("/chartData/sales/pie")
+    .get(isAuth,isAdmin,CategoryController.getTotalSalesData)
 module.exports = router

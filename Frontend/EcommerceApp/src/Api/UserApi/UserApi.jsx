@@ -5,6 +5,7 @@ import {toast} from "react-toastify"
 import { setUserInfo } from "../../ReduxStore/slices/ProfileSlice"
 import Cookie from "js-cookie"
 import { USER_INFO } from "../../utils/constants"
+
 export const getUser = async(email)=>{
     console.log("EMAIL USER" , email)
     const dispatch = useDispatch()
@@ -80,5 +81,17 @@ export const updateShippingDetails = async (data)=>{
         }
     }catch(err){
         console.log(err)
+    }
+}
+
+export const getTotalUsers = async(setTotalUser)=>{
+    try {
+        const result = await postLoginApi.get("/user/getTotalUser")
+
+        if(result?.data?.data){
+            setTotalUser(result.data.data)
+        }
+    } catch (error) {
+        console.log(error)
     }
 }

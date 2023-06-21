@@ -5,11 +5,7 @@ const CategoryProduct = require("./CategoryProduct.js")
 const CategorySchema = new Schema({
     category: {
         type: String,
-        trim: true,
-        lowercase: true,
         required: [true, "Category name is required"],
-        minlength: [3, "Category name minimum length 3 characters"],
-        maxlength: [100, "Category name maximum length 30 characters"],
     },
     image: {
         type: String,

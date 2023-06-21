@@ -1,6 +1,9 @@
 const Category = require("../../model/CategorySchema/Category")
 const { handleUpload } = require("../../config/cloudinaryConfig")
 const Product = require("../../model/ProductSchema/Product")
+const Order = require("../../model/OrderSchema/OrderSchema")
+const paymentSchema = require("../../model/PaymentSchema/paymentSchema")
+
 const getCategoryList = async (req, res) => {
     try {
         const categories = await Category.find().exec()
@@ -93,13 +96,59 @@ const getProductByCategory = async (req, res) => {
                 "error": false
             })
         }
+    } catch (err) {
+        console.log(err)
+        res.status(400).json({
+            "message": "Something went Wrong",
+            "error": true
+        })
+    }
+}
+
+const getPieChartData = async (req, res) => {
+   
+    try {
+
+        const categories = await Category.find()
+        const data_map = categories.map((category) => ({
+            "category": category.category,
+            "products": category.products.length
+        }))
+
+        res.status(200).json({
+            "data": data_map,
+            "error": false
+        })
     }catch(err){
         console.log(err)
         res.status(400).json({
-            "message" : "Something went Wrong",
+            "message" : "Something Went Wrong ",
             "error" : true
         })
     }
 }
 
-module.exports = { getCategoryList, addCategory, getProductByCategory }
+const getTotalSalesData = async (req,res)=>{
+
+    try{
+        const categories = await Category.find().exec()
+        console.log("Categories",categories)
+        const result = categories?.map((category) => ({
+            "category" : category.category ,
+            "totalSale" : category.totalSale
+        }))
+
+        res.status(200).json({
+            "data" : result,
+            "error" : false
+        })
+        
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : "Something Went Wrong",
+            "error" : true
+        })
+    }
+}
+module.exports = { getCategoryList, addCategory, getProductByCategory,getPieChartData,getTotalSalesData }

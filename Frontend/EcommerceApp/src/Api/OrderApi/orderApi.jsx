@@ -4,6 +4,7 @@ import Logo from "../../assets/Icons/logo.svg"
 import { CART } from "../../utils/constants";
 import { setOrderList } from "../../ReduxStore/slices/OrderSlice";
 import { setTotalEarning } from "../../ReduxStore/slices/adminDashboard";
+
 export const placeOrder = async (data)=>{
     try{
         const result = await postLoginApi.post("/order" , data)
@@ -106,4 +107,8 @@ export const getTotalAmount = async (dispatch)=>{
     }catch(err){
         console.log(err)
     }
+}
+
+export const getSalesPieData = async ()=>{
+    
 }

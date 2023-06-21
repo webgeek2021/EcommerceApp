@@ -40,3 +40,34 @@ export const getAllProductByCategory = async (category , setProductData)=>{
         console.log(err)
     }
 }
+
+export const getCategoryPieChartData = async (setPieDataLabels , setPieData)=>{
+
+    try {
+        const result = await postLoginApi.get("/category/chartData/pie")
+        console.log(result)
+
+        const labels = result?.data?.data?.map((d)=> d.category)
+        setPieDataLabels(labels)
+
+        const pieData = result?.data?.data?.map((d)=>d.products)
+        setPieData(pieData)
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getCategorySalesData = async(setPieDataLabels , setPieData)=>{
+    try {
+        const result = await postLoginApi.get("/category/chartData/sales/pie")
+        console.log("Result" , result)
+        const labels = result?.data?.data?.map((d)=> d.category)
+        setPieDataLabels(labels)
+
+        const pieData = result?.data?.data?.map((d)=>d.totalSale)
+        setPieData(pieData)
+    } catch (error) {
+        console.log(error)
+    }
+}

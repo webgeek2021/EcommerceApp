@@ -4,6 +4,7 @@ const Razorpay = require("razorpay")
 const crypto = require("crypto")
 const Product = require("../../model/ProductSchema/Product")
 const PaymentSchema = require("../../model/PaymentSchema/paymentSchema")
+const Category = require("../../model/CategorySchema/Category");
 
 const PlaceOrder = async (req, res) => {
     const body = req.body
@@ -65,14 +66,26 @@ const PaymentVerification = async (req, res) => {
         const order = await Order.findOne(obj).exec()
 
         order.isPaid = true
-        
+
         await order.save()
-        
+
         await PaymentSchema.create({
             razorpay_order_id,
             razorpay_payment_id,
             razorpay_signature
         });
+
+        const OrderList = order.OrderList
+        OrderList.map(async (product) => {
+            const category = product.category
+            if (category) {
+                const result = await Category.findOne({ category }).exec()
+                result.totalSale += product.price*product.orderQuantity
+                await result.save()
+            }
+        })
+
+
         console.log("REdirecting")
         res.redirect(
             // `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
@@ -147,7 +160,7 @@ const setOrderStatus = async (req, res) => {
     const _id = orderId
     const currentOrder = await Order.findOne({ _id }).exec()
     if (currentOrder) {
-        console.log("Current Order" , currentOrder)
+        console.log("Current Order", currentOrder)
         currentOrder.orderStatus = "Shipped"
         await currentOrder.save()
     }
@@ -170,34 +183,34 @@ const setOrderStatus = async (req, res) => {
     })
 }
 
-const getTotalAmount = async (req,res)=>{
-    try{
+const getTotalAmount = async (req, res) => {
+    try {
         const Payments = await PaymentSchema.find().exec()
-        console.log("Payments" , Payments)
+        console.log("Payments", Payments)
         const amount = await Payments.reduce(async (accPromise, payment) => {
             const acc = await accPromise;
             const razorPayOrderId = payment.razorpay_order_id;
             const order = await Order.find({ razorPayOrderId }).exec();
-      
+
             if (order.length > 0) {
-              return acc + order[0].totalAmount;
+                return acc + order[0].totalAmount;
             }
-      
+
             return acc;
-          }, Promise.resolve(0));
-          
+        }, Promise.resolve(0));
+
         res.status(200).json({
-            "message" : "successfully query",
-            "total" : amount,
-            error : false
+            "message": "successfully query",
+            "total": amount,
+            error: false
         })
 
-    }catch(err){
+    } catch (err) {
         console.log(err)
         res.status(400).json({
-            "message" : "Something Went Wrong",
-            error : true
+            "message": "Something Went Wrong",
+            error: true
         })
     }
 }
-module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus,getTotalAmount }
+module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus, getTotalAmount }

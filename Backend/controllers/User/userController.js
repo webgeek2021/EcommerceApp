@@ -145,4 +145,23 @@ const updateShippingDetails = async (req,res)=>{
         })
     }
 }   
-module.exports = {getUser , updateUser , getShippingDetails , updateShippingDetails}
+
+const getTotalUser  = async (req,res)=>{
+    try{
+        const users = await User.find().exec()
+        console.log("USERS",users)
+        const data = users.filter((user) => user.isAdmin === false )
+
+        res.status(200).json({
+            "data" : data.length,
+            "error" : false
+        })
+    }catch(er){
+        console.log(er)
+        res.status(400).json({
+            "message"  :"Something went Wrong",
+            "error" : true
+        })
+    }
+}
+module.exports = {getUser , updateUser , getShippingDetails , updateShippingDetails , getTotalUser}

@@ -2,7 +2,8 @@
 const Product = require("../../model/ProductSchema/Product")
 const cloudinary = require("cloudinary").v2
 const {opts }= require("../../config/cloudinaryConfig");
-const {handleUpload} = require("../../config/cloudinaryConfig")
+const {handleUpload} = require("../../config/cloudinaryConfig");
+const Category = require("../../model/CategorySchema/Category");
 
 
 const getAllProducts = async (req, res) => {
@@ -63,8 +64,16 @@ const addProduct = async (req, res) => {
         //     folder : `EcommerceApp/${req.body.category}`
         //   });;
 
-          console.log("Cloudinary Url" , cldRes)
-        
+        console.log("Cloudinary Url" , cldRes)
+        const category = data.category 
+        let category_exist = await Category.findOne({category : category}).exec()
+
+        if(!category_exist){
+            res.status(400).json({
+                "message" : `${data.category} Does not exist`,
+                "error" : true
+            })
+        }
         const newProduct = await Product.create({
             "name": data.name,
             "category": data.category,
@@ -74,6 +83,15 @@ const addProduct = async (req, res) => {
             "quantity": data.quantity,
             "subCategroy" : data.subCategroy
         })
+        
+        console.log("New Product" , newProduct)
+        console.log("Category" , category_exist)
+
+        const arr = [...category_exist.products , newProduct.id]
+
+        category_exist.products = arr
+
+        await category_exist.save()
 
         res.status(201).json({
             "message": "New Product is Added Successfully",
@@ -125,7 +143,7 @@ const updateProduct = async (req, res) => {
 
 
         if (req.body?.category !== product.category) product.category = req.body.category
-        if (req.body?.subCategroy !== product.subCategroy) product.subCategroy = req.body.subCategroy
+        if (req.body?.subCategory !== product.subCategory) product.subCategory = req.body.subCategory
         if (req.body?.name !== product.name) product.name = req.body.name
         if (req.body?.price !== product.price) product.price = req.body.price
         if (req.body?.quantity !== product.quantity) product.quantity = req.body.quantity

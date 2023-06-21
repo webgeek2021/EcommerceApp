@@ -19,7 +19,8 @@ export const PRODUCT = {
 }
 
 export const ADMIN = 5150;
-
+export const NUMBER_OF_PRODUCT_CHART = "Number of product"
+export const SALES_CHART = "Sales "
 export const DELIVERYOPTIONS = [
   { value: 'pending', label: 'Pending' },
   { value: 'inTransit', label: 'In Transit' },

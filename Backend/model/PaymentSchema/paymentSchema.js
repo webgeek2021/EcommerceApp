@@ -15,6 +15,8 @@ const PaymentSchema = new Schema({
         required : true
     }
 
+},{
+    timestamps : true
 })
 
 module.exports =  mongoose.model("PaymentSchema" , PaymentSchema)

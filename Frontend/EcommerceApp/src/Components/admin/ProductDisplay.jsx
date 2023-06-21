@@ -18,6 +18,7 @@ const ProductDisplay = () => {
   // const [admin, setAdmin] = React.useState(userInfo?.roles?.Admin === ADMIN ? true : false)
   const [formData, setFormData] = React.useState({
     "category": "",
+    "subCategroy" : "",
     "name": "",
     "description": "",
     "image": "",
@@ -28,11 +29,12 @@ const ProductDisplay = () => {
 
   const [editName, setEditName] = React.useState(false)
   const [editcategory, setEditCategory] = React.useState(false)
+  const [editSubCategroy, setSubCategory] = React.useState(false)
   const [editDescription, setEditDescription] = React.useState(false)
   const [editPrice, setEditPrice] = React.useState(false)
   const [editQuantity, setEditQuantity] = React.useState(false)
   const [deleteModal , setDeleteModal] = React.useState(false)
-
+  
   const { id } = useParams()
 
   React.useEffect(() => {
@@ -79,6 +81,7 @@ const ProductDisplay = () => {
       let formData = new FormData()
       formData.append("name" , productData.name)
       formData.append("category" , productData.category)
+      formData.append("subCategory" , productData.subCategroy)
       formData.append("description" , productData.description)
       formData.append("image" , productData.image)
       formData.append("price" , productData.price)
@@ -135,7 +138,17 @@ const ProductDisplay = () => {
                 disabled={!editcategory}
               />
               <FiEdit3 onClick={() => setEditCategory(prev => !prev)} />
-
+            </div>
+            <div className='admin-edit-container'>
+              <input
+                type='text'
+                placeholder='Enter Product subCategory'
+                value={productData?.subCategroy}
+                onChange={handleOnChange}
+                name="subCategory"
+                disabled={!editcategory}
+              />
+              <FiEdit3 onClick={() => setEditCategory(prev => !prev)} />
             </div>
           </div>
 
