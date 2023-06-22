@@ -45,6 +45,7 @@ export const cartSlice = createSlice({
                 const obj = { productList, total}
                 localStorage.setItem(CART , JSON.stringify(obj))
             }
+
         },
         totalQuantity : (state , action)=>{
             return state.productIds.length()
@@ -53,20 +54,7 @@ export const cartSlice = createSlice({
             console.log("SjowCart",state)
             state.showCart = !state.showCart
         },
-        deleteFromCart  : (state , action)=>{
-            
-            const prodid = action.payload
-            console.log("Delete " ,prodid)
-            if(prodid){
-                const newList = arr.filter((obj) => obj.id !== prodid)
-                console.log("NewList" , newList)
-                state.productList = newList
-                const productList= state.productList
-                const total = state.total
-                const obj = { productList, total}
-                localStorage.setItem(CART , JSON.stringify(obj))
-            }
-        },
+        
         RemoveAll : (state , action)=>{
             state.productList = []
             localStorage.clear(CART)
@@ -80,6 +68,6 @@ export const cartSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { insertProductIntoCart , deleteProductFromCart , setShowCart , deleteFromCart,RemoveAll } = cartSlice.actions
+export const { insertProductIntoCart , deleteProductFromCart , setShowCart ,RemoveAll } = cartSlice.actions
 
 export default cartSlice.reducer

@@ -24,6 +24,12 @@
             background-color: colors.$orange;
             cursor: pointer;
         }
+        .delete-order{
+            background-color: colors.$red;
+            padding: 5px;
+            border-radius: 5px;
+            color: colors.$white;
+        }
     }
 
     .order-header {

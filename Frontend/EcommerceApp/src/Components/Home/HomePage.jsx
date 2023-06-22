@@ -1,28 +1,29 @@
 import React from 'react'
 import { carousel_Data } from './carouselData'
 import CustomCarousel from "./CustomCarousel";
-import { Image } from "react-bootstrap";
+import { Image, Container, Row, Col } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
 import BottomUpAnimation from '../../utils/BottomUpAnimation';
 import CategoryCards from './CategoryCards';
 import { laptopsData } from '../../utils/DummyData/LaptopData';
 import ProductCard from '../commonComponents/ProductCard';
 import axios from "axios"
+import Filter from '../commonComponents/Filter/Filter';
 const HomePage = () => {
 
   const [corouselData, setCarouselData] = React.useState(carousel_Data)
-  const [laptopData , setLaptopData] = React.useState(laptopsData)
-  const [productCardsData , setProductCardData] = React.useState([])
+  const [laptopData, setLaptopData] = React.useState(laptopsData)
+  const [productCardsData, setProductCardData] = React.useState([])
 
-  React.useEffect(()=>{
-    
+  React.useEffect(() => {
+
     axios.get("http://localhost:3500/products/getProducts")
-    .then(res => {
-        if(res.data){
+      .then(res => {
+        if (res.data) {
           setProductCardData(res.data)
         }
-    })
-  },[])
+      })
+  }, [])
 
   const display = carousel_Data.map((slider) => {
     return (
@@ -45,14 +46,14 @@ const HomePage = () => {
     autoplay: true,
   }
 
-  const productCards = productCardsData?.map((card)=>{
+  const productCards = productCardsData?.map((card) => {
     // console.log(card)
-    return(
-      <ProductCard 
-        image = {card.image}
-        name = {card.name}
-        description = {card.description}
-        rating = {card.rating}
+    return (
+      <ProductCard
+        image={card.image}
+        name={card.name}
+        description={card.description}
+        rating={card.rating}
         id={card.id}
       />
     )
@@ -69,17 +70,28 @@ const HomePage = () => {
         </BottomUpAnimation>
       </section>
 
-      <section className='my-container display_categories'>
+      {/* <section className='my-container display_categories'>
         <CategoryCards />
-      </section>
+      </section> */}
 
-      <section className='my-container display_products'>
-        <p className='title'>Today's Best Deals For You!</p>
-        <div className='cards-list'>
-        {
-           productCards
-        }
-        </div>
+      <section className='my-container  display_products'>
+        <Container>
+          <Row>
+            {/* <Col md={2}>
+              <Filter />
+            </Col> */}
+            <Col md={10}>
+              <div className='product-list'>
+                <p className='title'>Today's Best Deals For You!</p>
+                <div className='cards-list'>
+                  {
+                    productCards
+                  }
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
     </div>
   )

@@ -3,18 +3,14 @@ import { Image, Button } from "react-bootstrap"
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { toast } from "react-toastify"
-import { deleteFromCart } from "../../ReduxStore/slices/cartSlice";
 import { useDispatch } from 'react-redux'
 import DeleteCartItemConfirmation from './DeleteCartItemConfirmation'
 const CartCard = (props) => {
 
     const dispatch = useDispatch()
     const [showConfirmation, setDeleteConfirmation] = React.useState(false)
-    const handleDelete = () => {
 
-        dispatch(deleteFromCart(props.id))
 
-    }
     return (
         <div className='d-flex justify-content-between flex-column cart-cart-container'>
             <Link to={`/show/product/${props.id}`} className='info-container'>

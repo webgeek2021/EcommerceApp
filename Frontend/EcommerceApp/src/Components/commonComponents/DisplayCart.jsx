@@ -14,19 +14,11 @@ const DisplayCart = (props) => {
 
 
     const data = useSelector(state => state.cart.productList)
-    const [productArr , setProductArr] = React.useState(data) 
-    const [cartTotal,setCartTotal] = React.useState(useSelector(state => state.cart.total)) 
+    const cartTotal = useSelector(state => state.cart.total)
     const show = useSelector(state => state.cart.showCart)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    // React.useEffect(()=>{
-    //     if(data){
-    //         const arr = data.productList;
-    //         setProductArr(arr)
-    //         const total = data.total
-    //         setCartTotal(total)
-    //     }
-    // },[])
+    
     // React.useEffect(() => {
     //     if (productIds.length > 0) {
     //         productIds.map((obj) => {
@@ -44,7 +36,7 @@ const DisplayCart = (props) => {
        navigate("/billing")
     }
 
-    const list = productArr?.map((prod) => {
+    const list = data?.map((prod) => {
         return (
             <CartCard
                 name={prod.name}

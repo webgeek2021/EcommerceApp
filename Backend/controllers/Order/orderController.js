@@ -87,9 +87,10 @@ const PaymentVerification = async (req, res) => {
 
 
         console.log("REdirecting")
+       
         res.redirect(
             // `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
-            `http://localhost:5173/profile`
+            `http://localhost:5173/payment/success?reference=${razorpay_payment_id}`
         );
 
     } else {
@@ -213,4 +214,32 @@ const getTotalAmount = async (req, res) => {
         })
     }
 }
-module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus, getTotalAmount }
+
+const deleteOrder = async (req,res)=>{
+    const body = req.body
+
+    if(!body){
+        res.status(400).json({
+            "message" : "Something Went Wrong",
+            "error" : true
+        })
+    }
+
+    const razorpay_order_id = body.id
+    const razorPayOrderId = body.id;
+
+    const order = await Order.findOne({razorPayOrderId}).exec()
+
+    const payment = await PaymentSchema.findOne({razorpay_order_id}).exec()
+
+    await order.deleteOne({razorPayOrderId})
+    await payment.deleteOne({razorpay_order_id})
+
+    res.status(200).json({
+        "message" : "Order Deleted Successfully",
+        "error" : false
+    })
+
+
+}
+module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus, getTotalAmount ,deleteOrder}

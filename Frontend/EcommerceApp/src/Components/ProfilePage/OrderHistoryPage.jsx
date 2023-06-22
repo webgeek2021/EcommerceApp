@@ -8,7 +8,7 @@ import moment from "moment"
 const OrderHistoryPage = () => {
 
   const user = JSON.parse(Cookie.get(USER_INFO))
-  const [orders, setOrder] = React.useState(useSelector(state => state.orders.orderData))
+  const orders= useSelector(state => state.orders.orderData)
   const dispatch = useDispatch()
 
   React.useEffect(() => {

@@ -41,11 +41,13 @@ const ProductDisplay = () => {
         <div className='my-container user-product-display '>
             {
                 productData ?
-                    <div className='d-flex justify-content-between  product-display-container'>
-                        <div className='left'>
+                    <div className='d-flex justify-content-around   product-display-container'>
+                        
+                        <div className='left '>
                             <Image src={productData.image} alt={`${productData.name} image`} />
                         </div>
-                        <div className='d-flex flex-column right'>
+
+                        <div className='d-flex  flex-column right'>
                             <div className='titles m-b-20'>
                                 <h3>{productData.name}</h3>
                                 <p>{productData.category}</p>

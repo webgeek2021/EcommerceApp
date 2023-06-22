@@ -2,8 +2,11 @@ import React from 'react'
 import { Table, Image, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import { payNow, setOrderStatus } from "../../Api/OrderApi/orderApi";
+import DeleteOrderConfirmation from "../../Components/commonComponents/DeleteOrderConfirmation";
 const DisplayOrderCard = (props) => {
 
+
+    const [show, setShow] = React.useState(false)
     const orderList = props.body.map((order, index) => {
         return (
             <tr className='body-order-wrapper-row' key={index}>
@@ -22,11 +25,11 @@ const DisplayOrderCard = (props) => {
             </tr>
         )
     })
-    const handlePayNow = ()=>{
+    const handlePayNow = () => {
         const data = {
-            id : props.header.orderId,
-            amount : props.total,
-            email : props.email,
+            id: props.header.orderId,
+            amount: props.total,
+            email: props.email,
         }
         payNow(data)
     }
@@ -44,11 +47,11 @@ const DisplayOrderCard = (props) => {
                 <div className='timeStamp'>{props.Date}</div>
                 <div className='btns d-flex align-items-center '>
                     {
-                        props.header.paymentStatus === false && !props.isAdmin && <div className='pay-now' onClick={handlePayNow}>Pay Now</div>
+                        props.header.paymentStatus === false && !props.isAdmin && <div className='pay-now m-r-10' onClick={handlePayNow}>Pay Now</div>
                     }
-                    {
-                        props.header.paymentStatus === false && !props.isAdmin && <div className='delete-order'>Delete Order</div>
-                    }
+                    {/* {
+                        <div className='delete-order' onClick={()=>setShow(prev => !prev)}>Delete Order</div>
+                    } */}
                 </div>
             </div>
             <div className='d-flex aling-items-center justify-content-between order-header'>
@@ -73,7 +76,7 @@ const DisplayOrderCard = (props) => {
                     <span className='key'>Delivery Status</span>
                     <div className='value'>
                         {
-                            props.header.orderStatus === "Pending"  ?
+                            props.header.orderStatus === "Pending" ?
                                 <div className='failure'>Pending</div>
                                 :
                                 <div className='success'>Shipped</div>
@@ -108,11 +111,21 @@ const DisplayOrderCard = (props) => {
                     props.isAdmin &&
                     <Button
                         className="dispatch-btn btn-warning"
-                        disabled={props.header.orderStatus === "Shipped" ? true : false} 
+                        disabled={props.header.orderStatus === "Shipped" ? true : false}
                         onClick={() => handleDispatch(props.orderId)}
-                        >Dispatch For Delivery</Button>
+                    >Dispatch For Delivery</Button>
                 }
             </div>
+            {
+                show && 
+                <DeleteOrderConfirmation
+                    show = {show}
+                    handleShow= {setShow}
+                    order_Id= {props.header.orderId}
+
+                
+                />
+            }
         </div>
     )
 }

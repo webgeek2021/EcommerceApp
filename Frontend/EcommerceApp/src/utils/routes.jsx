@@ -16,6 +16,7 @@ import OrderHistoryPage from "../Components/ProfilePage/OrderHistoryPage";
 import AdminOrderPage from "../Components/admin/AdminOrderPage";
 import AddCategory from "../Components/admin/AddCategory";
 import CategoryPage from "../Components/admin/CategoryPage";
+import PaymentSuccess from "../Components/commonComponents/PaymentSuccess";
 
 const ProtectedRoute = ({ element }) => {
     const isAuthenticated = requireAuth()
@@ -101,8 +102,8 @@ export const routers = [
             element : <ProtectedRoute element={<BillingPage/>}/>
         },
         {
-            path : "/paymentsuccess",
-            element : <ProtectedRoute element={<h1>Payment Success</h1>}/>
+            path : "/payment/success",
+            element : <ProtectedRoute element={<PaymentSuccess/>}/>
         }
         ]
     },

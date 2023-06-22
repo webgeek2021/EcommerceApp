@@ -29,11 +29,11 @@ export const placeOrder = async (data)=>{
         };
         const razor = new window.Razorpay(options);
         razor.open();
-
+        
         if(result.data.error){
             toast.error("Something Went Wrong")
         }else{
-            localStorage.clear(CART)
+            // localStorage.clear(CART)
             toast.success(result.data.message)
         }
     }catch(err){
@@ -111,4 +111,19 @@ export const getTotalAmount = async (dispatch)=>{
 
 export const getSalesPieData = async ()=>{
     
+}
+
+
+export const deleteOrder = async (data)=>{
+    try{
+        const result = await postLoginApi.delete("/order/deleteOrder" , data)
+
+        if(!result?.data.data.error)
+            toast.success(result.data.data.message)
+        else
+            toast.error(result.data.data.message)
+    }catch(err){
+        console.log(err)
+        toast.error(err)
+    }
 }

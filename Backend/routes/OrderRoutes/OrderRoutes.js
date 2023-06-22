@@ -23,4 +23,6 @@ router.route("/setOrderStatus")
 
 router.route("/getTotal")
     .get(OrderController.getTotalAmount)
+router.route("/deleteOrder")
+    .delete(isAuth , OrderController.deleteOrder)
 module.exports = router

@@ -1,15 +1,16 @@
 
 import React from 'react'
 import { Modal, Button } from "react-bootstrap"
-import { useNavigate } from 'react-router-dom'
-import { useDispatch , useSelector } from 'react-redux'
-import {deleteProductFromCart} from "../../ReduxStore/slices/cartSlice";
-const DeleteCartItemConfirmation = (props) => {
-
-    const dispatch = useDispatch()
+import { deleteOrder } from '../../Api/OrderApi/orderApi'
+const DeleteOrderConfirmation = (props) => {
 
     const handleDelete = (id)=>{
-        dispatch(deleteProductFromCart(id))
+        // api call to delete this order
+        console.log("Delete " , id)
+        const data = {
+            id : props.order_Id
+        }
+        deleteOrder(data)
         props.handleShow()
     }
     
@@ -23,9 +24,9 @@ const DeleteCartItemConfirmation = (props) => {
         >
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
-                <h4>Are You Sure Want To Delete Product {props?.name} ?</h4>
+                <h4>Are You Sure Want To Delete this Order {props?.order_Id} ?</h4>
                 <div className='btn-section'>
-                    <Button variant='outline-danger' onClick={()=>handleDelete(props.id)}>Delete</Button>
+                    <Button variant='outline-danger' onClick={()=>handleDelete(props.order_Id)}>Delete</Button>
                     <Button variant='outline-dark' onClick={()=>props.handleShow()}>Cancel</Button>
                 </div>
             </Modal.Body>
@@ -33,4 +34,4 @@ const DeleteCartItemConfirmation = (props) => {
     )
 }
 
-export default DeleteCartItemConfirmation
+export default DeleteOrderConfirmation
