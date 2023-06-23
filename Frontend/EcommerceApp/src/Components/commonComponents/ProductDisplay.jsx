@@ -7,11 +7,18 @@ import { Image, Button } from "react-bootstrap"
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai"
 import { toast } from "react-toastify"
 import { insertProductIntoCart } from '../../ReduxStore/slices/cartSlice'
+import ReviewModal from './ReviewModal'
 const ProductDisplay = () => {
 
     const { id } = useParams()
     const productData = useSelector(state => state.productData.productData)
     const [quantityCounter, setQuantityCounter] = React.useState(1)
+    const [show , setShow] = React.useState(false)
+    
+    const handleShow = ()=>{
+        setShow(prev => !prev)
+    }
+    
     const dispatch = useDispatch()
 
     React.useEffect(() => {
@@ -94,11 +101,17 @@ const ProductDisplay = () => {
                                 </div>
                                 <Button className="add-to-cart" onClick={addToCart}>Add To Cart</Button>
                             </div>
+
+                            <Button className='add-to-cart review-btn' onClick={handleShow}>Submit Review</Button>
                         </div>
                     </div>
                     :
                     <h1>Loading</h1>
             }
+            <ReviewModal
+                show = {show}
+                handleClose = {handleShow}
+            />
         </div>
     )
 }

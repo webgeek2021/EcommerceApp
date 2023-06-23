@@ -13,11 +13,7 @@ const Product = new Schema({
     },
     name: {
         type: String,
-        trime: true,
-        lowercase: true,
         required: [true, "Product name is required"],
-        minlength: [3, "Product name minimum length 3 characters"],
-        maxlength: [50, "Product name maximum length 30 characters"]
     },
     price:{
         type : Number,

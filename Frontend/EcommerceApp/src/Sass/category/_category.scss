@@ -39,7 +39,7 @@
             .card-thumbnail{
                 position: relative;
                 border-radius: 10px;
-                background-color: color.$grey;
+                // background-color: color.$grey;
                 .poster{
                     // width: calc(100% - 24px);
                     height: 150px;
@@ -70,4 +70,25 @@
 
 .add-category-container{
     margin: 40px 0 0 0;
+}
+
+.category-dropdown{
+    .dropdown{
+        .dropdown-toggle{
+            padding: 5px 15px 5px 0;
+            background-color: transparent;
+            border: none;
+            font-weight: 600;
+            color: color.$black;
+        }
+        .dropdown-menu{
+            padding: 0px;
+            border: none;
+            position: relative !important;
+            transform: none !important;
+            a{
+                font-weight: 500;
+            }
+        }
+    }
 }

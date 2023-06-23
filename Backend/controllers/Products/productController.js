@@ -1,8 +1,8 @@
 
 const Product = require("../../model/ProductSchema/Product")
 const cloudinary = require("cloudinary").v2
-const {opts }= require("../../config/cloudinaryConfig");
-const {handleUpload} = require("../../config/cloudinaryConfig");
+const { opts } = require("../../config/cloudinaryConfig");
+const { handleUpload } = require("../../config/cloudinaryConfig");
 const Category = require("../../model/CategorySchema/Category");
 
 
@@ -45,7 +45,7 @@ const addProduct = async (req, res) => {
         })
     }
     const data = req.body;
-    console.log("Data" , data)
+    console.log("Data", data)
     if (!data.category || !data.subCategroy || !data.name || !data.description || !data.price || !data.quantity || !req.file) {
         res.status(400).json({
             "message": "Some data fields are missing",
@@ -57,21 +57,21 @@ const addProduct = async (req, res) => {
 
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-        const cldRes = await handleUpload(dataURI , `EcommerceApp/${req.body.category}`)
+        const cldRes = await handleUpload(dataURI, `EcommerceApp/${req.body.category}`)
 
         // const cldRes = await cloudinary.uploader.upload(dataURI, {
         //     resource_type: "auto",
         //     folder : `EcommerceApp/${req.body.category}`
         //   });;
 
-        console.log("Cloudinary Url" , cldRes)
-        const category = data.category 
-        let category_exist = await Category.findOne({category : category}).exec()
-
-        if(!category_exist){
+        console.log("Cloudinary Url", cldRes)
+        const category = data.category
+        let category_exist = await Category.findOne({ category: category }).exec()
+        console.log("EXIST", category_exist)
+        if (!category_exist) {
             res.status(400).json({
-                "message" : `${data.category} Does not exist`,
-                "error" : true
+                "message": `${data.category} Does not exist`,
+                "error": true
             })
         }
         const newProduct = await Product.create({
@@ -81,16 +81,18 @@ const addProduct = async (req, res) => {
             "description": data.description,
             "price": data.price,
             "quantity": data.quantity,
-            "subCategroy" : data.subCategroy
+            "subCategroy": data.subCategroy
         })
-        
-        console.log("New Product" , newProduct)
-        console.log("Category" , category_exist)
 
-        const arr = [...category_exist.products , newProduct.id]
+        console.log("New Product", newProduct)
+        console.log("Category", category_exist)
+
+        const arr = [...category_exist.products, newProduct.id]
 
         category_exist.products = arr
-
+        if (!category_exist.subCategories.includes(data.subCategroy)) {
+            category_exist.subCategories.push(data.subCategroy)
+        }
         await category_exist.save()
 
         res.status(201).json({
@@ -98,8 +100,9 @@ const addProduct = async (req, res) => {
             "error": false
         })
     } catch (err) {
+        console.log(err.message)
         res.status(400).json({
-            "message": "Something Went wrong",
+            "message": `${err.message}`,
             "error": true
         })
     }
@@ -107,7 +110,7 @@ const addProduct = async (req, res) => {
 }
 const updateProduct = async (req, res) => {
     // console.log("Backend ", req)
-    console.log("Backend" , req.file)
+    console.log("Backend", req.file)
     try {
         if (!req?.body?.id) {
             return res.status(400).json({
@@ -124,10 +127,10 @@ const updateProduct = async (req, res) => {
             })
         }
         // console.log(req.body.image)
-        if(req.file){
+        if (req.file) {
             const b64 = Buffer.from(req.file.buffer).toString("base64");
             let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-            const cldRes = await handleUpload(dataURI , `EcommerceApp/${req.body.category}`)
+            const cldRes = await handleUpload(dataURI, `EcommerceApp/${req.body.category}`)
 
             if (cldRes.secure_url !== product.image) {
                 // let options = opts
@@ -164,28 +167,74 @@ const updateProduct = async (req, res) => {
     }
 }
 
-const deleteProduct = async(req,res)=>{
+const deleteProduct = async (req, res) => {
 
-    console.log("Del Body",req)
-    if(!req?.params?.id){
+    console.log("Del Body", req)
+    if (!req?.params?.id) {
         return res.status(400).json({
-            "message" : "product Id is Required",
-            "error" : true
+            "message": "product Id is Required",
+            "error": true
         })
     }
 
-    const product = await Product.findOne({_id : req.params.id}).exec();
+    const product = await Product.findOne({ _id: req.params.id }).exec();
     if (!product) {
         return res.status(400).json({
             "message": `No Product Id matches with ${req.params.id} `,
-            "error" : true
+            "error": true
         })
     }
 
-    const result  = await Product.deleteOne({_id : req.params.id});
+    const result = await Product.deleteOne({ _id: req.params.id });
     res.status(200).json({
-        "message" : "Product Deleted SuccessFully",
-        "error" : false 
+        "message": "Product Deleted SuccessFully",
+        "error": false
     })
 }
-module.exports = { getAllProducts, getProductById, updateProduct, addProduct ,deleteProduct}
+
+const getProductByCategory = async (req, res) => {
+    const { category } = req.params
+
+    if (!category) {
+        res.status(400).json({
+            "message": "Something Went Wrong",
+            "error": true
+        })
+    }
+
+    const product = await Product.find({ category }).exec()
+
+    res.status(200).json({
+        "data": product,
+        "error": false
+    })
+}
+
+const filterProduct = async (req, res) => {
+    const body = req.body
+    if (!body) {
+        res.status(400).json({
+            "message": "Data is Missing",
+            "error": true
+        })
+    }
+    try {
+        const { category, subcategory } = req.body
+
+        const Allproducts = await Product.find({ category }).exec()
+        console.log("Allproduct" , Allproducts)
+        const product = Allproducts.filter((product) => product.subCategroy === subcategory)
+        console.log("Products" , product)
+        res.status(200).json({
+            "data": product,
+            "error": false
+        })
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : err.message,
+            "error" : true
+        })
+    }
+}
+module.exports = { getAllProducts, getProductById, updateProduct, addProduct, deleteProduct, getProductByCategory, filterProduct }

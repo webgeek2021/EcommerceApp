@@ -34,6 +34,7 @@
             }
         }
         .btn-section{
+            margin-bottom: 20px;
             .quantity-counter{
                 padding: 10px 20px;
                 border-radius: 5px;
@@ -47,6 +48,9 @@
                     cursor: pointer;
                 }
             }
+        }
+        .review-btn{
+            width: max-content;
         }
     }
 }

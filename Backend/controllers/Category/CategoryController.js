@@ -151,4 +151,34 @@ const getTotalSalesData = async (req,res)=>{
         })
     }
 }
-module.exports = { getCategoryList, addCategory, getProductByCategory,getPieChartData,getTotalSalesData }
+
+const getSubCategory = async(req,res)=>{
+
+    try{    
+        const {category} = req.params
+        if(!category){
+            res.status(400).json({
+                "message" : "Category missing",
+                "error" : true
+            })
+        }
+        const categories = await Category.findOne({category}).exec()
+        console.log("Categories" , categories)
+        const obj = {
+            category : categories.category,
+            subCategory : categories.subCategories
+        }
+        res.status(200).json({
+            "data" : obj,
+            "error" : false
+        })
+
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : "Something went Wrong",
+            "error" : true
+        })
+    }
+}
+module.exports = { getCategoryList, addCategory, getProductByCategory,getPieChartData,getTotalSalesData,getSubCategory }

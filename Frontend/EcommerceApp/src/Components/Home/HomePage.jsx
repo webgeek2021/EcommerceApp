@@ -9,20 +9,20 @@ import { laptopsData } from '../../utils/DummyData/LaptopData';
 import ProductCard from '../commonComponents/ProductCard';
 import axios from "axios"
 import Filter from '../commonComponents/Filter/Filter';
+import { useDispatch, useSelector } from "react-redux"
+import { getAllProduct } from '../../Api/ProductApi/ProductApi';
+import NoDataFound from '../commonComponents/NoDataFound';
+
 const HomePage = () => {
 
-  const [corouselData, setCarouselData] = React.useState(carousel_Data)
-  const [laptopData, setLaptopData] = React.useState(laptopsData)
-  const [productCardsData, setProductCardData] = React.useState([])
+  const productCardsData = useSelector(state => state.productData.productDataByFilter)
 
+  const dispatch = useDispatch()
   React.useEffect(() => {
 
-    axios.get("http://localhost:3500/products/getProducts")
-      .then(res => {
-        if (res.data) {
-          setProductCardData(res.data)
-        }
-      })
+    getAllProduct(dispatch)
+
+
   }, [])
 
   const display = carousel_Data.map((slider) => {
@@ -58,6 +58,8 @@ const HomePage = () => {
       />
     )
   })
+
+  console.log("Product Card", productCards)
   return (
     <div className='home_page_container'>
       <section className='main_carousel_container'>
@@ -77,18 +79,24 @@ const HomePage = () => {
       <section className='my-container  display_products'>
         <Container>
           <Row>
-            {/* <Col md={2}>
+            <Col md={2}>
               <Filter />
-            </Col> */}
+            </Col>
             <Col md={10}>
-              <div className='product-list'>
-                <p className='title'>Today's Best Deals For You!</p>
-                <div className='cards-list'>
-                  {
-                    productCards
-                  }
-                </div>
-              </div>
+              {
+                productCardsData.length > 0
+                  ?
+                  <div className='product-list'>
+                    <p className='title'>Products</p>
+                    <div className='cards-list'>
+
+                      {productCards}
+
+                    </div>
+                  </div>
+                  :
+                  <NoDataFound/>
+              }
             </Col>
           </Row>
         </Container>

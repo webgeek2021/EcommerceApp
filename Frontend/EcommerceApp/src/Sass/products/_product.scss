@@ -5,3 +5,21 @@
 .add_product_container{
     margin-top: 20px;
 }
+
+.review-modal{
+    .rating{
+        margin-bottom: 20px;
+        img{
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+    }
+    .text-area{
+        padding: 10px;
+        margin-bottom: 20px;
+        &:focus{
+            outline: none;
+        }
+    }
+}

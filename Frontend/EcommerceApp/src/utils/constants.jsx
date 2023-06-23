@@ -38,6 +38,8 @@ export const ORDERSTATUS = [
   {value : "delivered" , label : "Delivered"}
 ]
 
+export const RESET = "reset"
+export const ALL = "All"
 export const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();

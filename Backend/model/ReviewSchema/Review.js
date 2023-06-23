@@ -9,8 +9,8 @@ const Review = new Schema({
     ratingGiven : {
         type : Number,
         required : true,
-    } ,
-    review : {
+    },
+    reviewMessage : {
         type : String,
         required : true
     },

@@ -2,15 +2,17 @@
 import {preLoginApi , postLoginApi} from "../baseApi";
 import axios from "axios";
 import { toast } from "react-toastify"
-import { insertIntoProductList, insertProductData } from "../../ReduxStore/slices/productDataSlice";
+import { RESET } from "../../utils/constants";
+import { insertIntoProductList, insertProductData ,setProductList} from "../../ReduxStore/slices/productDataSlice";
 
-export const getAllProduct = async ()=>{
+export const getAllProduct = async (dispatch)=>{
     console.log("GetAllProduct")
     
     try{
         const res = await postLoginApi.get("/products/getProducts")
         console.log("Resp" , res)
-        return res.data
+        dispatch(setProductList(res.data))
+        // return res.data
     }catch(err){
         console.log(err)
     }
@@ -98,5 +100,33 @@ export const deleteProduct = async (id ,navigate) => {
     }catch(err){
         console.log(err)
         toast.error(err)
+    }
+}
+
+export const getProductByCategory = async(category , dispatch) =>{
+    try{
+
+        if(category === RESET){
+            const result = await postLoginApi.get("/products/getProducts")
+            dispatch(setProductList(result))
+        }else{
+            const result = await postLoginApi.get(`/products/getProduct/${category}`)
+            dispatch(setProductList(result))
+        }
+
+        console.log(result)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const filterProduct = async(data,dispatch)=>{
+    try {
+        const result = await postLoginApi.post("/products/filterProduct" , data)
+        console.log(result)
+        dispatch(setProductList(result.data.data))
+
+    } catch (error) {
+        console.log(err)
     }
 }

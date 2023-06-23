@@ -160,6 +160,26 @@ li {
   margin-right: 10px;
 }
 
+.c-red {
+  color: crimson;
+}
+
+.no-data-found-container {
+  height: 50vh;
+}
+.no-data-found-container .no-data-found-div {
+  box-shadow: 0px 0px 5px 4px #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+}
+.no-data-found-container .no-data-found-div .icon {
+  width: 64px;
+  height: 64px;
+}
+.no-data-found-container .no-data-found-div h4 {
+  margin-top: 20px;
+}
+
 .vh-80 {
   height: 80vh;
 }
@@ -233,6 +253,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 50px;
+  background: transparent;
 }
 .header__container .container .cart svg {
   font-size: 1.5rem;
@@ -541,6 +562,9 @@ body {
 .user-product-display .right .product-info .box:not(:last-child) {
   border-right: 2px solid #f2f2f2;
 }
+.user-product-display .right .btn-section {
+  margin-bottom: 20px;
+}
 .user-product-display .right .btn-section .quantity-counter {
   padding: 10px 20px;
   border-radius: 5px;
@@ -554,9 +578,30 @@ body {
   margin-left: 10px;
   cursor: pointer;
 }
+.user-product-display .right .review-btn {
+  width: -moz-max-content;
+  width: max-content;
+}
 
 .add_product_container {
   margin-top: 20px;
+}
+
+.review-modal .rating {
+  margin-bottom: 20px;
+}
+.review-modal .rating img {
+  width: 26px;
+  height: 26px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.review-modal .text-area {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.review-modal .text-area:focus {
+  outline: none;
 }
 
 .my-container .product-header .btn-danger {
@@ -918,7 +963,6 @@ body {
 .category-page .product-list .card .card-thumbnail {
   position: relative;
   border-radius: 10px;
-  background-color: #f2f2f2;
 }
 .category-page .product-list .card .card-thumbnail .poster {
   height: 150px;
@@ -940,4 +984,29 @@ body {
 
 .add-category-container {
   margin: 40px 0 0 0;
+}
+
+.category-dropdown .dropdown .dropdown-toggle {
+  padding: 5px 15px 5px 0;
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  color: black;
+}
+.category-dropdown .dropdown .dropdown-menu {
+  padding: 0px;
+  border: none;
+  position: relative !important;
+  transform: none !important;
+}
+.category-dropdown .dropdown .dropdown-menu a {
+  font-weight: 500;
+}
+
+.filter-container .filters {
+  margin: 40px 0 0 0;
+}
+.filter-container .filters .filter-title {
+  color: black;
+  opacity: 0.3;
 }/*# sourceMappingURL=style.css.map */

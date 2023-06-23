@@ -1,7 +1,8 @@
 
 import { postLoginApi } from "../baseApi";
-import { setCategoryList } from "../../ReduxStore/slices/categorySlice";
+import { setCategoryList , setCategorySubList} from "../../ReduxStore/slices/categorySlice";
 import { toast } from "react-toastify";
+
 export const getAllCategories = async(dispatch)=>{
     try{
         const result = await postLoginApi.get("/category/get-category-list")
@@ -69,5 +70,16 @@ export const getCategorySalesData = async(setPieDataLabels , setPieData)=>{
         setPieData(pieData)
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const getSubcategory = async (category , dispatch)=>{
+    try {
+        const result = await postLoginApi.get(`/category/subCategory/${category}`)
+        console.log(result)
+        dispatch(setCategorySubList(result.data.data))
+        return 
+    } catch (error) {
+        console.log(error.message)
     }
 }

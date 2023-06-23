@@ -27,6 +27,7 @@ const DisplayCart = (props) => {
     //     }
     //     console.log(productIds)
     // }, [productIds])
+    
     const handleClose = () => {
         dispatch(setShowCart())
     }

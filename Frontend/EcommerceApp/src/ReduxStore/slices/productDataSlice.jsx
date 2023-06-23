@@ -5,7 +5,8 @@ export const productDataSlice = createSlice({
     name : "productData",
     initialState : {
         productData : null,
-        productList : []
+        productList : [],
+        productDataByFilter : []
     },
     reducers : {
         insertProductData : (state , action)=>{
@@ -22,11 +23,16 @@ export const productDataSlice = createSlice({
                 if(!findid)
                     state.productList.push(action.payload)
             }
+        },
+        setProductList : (state,action)=>{
+            if(action.payload){
+                state.productDataByFilter = action.payload
+            }
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { insertProductData , insertIntoProductList} = productDataSlice.actions
+export const { insertProductData , insertIntoProductList ,setProductList } = productDataSlice.actions
 
 export default productDataSlice.reducer

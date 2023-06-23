@@ -12,15 +12,21 @@ const storage = Multer.memoryStorage();
 const upload = Multer({
   storage,
 });
+
 router.route("/getProducts")
     .get(productController.getAllProducts)
 
 router.route("/:id")
     .get(productController.getProductById)
 
+router.route("/getProduct/:category")
+    .get(isAuth , productController.getProductByCategory)
 
 router.route("/addproduct")
     .post(isAuth,isAdmin ,upload.single("image"),productController.addProduct)
+
+router.route("/filterProduct")
+    .post(isAuth , productController.filterProduct)
     
 router.route("/edit")
     .put(upload.single("image"),productController.updateProduct)

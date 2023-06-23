@@ -6,19 +6,16 @@ import { Badge, Button } from 'react-bootstrap'
 import { GrAdd } from "react-icons/gr";
 import { NavLink ,useNavigate} from 'react-router-dom'
 import AddProductModalForm from "./AddProductModalForm";
-
+import { useDispatch, useSelector } from "react-redux"
 const AddProduct = () => {
 
-    const [products, setProducts] = React.useState([])
+    const products= useSelector(state => state.productData.productDataByFilter)
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [addModal , setAddModal] = React.useState(false)
 
     React.useEffect(() => {
-        const call = async () => {
-            const D = await getAllProduct()
-            setProducts(D)
-        }
-        call()
+      getAllProduct(dispatch)
     }, [])
 
     const columns = React.useMemo(

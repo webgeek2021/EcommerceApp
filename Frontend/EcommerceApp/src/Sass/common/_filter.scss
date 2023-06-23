@@ -1,0 +1,14 @@
+
+@use "./colors" as colors;
+@use "./function" as func;
+@use "./mixin" as mixin;
+
+.filter-container{
+    .filters{
+        margin: 40px 0 0 0 ;
+        .filter-title{
+            color: colors.$black;
+            opacity: 0.3;
+        }
+    }
+}

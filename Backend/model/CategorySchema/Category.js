@@ -17,6 +17,7 @@ const CategorySchema = new Schema({
         minlength: [20, "Category description minimum length 20 characters"],
         maxlength: [500, "Category description maximum length 500 characters"],
     },
+    subCategories : ["All"],
     products: [CategoryProduct],
     totalSale: {
         type: Number,
