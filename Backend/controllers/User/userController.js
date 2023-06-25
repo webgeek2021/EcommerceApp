@@ -56,9 +56,26 @@ const updateUser = async (req,res)=>{
             })
         }
 
+        if (req.file) {
+            const b64 = Buffer.from(req.file.buffer).toString("base64");
+            let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+            const cldRes = await handleUpload(dataURI, `EcommerceApp/${req.body.category}`)
+
+            if (cldRes.secure_url !== existUser.profilePicture) {
+                // let options = opts
+                // options.folder = `EcommerceApp/${req.body.category}`
+                // const url = await cloudinary.uploader.upload(req.body.image, opts, (err, result) => {
+                //     if (err) console.log("err", err)
+                //     console.log("res", result)
+                // })
+                // console.log("REUSLT", url)
+                existUser.profilePicture = cldRes.secure_url;
+            }
+        }
+
         if(existUser.name !== user.name) existUser.name = user.name
         if(existUser.email !== user.email) existUser.email = user.email
-        if(existUser.profilePicture !== user.profilePicture) existUser.profilePicture = user.profilePicture
+    
 
         const result = await existUser.save()
         console.log(result)

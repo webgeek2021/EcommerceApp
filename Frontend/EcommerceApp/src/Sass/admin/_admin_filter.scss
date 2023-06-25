@@ -1,0 +1,31 @@
+
+@use "../common/colors" as colors;
+@use "../common/function" as func;
+
+.filter-btn{
+    padding: 10px 20px;
+    background-color: colors.$learn_more_btn;
+    border: none;
+    margin-top: 5px;
+    &:focus , &:hover , &:active ,&:not(.btn-check)+.btn:active {
+        background-color: colors.$learn_more_btn;
+    }
+    &:not(:last-child){
+        margin-right: 20px;
+    }
+}
+.admin-filter-container{
+    margin-top: 20px;
+    .filter-holder{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        .admin-filter{
+            padding: 10px 15px;
+            .filter-subcategory{
+                padding: 0 0 0 15px;
+            }
+        }
+    }
+}

@@ -35,12 +35,25 @@
 
         .profile-form {
             .left {
+                .input-field{
+                    position: relative;
+
+                    .preview-image-holder {
+                        opacity: 0;
+                        position: absolute;
+                        top: 33px;
+                        width: 100px;
+                        height: 100px;
+                    }
+                }
+
                 .user-image {
                     width: 100px;
                     height: 100px;
                     object-fit: contain;
                     border-radius: 50%;
                 }
+
             }
 
             .right {
@@ -95,9 +108,11 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                .add-to-cart{
+
+                .add-to-cart {
                     width: 500px;
                 }
+
                 .container-fluid {
                     .row {
                         margin-bottom: 10px;
@@ -122,6 +137,50 @@
                     }
                 }
             }
+        }
+    }
+}
+
+.review-carousel{
+    margin-top: 100px;
+    h4{
+        margin-bottom: 50px;
+    }
+    .slick-slider{
+        .slick-list{
+            .slick-track{
+                width: 10000px !important;
+            }
+            .slick-slide{
+                margin-right: 10px;
+            }
+        }
+    }
+}
+.reviewCard{
+    width: 400px;
+    height: 400px;
+    .upper{
+        position: relative;
+        
+        .background-image{
+            width: 100%;
+        }
+        .profile-image{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            bottom: -50px;
+            left: 37%
+        }
+    }
+    .lower{
+        position: relative;
+        top: 70px;
+        .rating_container{
+            display: flex;
+            margin-bottom: 10px;
         }
     }
 }

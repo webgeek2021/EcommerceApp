@@ -1,0 +1,56 @@
+@use "colors" as colors;
+@use "function" as func;
+
+.search-bar{
+    border-radius: func.to-rem(4);
+    position: relative;
+    margin-left: 50px;
+    width: 500px;
+    .input-group{
+        border : 2px solid colors.$grey;
+        .input-group-text , .form-control{
+            background:transparent;
+            border: none;
+            outline: none;
+            color: inherit;
+            &:focus{
+                outline: none;
+                box-shadow: none;
+            }
+        }
+    }
+    .seachBar__options{
+        position: absolute;
+        inset: 0.2rem auto auto auto !important;
+        transform: translate(0px, 60px);
+        width: 100%;
+        // border-radius: 0.5rem;
+        padding: 10px 15px;
+        z-index: 2;
+        height: fit-content;
+        max-height: func.to-rem(192);
+        overflow-y: scroll;
+        background-color: colors.$white;
+        &::-webkit-scrollbar{
+            width: 10px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: colors.$grey;
+            border-radius: 4px; 
+        }
+        li{
+            padding: func.to-rem(10) func.to-rem(0);
+            border: none;
+            border-radius: func.to-rem(2);
+            color: inherit;   
+            border-bottom: 2px solid colors.$grey;     
+            cursor: pointer;
+            &:hover{
+                background-color: colors.$grey;
+            } 
+        }
+    }
+    .hide-option{
+        display: none;
+    }
+}

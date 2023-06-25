@@ -223,7 +223,7 @@ const filterProduct = async (req, res) => {
 
         const Allproducts = await Product.find({ category }).exec()
         console.log("Allproduct" , Allproducts)
-        const product = Allproducts.filter((product) => product.subCategroy === subcategory)
+        const product = Allproducts.filter((product) => product.subCategroy.toLowerCase() === subcategory.toLowerCase())
         console.log("Products" , product)
         res.status(200).json({
             "data": product,
@@ -237,4 +237,112 @@ const filterProduct = async (req, res) => {
         })
     }
 }
-module.exports = { getAllProducts, getProductById, updateProduct, addProduct, deleteProduct, getProductByCategory, filterProduct }
+
+
+const addReview = async(req,res)=>{
+    const body = req.body
+    try{
+
+        if(!body){
+            res.status(400).json({
+                "message" : "Data is missing",
+                "error" : true
+            })
+        }
+
+        const _id = body.productId
+
+        const product = await Product.findOne({_id}).exec()
+        console.log("Product" , product)
+
+        const obj = {
+            reviewBy : body.reviewBy,
+            ratingGiven : body.ratingGiven,
+            reviewMessage : body.reviewMessage,
+            profileImage : body.profileImage
+        }
+        const result = product.reviews.find((user)=>user.reviewBy === body.reviewBy)
+        if(result){
+            return res.status(200).json({
+                "message" : "Already Submitted Review",
+                "error" : false
+            })
+        }
+        console.log("Before" ,  product.reviews)
+        
+        product.reviews.push(obj)
+        console.log("After" , product.reviews)
+
+        const ratingSum = product.reviews.reduce((total, obj) => total + obj.ratingGiven, 0)
+
+        product.rating = ratingSum / product.reviews.length 
+
+        await product.save()
+
+        res.status(200).json({
+            "message" : "Review Submitted",
+            "error" : false
+        })
+
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : err.message,
+            "error" : true
+        })
+    }
+}
+
+const searchProductByQuery = async(req,res)=>{
+    const {query} = req.params
+    
+    try{
+        const products = await Product.find().exec()
+
+        if(query){
+            console.log("Query" , query)
+            const match = products.filter(pro=> pro.name.toLowerCase().includes(query.toLowerCase()))
+            const list = match.map((pro) => pro.name)
+
+            console.log("Q_LISt1" , list)
+            res.status(200).json({
+                "data" : list,
+                "error" : false 
+            })
+        }
+
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : "Something Went Wrong",
+            "error" : true
+        })
+    }
+}
+
+const getProductBySearch = async(req,res)=>{
+    const {query} = req.params
+
+    try{
+        const products = await Product.find().exec()
+
+        if(query){
+            console.log("Query" , query)
+            const match = products.filter(pro=> pro.name.toLowerCase().includes(query.toLowerCase()))
+            
+            console.log("Q_LISt1" , match)
+            res.status(200).json({
+                "data" : match,
+                "error" : false 
+            })
+        }
+
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : "Something Went Wrong",
+            "error" : true
+        })
+    }
+}
+module.exports = { getAllProducts, getProductById, updateProduct, addProduct, deleteProduct, getProductByCategory, filterProduct,addReview ,searchProductByQuery ,getProductBySearch}

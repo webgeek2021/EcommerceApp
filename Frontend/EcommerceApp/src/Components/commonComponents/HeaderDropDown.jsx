@@ -12,24 +12,7 @@ import books from "../../assets/Icons/book.png"
 const HeaderDropDown = () => {
     // api call for get Categories
     const dropDownInfo = [
-        {
-            category: "Furniture",
-            status: "Available",
-            count: "240 items",
-            poster : Furniture
-        },
-        {
-            category: "Hand Bag",
-            status: "Available",
-            count: "240 items",
-            poster : Bags
-        },
-        {
-            category: "Shoe",
-            status: "Available",
-            count: "240 items",
-            poster : shoes
-        },
+       
         {
             category: "Book",
             status: "Available",
@@ -52,9 +35,9 @@ const HeaderDropDown = () => {
     const [content, setContent] = React.useState(dropDownInfo)
     const items = content.map((item) => {
         return (
-            <Col sm={12} md={6} className='column'>
+            <Col sm={12} md={6} className='column '>
                 <NavLink 
-                    className="dropdown-item"
+                    className="dropdown-item c-black"
                     to={`/products/${item.category}}`}
                 >
                     <div className='d-flex align-items-center dropdown__holder'>
@@ -72,7 +55,7 @@ const HeaderDropDown = () => {
         )
     })
     return (
-        <NavDropdown title="Category" id="collasible-nav-dropdown">
+        <NavDropdown title="Category" id="collasible-nav-dropdown" className='c-black'>
             <div className=' title ' >Popular Category</div>
             <hr/>
             <Row>

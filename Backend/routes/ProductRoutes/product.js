@@ -21,12 +21,21 @@ router.route("/:id")
 
 router.route("/getProduct/:category")
     .get(isAuth , productController.getProductByCategory)
+    
+router.route("/search/product/:query")
+    .get(productController.getProductBySearch)
+
+router.route("/search/:query")
+    .get(productController.searchProductByQuery)
 
 router.route("/addproduct")
     .post(isAuth,isAdmin ,upload.single("image"),productController.addProduct)
 
+router.route("/review")
+    .post(isAuth , productController.addReview)
+        
 router.route("/filterProduct")
-    .post(isAuth , productController.filterProduct)
+    .post(productController.filterProduct)
     
 router.route("/edit")
     .put(upload.single("image"),productController.updateProduct)

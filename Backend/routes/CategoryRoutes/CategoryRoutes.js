@@ -18,11 +18,12 @@ router.route("/:category")
     .get(isAuth , isAdmin ,CategoryController.getProductByCategory)
     
 router.route("/subCategory/:category")
-    .get(isAuth , CategoryController.getSubCategory)
+    .get(CategoryController.getSubCategory)
 
 router.route("/chartData/pie")
     .get(isAuth , isAdmin , CategoryController.getPieChartData)
 
 router.route("/chartData/sales/pie")
     .get(isAuth,isAdmin,CategoryController.getTotalSalesData)
+
 module.exports = router

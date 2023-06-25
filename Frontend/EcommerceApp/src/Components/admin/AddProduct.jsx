@@ -6,7 +6,9 @@ import { Badge, Button } from 'react-bootstrap'
 import { GrAdd } from "react-icons/gr";
 import { NavLink ,useNavigate} from 'react-router-dom'
 import AddProductModalForm from "./AddProductModalForm";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
+import AdminProductFilter from './AdminProductFilter'
+import {getAllCategories} from "../../Api/CategoryApi/categoryApi"
 const AddProduct = () => {
 
     const products= useSelector(state => state.productData.productDataByFilter)
@@ -16,6 +18,7 @@ const AddProduct = () => {
 
     React.useEffect(() => {
       getAllProduct(dispatch)
+      getAllCategories(dispatch)
     }, [])
 
     const columns = React.useMemo(
@@ -52,6 +55,8 @@ const AddProduct = () => {
                     <span>Add Product</span>
                 </Button>
             </div>
+
+            <AdminProductFilter/>
 
             <div className='table_container'>
                 <table {...getTableProps()}>

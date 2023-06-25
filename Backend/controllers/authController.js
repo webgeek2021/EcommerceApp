@@ -19,7 +19,7 @@ const handleSignUp = async (req, res) => {
             const email = response.data.email;
             const profilePicture = response.data.picture;
 
-            const existingUser = await User.findOne({ email })
+            const existingUser = await User.findOne({ email }).exec()
 
             if (existingUser) {
                 // user already exist
@@ -61,7 +61,7 @@ const handleSignUp = async (req, res) => {
                 })
             }
 
-            const existingUser = await User.findOne({ email })
+            const existingUser = await User.findOne({ email }).exec()
 
             if (existingUser) {
                 return res.status(409).json({
@@ -108,12 +108,12 @@ const handleSignIn = async (req, res) => {
                 "Authorization": `Bearer ${googleAccessToken}`
             }
         }).then(async response => {
-            console.log(response)
+            console.log("Response" , response)
             const name = response.data.name;
             const email = response.data.email;
             const profilePicture = response.data.picture;
 
-            const existingUser = await User.findOne({ email })
+            const existingUser = await User.findOne({ email }).exec()
 
             if (!existingUser) {
                 // user already exist
@@ -130,7 +130,11 @@ const handleSignIn = async (req, res) => {
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1d" })
             
             const isAdmin = existingUser.isAdmin
-            res.status(200).json({ name , email ,isAdmin, token ,error : false,  message : "SignIn successful!"})
+            res.status(200).json({ 
+                name , email ,isAdmin, token ,
+                profileImage : profilePicture,
+                error : false,  
+                message : "SignIn successful!"})
         }).catch(err => {
             console.log(err)
             res.status(400).json({
@@ -173,7 +177,11 @@ const handleSignIn = async (req, res) => {
             const isAdmin = existUser.isAdmin
             res
                 .status(200)
-                .json({ name ,email, isAdmin,token ,error : false, message : "SignIn successful!"})
+                .json({ 
+                    name ,email, isAdmin,token ,
+                    profileImage : existUser.profilePicture,
+                    error : false, 
+                    message : "SignIn successful!"})
 
         }catch(err){
             console.log(err)

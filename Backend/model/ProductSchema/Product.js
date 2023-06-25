@@ -42,9 +42,7 @@ const Product = new Schema({
         type: String,
         required: true
     },
-    // reviews: {
-    //     type: [Review],
-    // },
+    reviews: [Review],
 },
 {
     timestamps: true,

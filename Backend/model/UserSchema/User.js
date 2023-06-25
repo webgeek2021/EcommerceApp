@@ -16,7 +16,8 @@ const userSchema = new Schema({
     },
     profilePicture: {
         type: String,
-         required: false
+        required: true,
+        default : "https://res.cloudinary.com/dwlgkphss/image/upload/v1687669234/user_tobnts.jpg"
     },
     isAdmin : {
         type : Boolean,

@@ -11,6 +11,7 @@ import DisplayCart from './DisplayCart';
 import { FiShoppingCart } from 'react-icons/fi';
 import { setShowCart } from '../../ReduxStore/slices/cartSlice';
 import Cookie from "js-cookie";
+import SearchBar from './SearchBar';
 const Header = () => {
 
   const [user, setUser] = React.useState(null)
@@ -70,9 +71,13 @@ const Header = () => {
 
                 </>
                 :
-                <div className='header__dropdown'>
-                  <HeaderDropDown />
-                </div>
+                <>
+                  <div className='header__dropdown d-flex align-items-center '>
+                    <NavLink to="/" className="c-black">Home</NavLink>
+                    {/* <HeaderDropDown /> */}
+                    <SearchBar />
+                  </div>
+                </>
 
             }
           </Nav>

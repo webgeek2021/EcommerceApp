@@ -1,0 +1,33 @@
+@use "./colors" as color;
+@use "./function" as func;
+
+.product-card{
+    .card{
+        // position: relative;
+        border: none;
+        width: 300px;
+        
+        .card-thumbnail{
+            border-radius: 10px;
+            background-color: color.$grey;
+            .poster{
+                // width: calc(100% - 24px);
+                height: 150px;
+                object-fit: contain;
+            }
+        }
+        .card-body{
+            // .add-to-cart{
+            //     position:absolute;
+            //     left: 0px;
+            // }
+            .card-text{
+                font-size: func.to-rem(12);
+                margin-bottom: 5px;
+            }
+            .rating_container{
+                margin:  0 0 10px 0px;
+            }
+        }
+    }
+}

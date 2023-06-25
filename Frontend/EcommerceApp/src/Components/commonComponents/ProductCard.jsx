@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 const ProductCard = (props) => {
   return (
-    <Link to={`/show/product/${props.id}`}>
+    <Link to={`/show/product/${props.id}`} className='product-card'>
       <Card>
         <div className='card-thumbnail'>
           <Card.Img src={props.image} alt="" className='poster' />

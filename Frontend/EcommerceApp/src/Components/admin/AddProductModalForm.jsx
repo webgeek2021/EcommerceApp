@@ -132,6 +132,7 @@ const AddProductModalForm = (props) => {
                         name='image'
                         placeholder='Upload New Image'
                         onChange={handleFileUpload}
+                        
                         required
                     />
                     <Button className="w-100 add-to-cart" type='submit'>Submit Product</Button>

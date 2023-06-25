@@ -5,8 +5,13 @@
 .my-container{
 
     .product-header{
+        h1{
+            width: 80%;
+
+        }
         .btn-danger{
             padding: 10px 15px;
+            height: 50px;
         }
     }
 }
@@ -15,7 +20,8 @@
     .image_section{
         margin-right: 60px;
         .img{
-            width: 500px;
+            width: 300px;
+            height: 300px;
             object-fit: contain;
         }
     }

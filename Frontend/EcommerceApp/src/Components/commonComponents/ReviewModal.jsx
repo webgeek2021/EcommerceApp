@@ -4,7 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import starEmpty from "../../assets/Images/EmptyStar.png";
 import starFilled from "../../assets/Images/FullStar.png";
 import { USER_INFO } from '../../utils/constants';
-import {Cookie} from "js-cookie"
+import { addReview } from '../../Api/ProductApi/ProductApi';
+import Cookie from "js-cookie"
 
 function ReviewModal(props) {
 
@@ -24,20 +25,27 @@ function ReviewModal(props) {
         console.log('Rating:', rating);
         console.log('Message:', message);
         // Reset the form fields
-        setRating(0);
-        setMessage('');
+        
         // Close the modal or perform any other necessary actions
-        const user = Cookie.get(USER_INFO)
-        const reviewBy = user.name 
-        const profileImage = user.profileImage
-        const reviewMessage = message
-        const rating = rating
+        const user = JSON.parse(Cookie.get(USER_INFO))
+        console.log("USER " , user.name)
+        const data = {
+            reviewBy: user.name,
+            profileImage: user.profileImage,
+            reviewMessage: message,
+            ratingGiven: rating,
+            productId: props.productId,
+        }
+
 
         // api call for rating
+        addReview(data)
         props.handleClose()
+        setRating(0);
+        setMessage('');
     };
 
-    
+
     const renderStar = (value) => {
         const starImage = value <= rating ? starFilled : starEmpty;
         return <img src={starImage} alt="star" onClick={() => handleRatingChange(value)} />;
@@ -76,7 +84,7 @@ function ReviewModal(props) {
                         <Button className="add-to-cart" onClick={handleSubmit}>Submit</Button>
                     </div>
                 </Modal.Body>
-                
+
             </Modal>
         </>
     );

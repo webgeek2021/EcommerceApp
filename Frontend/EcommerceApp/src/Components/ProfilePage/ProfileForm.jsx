@@ -11,9 +11,15 @@ const ProfileForm = () => {
     const email = JSON.parse(Cookie.get(USER_INFO)).email
 
     const [user, setUser] = React.useState()
-    const [newUser, setNewUser] = React.useState()
+    const [newUser, setNewUser] = React.useState({
+        "name" : user?.name || "",
+        "email" : email || "",
+        "profilePicture" : user?.profileImage || ""
+    })
     const [editName, setEditName] = React.useState(true)
     const [editEmail, setEditEmail] = React.useState(true)
+    const [editImage, setEditImage] = React.useState(true)
+    const [previewImage , setPreviewImage] = React.useState()
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -23,6 +29,22 @@ const ProfileForm = () => {
             [name]: value
         }))
     }
+
+    const handleFileUpload = (ev) => {
+        console.log(ev)
+        const file = ev.target.files[0]
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+
+        reader.onloadend = () => {
+            console.log(reader.result)
+            setPreviewImage(reader.result)
+            setNewUser((prev) => ({
+                ...prev,
+                ["profilePicture"]: file
+            }))
+        }
+    }
     React.useEffect(() => {
 
         const user = JSON.parse(Cookie.get(USER_INFO))
@@ -30,6 +52,7 @@ const ProfileForm = () => {
         if (user) {
             setNewUser(user)
             setUser(user)
+            setPreviewImage(user.profileImage)
         }
 
     }, [])
@@ -40,7 +63,7 @@ const ProfileForm = () => {
             formData.name = newUser.name
             formData.email = newUser.email
             formData.profilePicture = newUser.profilePicture
-
+            console.log(formData)
             updateUserProfile(formData)
         }
     }
@@ -52,7 +75,16 @@ const ProfileForm = () => {
                     <Container fluid>
                         <Row>
                             <Col xs={12} lg={3} className='left'>
-                                <Image src={newUser?.profileImage || userImage} alt="" className="user-image" />
+                                <Form.Group className="input-field">
+                                    <Image src={previewImage || userImage} alt="" className="user-image" />
+                                    <Form.Control
+                                        type="file"
+                                        accept="image/*"
+                                        name="profilePicture"
+                                        onChange={handleFileUpload}
+                                        className="preview-image-holder"
+                                    />
+                                </Form.Group >
                                 <h2 className='user-name'>{user?.name}</h2>
                                 <p className='user-email'>{user?.email}</p>
                             </Col>

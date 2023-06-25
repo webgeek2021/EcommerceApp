@@ -35,6 +35,7 @@ export const updateUserProfile = async (data)=>{
         if(result.data.error){
             toast.error("Some thing Went Wrong")
         }else{
+            console.log("RESULT PROFILE" , result.data)
             toast.success(result.data.message)
             let cooki = JSON.parse(Cookie.get(USER_INFO))
             let newCooki = {...cooki , name : result.data.userInfo.name , email : result.data.userInfo.email}
