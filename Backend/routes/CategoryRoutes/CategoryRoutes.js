@@ -26,4 +26,7 @@ router.route("/chartData/pie")
 router.route("/chartData/sales/pie")
     .get(isAuth,isAdmin,CategoryController.getTotalSalesData)
 
+router.route("/delete/:category")
+    .delete(isAuth , isAdmin , CategoryController.deleteCategory)
+
 module.exports = router

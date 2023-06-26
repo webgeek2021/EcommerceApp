@@ -19,10 +19,29 @@
         background-color: color.$learn_more_btn;
         color: color.$white;
     }
+    .delete-icon{
+        position: absolute;
+        top: 21px;
+        right: 30px;
+        font-size: 24px;
+        color: color.$white;
+        background: color.$red;
+        padding: 10px;
+        display: flex;
+    }
 }
 
 .category-page{
     margin: 40px 0 0 0;
+    .add_product_btn{
+        .delete-icon{
+            padding: 15px;
+            background-color: color.$red;
+            margin:  0 0 10px 0;
+            color: color.$white;
+            border-radius: 5px;
+        }
+    }
     .product-list{
         margin-top: 40px;
         display: grid;

@@ -31,7 +31,7 @@ const HomePage = () => {
         <div className='category__info' >
           <h2>{slider.category}</h2>
           <p>{slider.description}</p>
-          <NavLink to={`/category/${slider.category}`} className="primary-btn">Learn More</NavLink>
+          {/* <NavLink to={`/category/${slider.category}`} className="primary-btn">Learn More</NavLink> */}
         </div>
         <Image src={slider.poster} alt="category image" />
       </div>

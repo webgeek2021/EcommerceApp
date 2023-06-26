@@ -15,14 +15,21 @@ router.route("/paymentVerification")
 router.route("/getOrder")
     .post(OrderController.getOrderList)
 
+router.route("/filterOrder")
+    .post(isAuth , isAdmin , OrderController.filterOrder)
+    
 router.route("/getAllOrder")
     .get(OrderController.getAllOrders)
+    
+router.route("/getTotal")
+    .get(OrderController.getTotalAmount)
+
 
 router.route("/setOrderStatus")
     .put(OrderController.setOrderStatus)
 
-router.route("/getTotal")
-    .get(OrderController.getTotalAmount)
+
 router.route("/deleteOrder")
     .delete(isAuth , OrderController.deleteOrder)
+
 module.exports = router

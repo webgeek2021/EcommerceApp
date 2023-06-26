@@ -29,3 +29,34 @@
         }
     }
 }
+.admin-order-filter-container{
+    margin-right: 50px;
+    padding: 10px 20px;
+    position: inherit;
+    width: 250px;
+    .admin-order-filter{
+        // width: 250px;   
+        position: fixed;
+        top: 120px;
+        .filter-title{
+            margin-top: 20px ;
+            font-size: 18px;
+            font-weight: 500;
+            color: colors.$black;
+        }
+        .filter-holder{
+            margin-bottom: 20px;
+            .radio-label{
+                margin:5px 0 0 0;
+                input{
+                    margin-left: 10px;
+                }
+            }
+        }
+        .reset-btn{
+            padding: 10px 20px;
+            background-color: colors.$add-to-btn;
+            border: none;
+        }
+    }
+}

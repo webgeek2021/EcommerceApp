@@ -83,3 +83,16 @@ export const getSubcategory = async (category , dispatch)=>{
         console.log(error.message)
     }
 }
+
+export const deleteCategory = async (id , navigate)=>{
+    try{
+        const result  = await postLoginApi.delete(`/category/delete/${id}`)
+
+        if(!result.data.error){
+            toast.success(result.data.message)
+            navigate("/admin/add-category")
+        }
+    }catch(err){
+        console.log(err)
+    }
+}

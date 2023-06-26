@@ -242,4 +242,52 @@ const deleteOrder = async (req,res)=>{
 
 
 }
-module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus, getTotalAmount ,deleteOrder}
+
+const filterOrder  = async(req,res)=>{
+    const body = req.body
+
+    if(!body){
+        res.status(400).json({
+            "message" : "Data is missing",
+            "error"  : true
+        })
+    }
+
+    try{
+
+        const {isPaid , orderStatus} = body
+        const orders = await Order.find().exec()
+        console.log("Ispaid " , isPaid )
+        console.log("order " , orderStatus )
+       
+        console.log("condition" ,(isPaid != ""))
+        let result = [];
+        if(isPaid != '' && orderStatus === ""){
+            console.log("1")
+            result = orders.filter((order) => order.isPaid === isPaid)
+        }
+        else if(orderStatus != '' && isPaid === ""){
+            console.log("2")
+            result = orders.filter((order)=>order.orderStatus === orderStatus)
+        }
+        else if(isPaid != "" && orderStatus != ""){
+            console.log("3")
+            result = orders.filter((order)=> order.orderStatus === orderStatus && order.isPaid === isPaid)
+        }   
+
+        res.status(200).json({
+            "data" : result,
+            "error" : false
+        })
+
+
+
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : err.message,
+            "error"  : true
+        })
+    }
+}
+module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus, filterOrder,getTotalAmount ,deleteOrder}

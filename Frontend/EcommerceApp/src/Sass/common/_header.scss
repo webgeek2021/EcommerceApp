@@ -99,13 +99,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50px;
+            border-radius: 50%;
+            border: none;
             background : transparent;
             svg{
                 font-size: func.to-rem(24);
             }
             &:hover{
                 background-color: color.$grey;
+                border-radius: 50%;
             }
         }
     }

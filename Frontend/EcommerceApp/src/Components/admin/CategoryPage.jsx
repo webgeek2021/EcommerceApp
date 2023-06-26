@@ -1,15 +1,16 @@
 
 import React from 'react'
-import { getAllProductByCategory } from '../../Api/CategoryApi/categoryApi'
+import { getAllProductByCategory, deleteCategory } from '../../Api/CategoryApi/categoryApi'
 import { useParams } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
-import { Card , Button , Badge } from "react-bootstrap"
+import { NavLink,useNavigate } from 'react-router-dom'
+import { Card, Button, Badge } from "react-bootstrap"
 import { GrAdd } from 'react-icons/gr'
 import Rating from '../commonComponents/Rating'
 import AddProductModalForm from './AddProductModalForm'
-const CategoryPage = () => {
+const CategoryPage = (props) => {
 
     const { category } = useParams()
+    const navigate = useNavigate()
     const [addModal, setAddModal] = React.useState(false)
     const [productData, setProductData] = React.useState([])
     React.useEffect(() => {
@@ -23,10 +24,10 @@ const CategoryPage = () => {
                     <div className='card-thumbnail'>
                         <Card.Img src={p.image} alt="" className='poster' />
                         {
-                            p.isAvailable ? 
-                            <Badge pill bg="success">Available</Badge >
-                            :
-                            <Badge pill bg="success">Available</Badge >
+                            p.isAvailable ?
+                                <Badge pill bg="success">Available</Badge >
+                                :
+                                <Badge pill bg="success">Available</Badge >
                         }
                     </div>
                     <Card.Body>
@@ -41,14 +42,21 @@ const CategoryPage = () => {
             </NavLink>
         )
     })
+
+    const handleDelete = ()=>{
+        deleteCategory(category , navigate)
+         
+    }
     return (
         <div className='my-container category-page'>
-            <div className='add_product_btn'>
+            <div className='d-flex justify-content-between add_product_btn'>
                 <Button onClick={() => setAddModal(prev => !prev)}>
                     <GrAdd />
                     <span>Add Product</span>
                 </Button>
-
+                <div className='delete-icon c-pointer' onClick={handleDelete}>
+                    Delete Category
+                </div>
             </div>
             <div className='product-list'>{data}</div>
             {

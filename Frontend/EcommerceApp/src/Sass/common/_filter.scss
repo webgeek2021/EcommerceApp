@@ -10,5 +10,17 @@
             color: colors.$black;
             opacity: 0.3;
         }
+        .category-dropdown{
+            .dropdown{
+                .dropdown-menu{
+                    .dropdown-item{
+                        &:active{
+                            background-color: inherit;
+                            color: inherit;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

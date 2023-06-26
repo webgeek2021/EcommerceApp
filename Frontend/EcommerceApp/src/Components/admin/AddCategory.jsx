@@ -1,13 +1,16 @@
 
 import React from 'react'
-import { getAllCategories } from "../../Api/CategoryApi/categoryApi"
+import { getAllCategories, deleteCategory } from "../../Api/CategoryApi/categoryApi"
 import { useDispatch, useSelector } from "react-redux";
 import { GrAdd } from 'react-icons/gr';
 import { Button, Image } from "react-bootstrap"
 import AddCategoryModalForm from './AddCategoryModalForm';
-import { NavLink } from 'react-router-dom';
+import { NavLink ,useNavigation} from 'react-router-dom';
+import { AiOutlineDelete } from "react-icons/ai"
+
 const AddCategory = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigation()
   const category = useSelector(state => state.category.categoryList)
   const [addModal, setAddModal] = React.useState(false)
 
@@ -15,15 +18,17 @@ const AddCategory = () => {
     getAllCategories(dispatch)
   }, [])
 
+
   const data = category?.map((cat) => {
     console.log("cat", cat)
     return (
-      <NavLink 
+      <NavLink
         className='category-card'
         to={`/admin/category/${cat.category}`}
       >
-        <Image src={cat.image} alt=""/>
-        <h4>{cat.category}</h4>
+          <Image src={cat.image} alt="" />
+          <h4>{cat.category}</h4>
+          
       </NavLink>
     )
   })

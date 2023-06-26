@@ -12,7 +12,8 @@ const getCategoryList = async (req, res) => {
             "category": category.category,
             "description": category.description,
             "image": category.image,
-            "totalSale": category.totalSale
+            "totalSale": category.totalSale,
+            "id" : category.id
         }))
         console.log(list)
         res.status(200).json({
@@ -181,4 +182,33 @@ const getSubCategory = async(req,res)=>{
         })
     }
 }
-module.exports = { getCategoryList, addCategory, getProductByCategory,getPieChartData,getTotalSalesData,getSubCategory }
+
+
+const deleteCategory = async(req,res) =>{
+
+    try{
+        const {category} = req.params
+
+        const isExistcategory = await Category.findOne({category}).exec()
+
+        if(!isExistcategory){
+            return res.status(400).json({
+                "message" : "Category Does Not exist",
+                "error"  :true
+            })
+        }
+
+        const result = await  Category.deleteOne({category})
+        res.status(200).json({
+            "message" : "Category Delete Successfully",
+            "error" : false
+        })
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            "message" : err.message,
+            "error"  :true
+        })
+    }
+}
+module.exports = { getCategoryList, addCategory, getProductByCategory,getPieChartData,getTotalSalesData,getSubCategory,deleteCategory }

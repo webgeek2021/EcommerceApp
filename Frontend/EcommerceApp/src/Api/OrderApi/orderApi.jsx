@@ -78,10 +78,11 @@ export const getOrders = async (dispatch , data)=>{
     }
 }
 
-export const getAllOrders = async (setOrderList)=>{
+export const getAllOrders = async (dispatch)=>{
     try{
         const result = await postLoginApi.get("/order/getAllOrder")
-        setOrderList(result.data.data)
+        dispatch(setOrderList(result.data.data))
+        // setOrderList(result.data.data)
         console.log(result)
     }catch(err){
         console.log(err)
@@ -125,5 +126,16 @@ export const deleteOrder = async (data)=>{
     }catch(err){
         console.log(err)
         toast.error(err)
+    }
+}
+
+export const filterOrder = async(data,dispatch)=>{
+
+    try{
+        const result = await postLoginApi.post("/order/filterOrder" , data)
+        console.log("Filter Result" , result)
+        dispatch(setOrderList(result.data.data))
+    }catch(err){    
+        console.log(err)
     }
 }

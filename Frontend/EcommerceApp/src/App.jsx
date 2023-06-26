@@ -13,7 +13,7 @@ function App() {
     <>
       <Header/>
       <Outlet/>
-      <Footer/>
+      {/* <Footer/> */}
       {
         showCart && <DisplayCart/>
       }

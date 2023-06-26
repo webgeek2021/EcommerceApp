@@ -319,7 +319,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50px;
+  border-radius: 50%;
+  border: none;
   background: transparent;
 }
 .header__container .container .cart svg {
@@ -327,6 +328,7 @@ body {
 }
 .header__container .container .cart:hover {
   background-color: #f2f2f2;
+  border-radius: 50%;
 }
 
 .table_container {
@@ -1100,9 +1102,26 @@ body {
   background-color: #7AA874;
   color: white;
 }
+.category-card .delete-icon {
+  position: absolute;
+  top: 21px;
+  right: 30px;
+  font-size: 24px;
+  color: white;
+  background: crimson;
+  padding: 10px;
+  display: flex;
+}
 
 .category-page {
   margin: 40px 0 0 0;
+}
+.category-page .add_product_btn .delete-icon {
+  padding: 15px;
+  background-color: crimson;
+  margin: 0 0 10px 0;
+  color: white;
+  border-radius: 5px;
 }
 .category-page .product-list {
   margin-top: 40px;
@@ -1166,6 +1185,10 @@ body {
   color: black;
   opacity: 0.3;
 }
+.filter-container .filters .category-dropdown .dropdown .dropdown-menu .dropdown-item:active {
+  background-color: inherit;
+  color: inherit;
+}
 
 .filter-btn {
   padding: 10px 20px;
@@ -1194,4 +1217,35 @@ body {
 }
 .admin-filter-container .filter-holder .admin-filter .filter-subcategory {
   padding: 0 0 0 15px;
+}
+
+.admin-order-filter-container {
+  margin-right: 50px;
+  padding: 10px 20px;
+  position: inherit;
+  width: 250px;
+}
+.admin-order-filter-container .admin-order-filter {
+  position: fixed;
+  top: 120px;
+}
+.admin-order-filter-container .admin-order-filter .filter-title {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+}
+.admin-order-filter-container .admin-order-filter .filter-holder {
+  margin-bottom: 20px;
+}
+.admin-order-filter-container .admin-order-filter .filter-holder .radio-label {
+  margin: 5px 0 0 0;
+}
+.admin-order-filter-container .admin-order-filter .filter-holder .radio-label input {
+  margin-left: 10px;
+}
+.admin-order-filter-container .admin-order-filter .reset-btn {
+  padding: 10px 20px;
+  background-color: #5C8984;
+  border: none;
 }/*# sourceMappingURL=style.css.map */
