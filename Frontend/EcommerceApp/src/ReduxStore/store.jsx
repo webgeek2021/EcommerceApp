@@ -8,6 +8,7 @@ import OrderSlice from './slices/OrderSlice'
 import { USER_INFO } from '../utils/constants'
 import adminDashboardReducer from './slices/adminDashboard'
 import categoryReducer from "./slices/categorySlice";
+import loadingReducer from "./slices/loadingSlice";
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
     profile : ProfileSliceReducer,
     orders : OrderSlice,
     admin : adminDashboardReducer,
-    category : categoryReducer
+    category : categoryReducer,
+    loading : loadingReducer
   }
 })

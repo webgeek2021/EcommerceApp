@@ -4,26 +4,26 @@ import { useTable } from "react-table"
 import { PRODUCT } from "../../utils/constants"
 import { Badge, Button } from 'react-bootstrap'
 import { GrAdd } from "react-icons/gr";
-import { NavLink ,useNavigate} from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import AddProductModalForm from "./AddProductModalForm";
 import { useDispatch, useSelector } from "react-redux";
 import AdminProductFilter from './AdminProductFilter'
-import {getAllCategories} from "../../Api/CategoryApi/categoryApi"
+import { getAllCategories } from "../../Api/CategoryApi/categoryApi"
 const AddProduct = () => {
 
-    const products= useSelector(state => state.productData.productDataByFilter)
+    const products = useSelector(state => state.productData.productDataByFilter)
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const [addModal , setAddModal] = React.useState(false)
+    const [addModal, setAddModal] = React.useState(false)
 
     React.useEffect(() => {
-      getAllProduct(dispatch)
-      getAllCategories(dispatch)
+        getAllProduct(dispatch)
+        getAllCategories(dispatch)
     }, [])
 
     const columns = React.useMemo(
         () => [
-            {Header : "product Id" , accessor : PRODUCT.ID},
+            { Header: "product Id", accessor: PRODUCT.ID },
             { Header: 'Name', accessor: PRODUCT.NAME },
             { Header: 'Category', accessor: PRODUCT.CATEGORY },
             { Header: 'subCategroy', accessor: PRODUCT.SUBCATEGORY },
@@ -50,13 +50,13 @@ const AddProduct = () => {
             {/* <p>Fill in the details below to add a new product:</p> */}
 
             <div className='add_product_btn'>
-                <Button onClick={()=>setAddModal(prev => !prev)}>
+                <Button onClick={() => setAddModal(prev => !prev)}>
                     <GrAdd />
                     <span>Add Product</span>
                 </Button>
             </div>
 
-            <AdminProductFilter/>
+            <AdminProductFilter />
 
             <div className='table_container'>
                 <table {...getTableProps()}>
@@ -74,16 +74,16 @@ const AddProduct = () => {
                             prepareRow(row);
                             { console.log(products[index]._id) }
                             return (
-                                    <tr {...row.getRowProps()} onClick={()=> navigate(`/admin/product/${products[index]._id}`)}>
-                                        {row.cells.map(cell => (
+                                <tr {...row.getRowProps()} onClick={() => navigate(`/admin/product/${products[index]._id}`)}>
+                                    {row.cells.map(cell => (
 
-                                            <td {...cell.getCellProps()}>{
-                                                cell.value === true ? <Badge pill bg="success">Available</Badge > :
-                                                    cell.value === false ? <Badge pill bg="danger">Not Available</Badge > :
-                                                        cell.render('Cell')}
-                                            </td>
-                                        ))}
-                                    </tr>
+                                        <td {...cell.getCellProps()}>{
+                                            cell.value === true ? <Badge pill bg="success">Available</Badge > :
+                                                cell.value === false ? <Badge pill bg="danger">Not Available</Badge > :
+                                                    cell.render('Cell')}
+                                        </td>
+                                    ))}
+                                </tr>
                             );
                         })}
                     </tbody>
@@ -91,15 +91,15 @@ const AddProduct = () => {
             </div>
 
             {
-            addModal &&
-             <AddProductModalForm 
-                show = {addModal}
-                handleShow={setAddModal}
-             />
-        }
+                addModal &&
+                <AddProductModalForm
+                    show={addModal}
+                    handleShow={setAddModal}
+                />
+            }
         </div>
 
-       
+
     )
 }
 

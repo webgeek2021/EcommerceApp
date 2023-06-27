@@ -1,13 +1,15 @@
 import React from 'react'
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { FiEdit3 } from "react-icons/fi"
-import { getShippingDetails,updateShippingDetails } from '../../Api/UserApi/UserApi';
+import { getShippingDetails, updateShippingDetails } from '../../Api/UserApi/UserApi';
 import { USER_INFO } from '../../utils/constants';
 import Cookie from 'js-cookie';
+import {toast} from "react-toastify"
 const ShippingDetailForm = () => {
 
   const [shippingDetails, setShippingDetails] = React.useState()
-  const [email , setEmail] = React.useState()
+  const [email, setEmail] = React.useState()
+
 
   React.useEffect(() => {
     // api call for getting shipping details
@@ -26,20 +28,27 @@ const ShippingDetailForm = () => {
   const [editCountry, setEditCountry] = React.useState(true)
 
   const handleChange = (e) => {
-    const {name , value} = e.target
+    const { name, value } = e.target
 
-    setShippingDetails((prev)=>({
+    setShippingDetails((prev) => ({
       ...prev,
-      [name] : value
+      [name]: value
     }))
   }
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     console.log(shippingDetails)
     shippingDetails.email = email
-
+    if(!shippingDetails?.address ||
+      !shippingDetails?.country ||
+      !shippingDetails?.postalCode ||
+      !shippingDetails?.state ||
+      !shippingDetails?.city){
+        toast.warning("Fields are empty")
+        return
+    }
     updateShippingDetails(shippingDetails)
   }
   return (
@@ -143,8 +152,8 @@ const ShippingDetailForm = () => {
                   <Form.Label>Address</Form.Label>
                 </div>
                 <Form.Control
-                  as="textarea" rows={3}
-
+                  as="textarea"
+                  rows={3}
                   placeholder='Enter Address'
                   required
                   name="address"
@@ -156,7 +165,12 @@ const ShippingDetailForm = () => {
             </Col>
           </Row>
         </Container>
-        <Button type="submit" className="add-to-cart">Submit</Button>
+        <Button
+          type="submit"
+          className="add-to-cart"
+        
+
+        >Submit</Button>
       </Form>
     </div>
   )

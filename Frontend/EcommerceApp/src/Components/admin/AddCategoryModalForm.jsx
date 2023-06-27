@@ -69,6 +69,7 @@ const AddCategoryModalForm = (props) => {
                     <textarea
                         rows={4}
                         onChange={handleOnChange}
+                        placeholder='Enter Category Description'
                         name="description"
                     >
                         {categoryData.description}

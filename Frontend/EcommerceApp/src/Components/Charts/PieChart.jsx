@@ -5,20 +5,22 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-import { getCategoryPieChartData ,getCategorySalesData} from "../../Api/CategoryApi/categoryApi"
+import { getCategoryPieChartData, getCategorySalesData } from "../../Api/CategoryApi/categoryApi"
 import { NUMBER_OF_PRODUCT_CHART, SALES_CHART } from '../../utils/constants';
+import NoDataFound from '../commonComponents/NoDataFound';
 
 const PieChart = (props) => {
 
 
     const [pieDataLabels, setPieDataLabels] = React.useState()
     const [pieData, setPieData] = React.useState()
-
+    console.log("PieData", pieData)
+    console.log("pieDataLabels", pieDataLabels)
     React.useEffect(() => {
-        if(props.title === NUMBER_OF_PRODUCT_CHART){
+        if (props.title === NUMBER_OF_PRODUCT_CHART) {
             getCategoryPieChartData(setPieDataLabels, setPieData)
-        }else if(props.title === SALES_CHART){
-            getCategorySalesData(setPieDataLabels , setPieData)
+        } else if (props.title === SALES_CHART) {
+            getCategorySalesData(setPieDataLabels, setPieData)
         }
     }, [])
 
@@ -48,7 +50,7 @@ const PieChart = (props) => {
                 borderWidth: 1,
             }
         ],
-        
+
     };
     const config = {
         type: 'pie',
@@ -67,16 +69,17 @@ const PieChart = (props) => {
         },
     };
     return (
-        <div className='pie-chart-container'>
-            {
-                pieData ?
-                <Pie
-                    data={data}
-                />
-                :
-                <h1>Loading</h1>
-            }
-        </div>
+        <>
+            {pieData?.length >= 1 && pieData[0] != 0 &&
+                <div className='pie-chart-container'>
+                    <h4 className='title'>{props.title}</h4>
+                    <Pie
+                        data={data}
+                    />
+
+                </div>
+                }
+        </>
     )
 }
 

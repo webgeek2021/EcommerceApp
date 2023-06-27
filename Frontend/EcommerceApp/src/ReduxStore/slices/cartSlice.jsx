@@ -37,7 +37,7 @@ export const cartSlice = createSlice({
             const isExist = state.productList.find((obj) => obj.id === id)
             console.log("IsExist" , isExist)
             if(isExist){
-                state.total -= isExist.price
+                state.total -=( isExist.price * isExist.orderQuantity)
                 const newArr = state.productList.filter((obj) => obj.id !== id)
                 state.productList = newArr
                 const productList= state.productList

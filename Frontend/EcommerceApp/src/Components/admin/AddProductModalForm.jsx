@@ -97,7 +97,12 @@ const AddProductModalForm = (props) => {
                         value={productData.subCategroy}
                         required
                     />
-                    <textarea rows={4} onChange={handleOnchange} name='description'>{productData.description}</textarea>
+                    <textarea 
+                        rows={4} 
+                        onChange={handleOnchange} 
+                        name='description'
+                        placeholder='Enter Product Description'
+                    >{productData.description}</textarea>
                     
                     <input
                         type='number'

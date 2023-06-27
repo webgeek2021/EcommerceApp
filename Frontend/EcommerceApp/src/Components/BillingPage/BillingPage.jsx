@@ -3,16 +3,18 @@ import { useSelector, useDispatch } from 'react-redux'
 import CartCard from '../commonComponents/CartCard'
 import { getShippingDetails } from "../../Api/UserApi/UserApi";
 import Cookie from 'js-cookie';
-import { USER_INFO,CART } from '../../utils/constants';
-import { NavLink } from 'react-router-dom';
+import { USER_INFO, CART } from '../../utils/constants';
+import { NavLink, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import {placeOrder} from "../../Api/OrderApi/orderApi";
+import { placeOrder, getOrderById ,payNow } from "../../Api/OrderApi/orderApi";
+
 const BillingPage = () => {
 
-    const [productArr , setProductArr] = React.useState([]) 
-    const [cartTotal,setCartTotal] = React.useState([]) 
+    const { id } = useParams()
+    const [productArr, setProductArr] = React.useState([])
+    const [cartTotal, setCartTotal] = React.useState([])
     const [shippingDetails, setShippingDetails] = React.useState()
-    const [user , setUser] = React.useState()
+    const [user, setUser] = React.useState()
     React.useEffect(() => {
         // api call for getting shipping details
         const data = JSON.parse(Cookie.get(USER_INFO))
@@ -21,12 +23,18 @@ const BillingPage = () => {
             setUser(data)
             getShippingDetails(email, setShippingDetails)
         }
-        const cartData = JSON.parse(localStorage.getItem(CART))
-        if(cartData){
-            const arr = cartData.productList;
-            setProductArr(arr)
-            const total = cartData.total
-            setCartTotal(total)
+        if (!id) {
+            const cartData = JSON.parse(localStorage.getItem(CART))
+            if (cartData) {
+                const arr = cartData.productList;
+                setProductArr(arr)
+                const total = cartData.total
+                setCartTotal(total)
+            }
+        }
+        else {
+
+            getOrderById(id, setProductArr, setCartTotal)
         }
     }, [])
 
@@ -44,31 +52,40 @@ const BillingPage = () => {
         )
     })
 
-    const handlePayment = ()=>{
+    const handlePayment = () => {
         let orderList = []
 
-        productArr.map((item)=>{
+        productArr.map((item) => {
             const obj = {
-                name : item.name,
-                orderQuantity : item.orderQuantity,
-                price : item.price,
-                image : item.image,
-                productId : item.id,
-                category : item.category
+                name: item.name,
+                orderQuantity: item.orderQuantity,
+                price: item.price,
+                image: item.image,
+                productId: item.id,
+                category: item.category
             }
             orderList.push(obj)
         })
         const data = {
-            userEmail : user.email,
-            userId : shippingDetails.userId,
-            shippingId : shippingDetails.id,
-            totalAmount : cartTotal,
-            OrderList : orderList,
-            userName : user.name
+            userEmail: user.email,
+            userId: shippingDetails.userId,
+            shippingId: shippingDetails.id,
+            totalAmount: cartTotal,
+            OrderList: orderList,
+            userName: user.name
         }
 
         placeOrder(data)
 
+    }
+
+    const handlePay = () => {
+        const data = {
+            id: id,
+            amount: cartTotal,
+            email: user.email,
+        }
+        payNow(data)
     }
 
     return (
@@ -77,6 +94,8 @@ const BillingPage = () => {
                 <div className='show-order'>
                     {/* display product */}
                     {product_list}
+
+                    <p>Total : &#8377; {cartTotal}</p>
                 </div>
                 <div className='d-flex align-items-center flex-column show-shipping-details'>
                     <h5>Shipping Detail</h5>
@@ -114,13 +133,23 @@ const BillingPage = () => {
                                     >
                                         Update Shipping Details
                                     </NavLink>
-
-                                    <Button 
-                                        className='nav-link add-to-cart'
-                                        onClick={handlePayment}
-                                    >
-                                        Proceed To Payment
-                                    </Button>
+                                    {
+                                        id ?
+                                            <Button
+                                                className="nav-link add-to-cart"
+                                                onClick={handlePay}
+                                            >
+                                                Pay Now
+                                            </Button>
+                                            :
+                                            <Button
+                                                className='nav-link add-to-cart'
+                                                onClick={handlePayment}
+                                                disabled={!shippingDetails.address || !shippingDetails.city || !shippingDetails.postalCode || !shippingDetails.country}
+                                            >
+                                                Proceed To Payment
+                                            </Button>
+                                    }
                                 </div>
 
                             </div>

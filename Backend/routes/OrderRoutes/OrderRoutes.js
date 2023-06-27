@@ -24,6 +24,9 @@ router.route("/getAllOrder")
 router.route("/getTotal")
     .get(OrderController.getTotalAmount)
 
+router.route("/:id")
+    .get(isAuth , OrderController.getOrderById)
+    
 
 router.route("/setOrderStatus")
     .put(OrderController.setOrderStatus)

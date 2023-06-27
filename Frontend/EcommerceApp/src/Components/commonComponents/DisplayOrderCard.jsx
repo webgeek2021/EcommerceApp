@@ -3,10 +3,12 @@ import { Table, Image, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import { payNow, setOrderStatus } from "../../Api/OrderApi/orderApi";
 import DeleteOrderConfirmation from "../../Components/commonComponents/DeleteOrderConfirmation";
+import { useNavigate } from 'react-router-dom';
 const DisplayOrderCard = (props) => {
 
 
     const [show, setShow] = React.useState(false)
+    const navigate = useNavigate()
     const orderList = props.body.map((order, index) => {
         return (
             <tr className='body-order-wrapper-row' key={index}>
@@ -31,7 +33,8 @@ const DisplayOrderCard = (props) => {
             amount: props.total,
             email: props.email,
         }
-        payNow(data)
+        // payNow(data)
+        navigate(`/billing/${props.header.orderId}`)
     }
     const handleDispatch = (orderId) => {
         const productIds = props.body.map((order) => {
@@ -111,7 +114,7 @@ const DisplayOrderCard = (props) => {
                     props.isAdmin &&
                     <Button
                         className="dispatch-btn btn-warning"
-                        disabled={props.header.orderStatus === "Shipped" ? true : false}
+                        disabled={(props.header.orderStatus === "Shipped" || !props.header.paymentStatus) ? true : false}
                         onClick={() => handleDispatch(props.orderId)}
                     >Dispatch For Delivery</Button>
                 }

@@ -14,6 +14,9 @@ router.route("/get-category-list")
 router.route("/addcategory")
     .post(isAuth , isAdmin , upload.single("image"),CategoryController.addCategory)
 
+router.route("/getTotal")
+    .get(isAuth , isAdmin , CategoryController.getTotal)
+
 router.route("/:category")
     .get(isAuth , isAdmin ,CategoryController.getProductByCategory)
     
@@ -25,6 +28,7 @@ router.route("/chartData/pie")
 
 router.route("/chartData/sales/pie")
     .get(isAuth,isAdmin,CategoryController.getTotalSalesData)
+
 
 router.route("/delete/:category")
     .delete(isAuth , isAdmin , CategoryController.deleteCategory)

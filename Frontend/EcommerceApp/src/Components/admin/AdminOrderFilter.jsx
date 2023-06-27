@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import {filterOrder} from "../../Api/OrderApi/orderApi"
 import { useDispatch } from 'react-redux'
 
+
 const AdminOrderFilter = () => {
 
     
@@ -82,10 +83,7 @@ const AdminOrderFilter = () => {
                     />
                 </label>
             </div>
-            <p>Filter By Data</p>
-            <div className='filter-holder'>
-
-            </div>
+            
 
             {/* <Button className="reset-btn" onClick={handleReset}>Reset</Button> */}
         </div>

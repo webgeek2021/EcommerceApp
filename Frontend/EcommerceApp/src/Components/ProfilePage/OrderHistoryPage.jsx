@@ -25,11 +25,11 @@ const OrderHistoryPage = () => {
     const paymentStatus  = order.isPaid;
     const isDeliver = order.isDelivered;
     const formattedDate = moment(order.createdAt).format('DD-MM-YYYY');
-
+    const orderStatus = order.orderStatus
     return (
       <DisplayOrderCard
         Date = {formattedDate}
-        header={{orderId , paymentStatus , isDeliver}}
+        header={{orderId , paymentStatus , isDeliver , orderStatus}}
         body = {order.OrderList}
         total= {order.totalAmount}
         email = {order.userEmail}

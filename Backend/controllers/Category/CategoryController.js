@@ -183,6 +183,26 @@ const getSubCategory = async(req,res)=>{
     }
 }
 
+const getTotal = async(req,res)=>{
+
+    console.log("GET TOTAL CATEGORY")
+    try{
+        const categories = await Category.find().exec()
+
+        const total = categories.reduce((total, item) => total + item.totalSale, 0 )
+        console.log("TOTAL AMOUNT" , total)
+        res.status(200).json({
+            "message": "successfully query",
+            "total": total,
+            "error": false
+        })
+    }catch(err){
+        res.status(400).json({
+            "message" : err.message,
+            "error" : true
+        })
+    }
+}
 
 const deleteCategory = async(req,res) =>{
 
@@ -211,4 +231,7 @@ const deleteCategory = async(req,res) =>{
         })
     }
 }
-module.exports = { getCategoryList, addCategory, getProductByCategory,getPieChartData,getTotalSalesData,getSubCategory,deleteCategory }
+module.exports = { getCategoryList, 
+    addCategory, 
+    getProductByCategory,
+    getPieChartData,getTotalSalesData,getSubCategory,deleteCategory,getTotal }

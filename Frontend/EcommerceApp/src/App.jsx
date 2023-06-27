@@ -5,6 +5,7 @@ import Footer from "./Components/commonComponents/Footer";
 import { Outlet } from "react-router-dom";
 import { useSelector  } from "react-redux";
 import DisplayCart from "./Components/commonComponents/DisplayCart";
+import LoadingPage from "./Components/commonComponents/LoadingPage";
 function App() {
 
   const showCart = useSelector(state => state.cart.showCart)

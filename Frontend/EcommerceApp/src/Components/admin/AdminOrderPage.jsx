@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import DisplayOrderCard from '../commonComponents/DisplayOrderCard'
 import moment from 'moment'
 import AdminOrderFilter from './AdminOrderFilter'
+import LoadingPage from '../commonComponents/LoadingPage'
+import NoDataFound from "../commonComponents/NoDataFound"
 const AdminOrderPage = () => {
 
     const dispatch = useDispatch()
-
+    const isLoading = useSelector(state => state.loading.isLoading)
     const orderList = useSelector(state => state.orders.orderData)
-    
+
     React.useEffect(() => {
         getAllOrders(dispatch)
     }, [])
@@ -34,14 +36,26 @@ const AdminOrderPage = () => {
 
 
     return (
-        <div className='w-100 d-flex my-container admin-order-page'>
-            <div className='admin-order-filter-container'>
-                <AdminOrderFilter />
+        <>
+
+            <div className='w-100 d-flex my-container admin-order-page'>
+                <div className='admin-order-filter-container'>
+                    <AdminOrderFilter />
+                </div>
+                <div className='w-100'>
+                    {
+                        isLoading ? 
+                        <LoadingPage/>
+                        :
+                        data?.length > 0 ?
+                            data
+                            :
+                            <NoDataFound />
+                    }
+                </div>
             </div>
-            <div className='w-100'>
-                {data ? data : <h1>Loading</h1>}
-            </div>
-        </div>
+
+        </>
     )
 }
 

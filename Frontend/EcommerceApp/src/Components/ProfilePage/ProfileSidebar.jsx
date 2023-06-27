@@ -15,7 +15,7 @@ const ProfileSidebar = () => {
           <NavLink
             to={"/profile/shippingDetails"}
             className="nav-link"
-          >Shippin Details</NavLink>
+          >Shipping Details</NavLink>
         </li>
         <li>
           <NavLink

@@ -5,6 +5,7 @@ const crypto = require("crypto")
 const Product = require("../../model/ProductSchema/Product")
 const PaymentSchema = require("../../model/PaymentSchema/paymentSchema")
 const Category = require("../../model/CategorySchema/Category");
+const { constants } = require("buffer")
 
 const PlaceOrder = async (req, res) => {
     const body = req.body
@@ -13,6 +14,16 @@ const PlaceOrder = async (req, res) => {
         return res.status(400).json({
             "message": "Something Went Wrong",
             "error": true
+        })
+    }
+
+    const _id = body._id
+
+    const isExist = await Order.findOne({_id}).exec()
+    if(isExist){
+        return res.status(400).json({
+            "message" : "Order Already Place",
+            "error" : true
         })
     }
     console.log(body)
@@ -30,6 +41,7 @@ const PlaceOrder = async (req, res) => {
     console.log("RazroOder", order)
 
     body.razorPayOrderId = order.id
+
     const result = await Order.create(body)
 
     res.status(200).json({
@@ -76,14 +88,33 @@ const PaymentVerification = async (req, res) => {
         });
 
         const OrderList = order.OrderList
-        OrderList.map(async (product) => {
-            const category = product.category
-            if (category) {
-                const result = await Category.findOne({ category }).exec()
-                result.totalSale += product.price*product.orderQuantity
-                await result.save()
-            }
+        // reducing quantity of product
+
+        const updateInfo = OrderList.map(async (product)=>{
+            const {category ,price, orderQuantity , productId} = product
+            
+            const categoryToUpadate = await Category.findOne({category}).exec()
+            categoryToUpadate.totalSale += price*orderQuantity
+
+            await categoryToUpadate.save()
+
+            const productToUpdate = await Product.findOne({_id : productId}).exec()
+            productToUpdate.quantity -= orderQuantity
+
+            await productToUpdate.save()
         })
+
+        await Promise.all(updateInfo);
+        // OrderList.map(async (product) => {
+        //     const category = product.category
+        //     // if (category) {
+        //         console.log("Category" , category)
+        //         var result = await Category.findOne({ category }).exec()
+        //         result.totalSale += product.price*product.orderQuantity
+        //         console.log("RESULT", product.price*product.orderQuantity)
+        //         // }
+        //         await result.save()
+        //     })
 
 
         console.log("REdirecting")
@@ -130,7 +161,7 @@ const getOrderList = async (req, res) => {
 const getAllOrders = async (req, res) => {
 
     try {
-        const data = await Order.find().exec()
+        const data = await Order.find().sort({createdAt : -1})
 
         res.status(200).json({
             data: data,
@@ -290,4 +321,30 @@ const filterOrder  = async(req,res)=>{
         })
     }
 }
-module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus, filterOrder,getTotalAmount ,deleteOrder}
+
+const getOrderById = async (req,res)=>{
+    const {id} = req.params
+    
+    try {
+        const razorPayOrderId = id
+        const order = await Order.find({razorPayOrderId}).exec()
+        if(!order){
+            res.status(400).json({
+                "message" : "Order Doesnot Exist",
+                "error" : true
+            })
+        }
+
+        res.status(200).json({
+            "data" : order,
+            "error" : false
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({
+            "message" : "Something Went Wrong",
+            "error" : true
+        })
+    }
+}
+module.exports = { PlaceOrder, PaymentVerification, getOrderList, getAllOrders, setOrderStatus, filterOrder,getTotalAmount ,deleteOrder , getOrderById}

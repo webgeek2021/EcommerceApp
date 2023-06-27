@@ -61,10 +61,10 @@ const ProductDisplay = () => {
         console.log(review)
         return (
             <ReviewCard
-                profileImage = {review.profileImage}
-                reviewBy = {review.reviewBy}
-                ratingGiven = {review.ratingGiven}
-                message = {review.reviewMessage}
+                profileImage={review.profileImage}
+                reviewBy={review.reviewBy}
+                ratingGiven={review.ratingGiven}
+                message={review.reviewMessage}
             />
         )
     })
@@ -123,7 +123,11 @@ const ProductDisplay = () => {
                                         <span>{quantityCounter}</span>
                                         <AiOutlineMinus onClick={handleMinusCounter} className='minus' />
                                     </div>
-                                    <Button className="add-to-cart" onClick={addToCart}>Add To Cart</Button>
+                                    <Button
+                                        className="add-to-cart"
+                                        onClick={addToCart}
+                                        disabled={!productData.isAvailable }
+                                    >Add To Cart</Button>
                                 </div>
                                 {
                                     user ?

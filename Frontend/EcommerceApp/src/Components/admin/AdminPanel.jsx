@@ -1,6 +1,6 @@
 import React from 'react'
-import { getTotalAmount } from '../../Api/OrderApi/orderApi'
-import { useDispatch, useSelector } from "react-redux";
+import { getTotalAmount } from '../../Api/CategoryApi/categoryApi'
+import { useDispatch, useSelector } from "react-redux"
 import { Container } from 'react-bootstrap';
 import PieChart from '../Charts/PieChart';
 import { NUMBER_OF_PRODUCT_CHART, SALES_CHART } from '../../utils/constants';
@@ -23,18 +23,18 @@ const AdminPanel = () => {
             <span>Total Earning Till Date : &#8377; </span>{total}
           </div>
           <div className='text-center '>
-            <span>Total User Registered Till Date  </span> {totalUsers}
+            <span>Total User Registered Till Date : </span> {totalUsers}
           </div>
         </div>
         <div className='d-flex pie-chart-container'>
           <div className='pie text-center'>
-            <h4 className='title'>{NUMBER_OF_PRODUCT_CHART}</h4>
+            {/* <h4 className='title'>{NUMBER_OF_PRODUCT_CHART}</h4> */}
             <PieChart
               title={NUMBER_OF_PRODUCT_CHART}
             />
           </div>
           <div className='pie text-center'>
-            <h4 className='title'>{SALES_CHART}</h4>
+            
             <PieChart
               title={SALES_CHART}
             />

@@ -26,10 +26,10 @@
         }
     }
     .product_info_section{
-        position: relative;
+        // position: relative;
         .add-to-cart{
-            position: absolute;
-            bottom: 0px;
+            // position: absolute;
+            // bottom: 0px;
             width: 100%;
             height: 50px;
             border-radius: 0px;
@@ -62,7 +62,7 @@
             
         }
         .other-info{
-           
+           margin-bottom: 20px;
             .info{
                 cursor: pointer;
                 display: flex;

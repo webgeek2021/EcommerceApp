@@ -61,13 +61,13 @@ export const editProductData = async (data) => {
     try {
         const res = await postLoginApi.put("/products/edit/", data)
         console.log(res)
-        if (!res.error) {
-            toast.success(res.message)
+        if (!res.data.error) {
+            toast.success(res.data.message)
         } else {
-            toast.error(res.message)
+            toast.error(res.data.message)
         }
     } catch (err) {
-        toast.error(err)
+        toast.error(err.message)
     }
 }
 

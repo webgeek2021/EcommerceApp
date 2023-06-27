@@ -24,6 +24,13 @@
             padding: 5px 10px;
             margin-bottom: 20px;
         }
+        textarea{
+            margin-bottom: 20px;
+            padding: 5px 10px;
+            &:focus{
+                outline: none;
+            }
+        }
         .add-to-cart{
             margin-bottom: 20px;
         }

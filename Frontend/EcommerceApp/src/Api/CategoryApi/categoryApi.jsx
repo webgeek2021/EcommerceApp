@@ -2,6 +2,7 @@
 import { postLoginApi } from "../baseApi";
 import { setCategoryList , setCategorySubList} from "../../ReduxStore/slices/categorySlice";
 import { toast } from "react-toastify";
+import { setTotalEarning } from "../../ReduxStore/slices/adminDashboard";
 
 export const getAllCategories = async(dispatch)=>{
     try{
@@ -92,6 +93,16 @@ export const deleteCategory = async (id , navigate)=>{
             toast.success(result.data.message)
             navigate("/admin/add-category")
         }
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const getTotalAmount = async (dispatch)=>{
+    try{
+        const data = await postLoginApi.get("/category/getTotal")
+        console.log("Total " , data)
+        dispatch(setTotalEarning(data.data.total))
     }catch(err){
         console.log(err)
     }
