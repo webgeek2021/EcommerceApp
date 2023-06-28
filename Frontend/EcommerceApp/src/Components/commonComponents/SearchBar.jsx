@@ -54,7 +54,8 @@ const SearchBar = (props) => {
     <div className='search-bar'>
       <InputGroup >
         <Form.Control
-          placeholder="Search By Product "
+          type="text"
+          placeholder="Search By Product Title"
           value={search}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

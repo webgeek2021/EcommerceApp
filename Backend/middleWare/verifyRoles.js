@@ -10,7 +10,7 @@ const isAuth = (req, res, next) => {
         if (err) {
           return res.status(401).json({ message: 'Sign In First' , error : true });
         }
-        console.log("Decode ",decode)
+        // console.log("Decode ",decode)
         req.user = decode;
         next();
         return;

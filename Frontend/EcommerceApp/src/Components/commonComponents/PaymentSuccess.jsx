@@ -6,17 +6,20 @@ import { Image } from 'react-bootstrap';
 import SuccessLogo from "../../assets/Images/Success.png";
 import { IoCopy } from "react-icons/io5"
 import { NavLink } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import { RemoveAll } from '../../ReduxStore/slices/cartSlice';
 const PaymentSuccess = () => {
   const location = useLocation();
   const reference = new URLSearchParams(location.search).get('reference');
-
+  const dispatch = useDispatch()
   const handleCopy = ()=>{
     navigator.clipboard.writeText(reference)
   }
   React.useEffect(() => {
-    if (reference) {
-      localStorage.clear(CART)
-    }
+    // if (reference) {
+      
+      dispatch(RemoveAll())
+    // }
   }, [])
   return (
     <div className='d-flex align-items-center vh-80  justify-content-center'>

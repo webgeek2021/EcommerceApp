@@ -36,7 +36,8 @@ const Product = new Schema({
     quantity: {
         type: Number,
         required: true,
-        default: 0
+        default: 0,
+        min : 0,
     },
     image: {
         type: String,

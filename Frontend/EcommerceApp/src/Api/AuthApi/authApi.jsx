@@ -28,7 +28,7 @@ export const signIn = (data2, navigate) => {
                 if (data.isAdmin) {
                     navigate("/admin")
                 } else {
-                    navigate("/")
+                    navigate("/profile")
                 }
             }
         } catch (err) {

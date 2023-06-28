@@ -4,9 +4,9 @@ require("dotenv").config()
 
 const verifyJwt = (req,res,next)=>{
     const authUser = req?.headers?.authorization || req?.headers?.Authorization;
-    console.log("verify jwt , authUser",authUser)
+    // console.log("verify jwt , authUser",authUser)
     if(!authUser?.startsWith("Bearer")) return res.sendStatus(401)
-    console.log(authUser)
+    // console.log(authUser)
     const token = authUser.split(" ")[1]
     jwt.verify(
         token,

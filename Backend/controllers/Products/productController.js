@@ -10,7 +10,7 @@ const getAllProducts = async (req, res) => {
 
     const data = await Product.find()
     if (data.length === 0) {
-        console.log("No Data", !data)
+        // console.log("No Data", !data)
         return res.status(204).json({
             "message": "Data Not Available",
         })
@@ -21,7 +21,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
 
-    console.log(req.params)
+    // console.log(req.params)
     if (!req?.params?.id) {
         return res.status(400).json({
             "message": "Id parameter required"
@@ -37,7 +37,7 @@ const getProductById = async (req, res) => {
 }
 const addProduct = async (req, res) => {
 
-    console.log(req.file)
+    // console.log(req.file)
     if (!req.body) {
         res.status(400).json({
             "message": "Didn't Received Any Data",
@@ -45,7 +45,7 @@ const addProduct = async (req, res) => {
         })
     }
     const data = req.body;
-    console.log("Data", data)
+    // console.log("Data", data)
     if (!data.category || !data.subCategroy || !data.name || !data.description || !data.price || !data.quantity || !req.file) {
         res.status(400).json({
             "message": "Some data fields are missing",
@@ -54,7 +54,15 @@ const addProduct = async (req, res) => {
     }
 
     try {
-
+        const category = data.category
+        let category_exist = await Category.findOne({ category: category }).exec()
+        // console.log("EXIST", category_exist)
+        if (!category_exist) {
+            res.status(200).json({
+                "message": `${data.category} Does not exist`,
+                "error": true
+            })
+        }else{
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
         const cldRes = await handleUpload(dataURI, `EcommerceApp/${req.body.category}`)
@@ -64,16 +72,7 @@ const addProduct = async (req, res) => {
         //     folder : `EcommerceApp/${req.body.category}`
         //   });;
 
-        console.log("Cloudinary Url", cldRes)
-        const category = data.category
-        let category_exist = await Category.findOne({ category: category }).exec()
-        console.log("EXIST", category_exist)
-        if (!category_exist) {
-            res.status(400).json({
-                "message": `${data.category} Does not exist`,
-                "error": true
-            })
-        }
+        // console.log("Cloudinary Url", cldRes)
         const newProduct = await Product.create({
             "name": data.name,
             "category": data.category,
@@ -84,8 +83,8 @@ const addProduct = async (req, res) => {
             "subCategroy": data.subCategroy
         })
 
-        console.log("New Product", newProduct)
-        console.log("Category", category_exist)
+        // console.log("New Product", newProduct)
+        // console.log("Category", category_exist)
 
         const arr = [...category_exist.products, newProduct.id]
 
@@ -95,12 +94,13 @@ const addProduct = async (req, res) => {
         }
         await category_exist.save()
 
-        res.status(201).json({
+        res.status(200).json({
             "message": "New Product is Added Successfully",
             "error": false
         })
+    }
     } catch (err) {
-        console.log(err.message)
+        // console.log(err.message)
         res.status(400).json({
             "message": `${err.message}`,
             "error": true
@@ -110,7 +110,7 @@ const addProduct = async (req, res) => {
 }
 const updateProduct = async (req, res) => {
     // console.log("Backend ", req)
-    console.log("Backend", req.file)
+    // console.log("Backend", req.file)
     try {
         if (!req?.body?.id) {
             return res.status(400).json({
@@ -119,7 +119,7 @@ const updateProduct = async (req, res) => {
             })
         }
         const product = await Product.findOne({ _id: req.body.id }).exec();
-        console.log("Product Found", product)
+        // console.log("Product Found", product)
         if (!product) {
             return res.status(400).json({
                 "message": `product does not exist with Id ${req.body.id} `,
@@ -152,7 +152,7 @@ const updateProduct = async (req, res) => {
         if (req.body?.quantity !== product.quantity) product.quantity = req.body.quantity
         if (req.body?.description !== product.description) product.description = req.body.description
 
-        console.log("Prodct added", product)
+        // console.log("Prodct added", product)
 
         const result = await product.save();
 
@@ -163,13 +163,13 @@ const updateProduct = async (req, res) => {
         });
     }
     catch (err) {
-        console.log("ERRR", err)
+        // console.log("ERRR", err)
     }
 }
 
 const deleteProduct = async (req, res) => {
 
-    console.log("Del Body", req)
+    // console.log("Del Body", req)
     if (!req?.params?.id) {
         return res.status(400).json({
             "message": "product Id is Required",
@@ -222,15 +222,15 @@ const filterProduct = async (req, res) => {
         const { category, subcategory } = req.body
 
         const Allproducts = await Product.find({ category }).exec()
-        console.log("Allproduct" , Allproducts)
+        // console.log("Allproduct" , Allproducts)
         const product = Allproducts.filter((product) => product.subCategroy.toLowerCase() === subcategory.toLowerCase())
-        console.log("Products" , product)
+        // console.log("Products" , product)
         res.status(200).json({
             "data": product,
             "error": false
         })
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : err.message,
             "error" : true
@@ -253,7 +253,7 @@ const addReview = async(req,res)=>{
         const _id = body.productId
 
         const product = await Product.findOne({_id}).exec()
-        console.log("Product" , product)
+        // console.log("Product" , product)
 
         const obj = {
             reviewBy : body.reviewBy,
@@ -268,10 +268,10 @@ const addReview = async(req,res)=>{
                 "error" : false
             })
         }
-        console.log("Before" ,  product.reviews)
+        // console.log("Before" ,  product.reviews)
         
         product.reviews.push(obj)
-        console.log("After" , product.reviews)
+        // console.log("After" , product.reviews)
 
         const ratingSum = product.reviews.reduce((total, obj) => total + obj.ratingGiven, 0)
 
@@ -285,7 +285,7 @@ const addReview = async(req,res)=>{
         })
 
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : err.message,
             "error" : true
@@ -300,11 +300,11 @@ const searchProductByQuery = async(req,res)=>{
         const products = await Product.find().exec()
 
         if(query){
-            console.log("Query" , query)
+            // console.log("Query" , query)
             const match = products.filter(pro=> pro.name.toLowerCase().includes(query.toLowerCase()))
             const list = match.map((pro) => pro.name)
 
-            console.log("Q_LISt1" , list)
+            // console.log("Q_LISt1" , list)
             res.status(200).json({
                 "data" : list,
                 "error" : false 
@@ -312,7 +312,7 @@ const searchProductByQuery = async(req,res)=>{
         }
 
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : "Something Went Wrong",
             "error" : true
@@ -327,10 +327,10 @@ const getProductBySearch = async(req,res)=>{
         const products = await Product.find().exec()
 
         if(query){
-            console.log("Query" , query)
+            // console.log("Query" , query)
             const match = products.filter(pro=> pro.name.toLowerCase().includes(query.toLowerCase()))
             
-            console.log("Q_LISt1" , match)
+            // console.log("Q_LISt1" , match)
             res.status(200).json({
                 "data" : match,
                 "error" : false 
@@ -338,7 +338,7 @@ const getProductBySearch = async(req,res)=>{
         }
 
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : "Something Went Wrong",
             "error" : true

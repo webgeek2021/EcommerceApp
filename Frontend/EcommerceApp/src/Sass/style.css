@@ -168,6 +168,12 @@ li {
   color: black;
 }
 
+.btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+}
+
 .no-data-found-container {
   height: 50vh;
 }
@@ -812,7 +818,7 @@ body {
 }
 
 .product_display_container {
-  margin-top: 60px;
+  margin: 0 60px;
 }
 .product_display_container .image_section {
   margin-right: 60px;
@@ -1063,6 +1069,7 @@ body {
 }
 .billing_page .show-shipping-details {
   box-shadow: 0 0 1px 1px #f2f2f2;
+  padding: 20px;
 }
 .billing_page .show-shipping-details h5 {
   padding: 10px 0 0 0;

@@ -6,7 +6,7 @@ const shippingSchema = require("../../model/ShippingSchema/shippingSchema");
 const getUser = async (req,res)=>{
     const email = req.user.email;
 
-    console.log("BODy" , req.user)
+    // console.log("BODy" , req.user)
 
     try{
         const user = await User.findOne({email : email}).exec()
@@ -166,7 +166,7 @@ const updateShippingDetails = async (req,res)=>{
 const getTotalUser  = async (req,res)=>{
     try{
         const users = await User.find().exec()
-        console.log("USERS",users)
+        // console.log("USERS",users)
         const data = users.filter((user) => user.isAdmin === false )
 
         res.status(200).json({

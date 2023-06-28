@@ -15,13 +15,13 @@ const getCategoryList = async (req, res) => {
             "totalSale": category.totalSale,
             "id" : category.id
         }))
-        console.log(list)
+        // console.log(list)
         res.status(200).json({
             data: list,
             error: false
         })
     } catch (err) {
-        console.log(err)
+        // console.log(err)
     }
 }
 
@@ -34,8 +34,8 @@ const addCategory = async (req, res) => {
         })
     }
     const body = req.body
-    console.log("Body", body.category)
-    console.log("File", req.file)
+    // console.log("Body", body.category)
+    // console.log("File", req.file)
 
     if (!body.category || !req.file || !body.description) {
         res.status(400).json({
@@ -69,7 +69,7 @@ const addCategory = async (req, res) => {
         })
     } catch (err) {
 
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message": "Something Went wrong",
             "error": true
@@ -98,7 +98,7 @@ const getProductByCategory = async (req, res) => {
             })
         }
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message": "Something went Wrong",
             "error": true
@@ -121,7 +121,7 @@ const getPieChartData = async (req, res) => {
             "error": false
         })
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : "Something Went Wrong ",
             "error" : true
@@ -133,7 +133,7 @@ const getTotalSalesData = async (req,res)=>{
 
     try{
         const categories = await Category.find().exec()
-        console.log("Categories",categories)
+        // console.log("Categories",categories)
         const result = categories?.map((category) => ({
             "category" : category.category ,
             "totalSale" : category.totalSale
@@ -145,7 +145,7 @@ const getTotalSalesData = async (req,res)=>{
         })
         
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : "Something Went Wrong",
             "error" : true
@@ -164,7 +164,7 @@ const getSubCategory = async(req,res)=>{
             })
         }
         const categories = await Category.findOne({category}).exec()
-        console.log("Categories" , categories)
+        // console.log("Categories" , categories)
         const obj = {
             category : categories.category,
             subCategory : categories.subCategories
@@ -175,7 +175,7 @@ const getSubCategory = async(req,res)=>{
         })
 
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : "Something went Wrong",
             "error" : true
@@ -185,12 +185,12 @@ const getSubCategory = async(req,res)=>{
 
 const getTotal = async(req,res)=>{
 
-    console.log("GET TOTAL CATEGORY")
+    // console.log("GET TOTAL CATEGORY")
     try{
         const categories = await Category.find().exec()
 
         const total = categories.reduce((total, item) => total + item.totalSale, 0 )
-        console.log("TOTAL AMOUNT" , total)
+        // console.log("TOTAL AMOUNT" , total)
         res.status(200).json({
             "message": "successfully query",
             "total": total,
@@ -224,7 +224,7 @@ const deleteCategory = async(req,res) =>{
             "error" : false
         })
     }catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(400).json({
             "message" : err.message,
             "error"  :true

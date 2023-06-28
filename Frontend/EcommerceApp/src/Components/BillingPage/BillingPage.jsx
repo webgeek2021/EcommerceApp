@@ -97,10 +97,10 @@ const BillingPage = () => {
 
                     <p>Total : &#8377; {cartTotal}</p>
                 </div>
-                <div className='d-flex align-items-center flex-column show-shipping-details'>
+                <div className='d-flex w-100 flex-column show-shipping-details'>
                     <h5>Shipping Detail</h5>
                     {
-                        shippingDetails ?
+                        shippingDetails?.address && shippingDetails?.state && shippingDetails?.city && shippingDetails?.postalCode && shippingDetails?.country ?
                             <div className='shipping-detail'>
                                 <ul >
                                     <li >
@@ -154,7 +154,13 @@ const BillingPage = () => {
 
                             </div>
 
-                            : <h1>Loading</h1>
+                            : 
+                            <NavLink
+                                    to={"/profile/shippingDetails"}
+                                    className="text-primary text-decoration-underline text-center vertically-align-center"
+                            >
+                                Fill Shipping Details First
+                            </NavLink>
                     }
                 </div>
             </div>

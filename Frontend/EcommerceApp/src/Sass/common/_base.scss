@@ -148,6 +148,11 @@ li{
 .c-black{
     color: color.$black;
 }
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+    color: inherit;
+    background-color: inherit;
+    border-color: inherit;
+}
 .no-data-found-container{
     height: 50vh;
     .no-data-found-div{

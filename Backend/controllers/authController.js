@@ -6,7 +6,7 @@ const User = require("../model/UserSchema/User")
 
 const handleSignUp = async (req, res) => {
     const { googleAccessToken } = req.body
-    console.log("Sign Up", googleAccessToken)
+    // console.log("Sign Up", googleAccessToken)
     if (googleAccessToken) {
         // signUp with google
         axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
@@ -14,7 +14,7 @@ const handleSignUp = async (req, res) => {
                 "Authorization": `Bearer ${googleAccessToken}`
             }
         }).then(async response => {
-            console.log(response)
+            // console.log(response)
             const name = response.data.name;
             const email = response.data.email;
             const profilePicture = response.data.picture;
@@ -38,7 +38,7 @@ const handleSignUp = async (req, res) => {
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1d" })
 
             const role = result.isAdmin
-            console.log(result , role)
+            // console.log(result , role)
             res.status(200).json({name,email, isAdmin,token ,error : false , message : "Signup successful!"})
 
         }).catch(err => {
@@ -46,7 +46,7 @@ const handleSignUp = async (req, res) => {
                 "message": "Invalid Access Token",
                 error : true
             })
-            console.log(err)
+            // console.log(err)
         })
 
     } else {
@@ -86,9 +86,9 @@ const handleSignUp = async (req, res) => {
             }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "1d" })
 
             const isAdmin = result.isAdmin;
-            res.status(200).json({ userName ,isAdmin,email , token ,error : false , message : "Signup successful!"})
+            res.status(200).json({ name : userName ,isAdmin,email , token ,error : false , message : "Signup successful!"})
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             res.status(401).json({
                 "message": err,
                 "error" : true
@@ -99,7 +99,7 @@ const handleSignUp = async (req, res) => {
 
 
 const handleSignIn = async (req, res) => {
-    console.log("SINGn IN", req.body)
+    // console.log("SINGn IN", req.body)
     const  googleAccessToken  = req.body?.googleAccessToken
     if (googleAccessToken) {
 
@@ -108,7 +108,7 @@ const handleSignIn = async (req, res) => {
                 "Authorization": `Bearer ${googleAccessToken}`
             }
         }).then(async response => {
-            console.log("Response" , response)
+            // console.log("Response" , response)
             const name = response.data.name;
             const email = response.data.email;
             const profilePicture = response.data.picture;
@@ -136,7 +136,7 @@ const handleSignIn = async (req, res) => {
                 error : false,  
                 message : "SignIn successful!"})
         }).catch(err => {
-            console.log(err)
+            // console.log(err)
             res.status(400).json({
                 "message": "Something Went Wrong",
                 "error" : true
@@ -184,7 +184,7 @@ const handleSignIn = async (req, res) => {
                     message : "SignIn successful!"})
 
         }catch(err){
-            console.log(err)
+            // console.log(err)
             res.status(400).json({
                 "message" : "Something Went Wrong",
                 "error" : true
